@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kanban grupp3</title>
+
+    <!-- styles -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+
+    <!-- Pre-scripts -->
+    <script src="https://kit.fontawesome.com/2f245fa161.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header id="headerContainer">
+        <div id="header">
+            <h1>Kanban</h1>
+        </div>
+        <div id="btnContainer">
+            <a id="btnLogout" href="#">Logout</a>
+        </div>
+    </header>
+    <div id="formatContainer">
+
+        <div class="container" ondrop="drop(event)" ondragenter="dragEnter(event)" , ondragleave="dragLeave(event)"
+            ondragover="allowDrop(event)">
+            <div id="colTodo" class="dropTarget">
+                <h4>Todo <button id="btnAdd"><i class="fas fa-plus"></i></button></h4>
+                
+                <div id="1" class="dragable" draggable="true" ondragstart="drag(event)">
+                    <h5>Lorem Ipsum</h5>
+                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+                <div id="2" class="dragable" draggable="true" ondragstart="drag(event)">
+                    <h5>Lorem Ipsum</h5>
+                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </div>
+            <div id="doing" class="dropTarget" ondrop="drop(event)" ondragenter="dragEnter(event)" ,
+                ondragleave="dragLeave(event)" ondragover="allowDrop(event)">
+                <h4>Doing</h4>
+
+            </div>
+            <div id="testing" class="dropTarget" ondrop="drop(event)" ondragenter="dragEnter(event)" ,
+                ondragleave="dragLeave(event)" ondragover="allowDrop(event)">
+                <h4>Testing </h4>
+
+            </div>
+            <div id="done" class="dropTarget" ondrop="drop(event)" ondragenter="dragEnter(event)" ,
+                ondragleave="dragLeave(event)" ondragover="allowDrop(event)">
+                <h4>Done</h4>
+
+            </div>
+        </div>
+    </div>
+
+    <!--  -->
+    <script src="./scripts/main.js"></script>
+</body>
+
+</html>
