@@ -15,13 +15,13 @@
     <script src="https://kit.fontawesome.com/2f245fa161.js" crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body id="body">
     <header id="headerContainer">
         <div id="header">
             <h1>Kanban</h1>
         </div>
         <div id="btnContainer">
-            <a id="btnLogout" href="#">Logout</a>
+            <a id="btnLogout" href="#" onclick="logout()">Logout</a>
         </div>
     </header>
     <div id="formatContainer">
@@ -30,20 +30,21 @@
             ondragover="allowDrop(event)">
             <div id="colTodo" class="dropTarget">
                 <h4>Todo <button id="btnAdd"><i class="fas fa-plus"></i></button></h4>
-                
+
                 <div id="1" class="dragable" draggable="true" ondragstart="drag(event)">
                     <h5>Lorem Ipsum</h5>
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua.</p>
                 </div>
                 <div id="2" class="dragable" draggable="true" ondragstart="drag(event)">
                     <h5>Lorem Ipsum</h5>
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua.</p>
                 </div>
             </div>
             <div id="doing" class="dropTarget" ondrop="drop(event)" ondragenter="dragEnter(event)" ,
                 ondragleave="dragLeave(event)" ondragover="allowDrop(event)">
                 <h4>Doing</h4>
-
             </div>
             <div id="testing" class="dropTarget" ondrop="drop(event)" ondragenter="dragEnter(event)" ,
                 ondragleave="dragLeave(event)" ondragover="allowDrop(event)">
@@ -55,6 +56,18 @@
                 <h4>Done</h4>
 
             </div>
+        </div>
+    </div>
+    <div class="modal" id="modalContainer">
+        <div id="modalForm">
+            <div id="formatting">
+                <i id="imgLogin" class="fas fa-user-lock"></i>
+                <div id="inputContainer">
+                    <input id="txtUser" type="text" placeholder="Ange ditt användarnamn">
+                    <input id="txtPassword" type="password" placeholder="Ange lösenord">
+                </div>
+            </div>
+            <button id="btnLogin" onclick="login()">Logga in</button>
         </div>
     </div>
 
