@@ -106,7 +106,7 @@ function removeChilds(parent) {
 
 //----------------------------Alexander Funktion--------------------------//
 //Get id of addBtn, call function addToDo
-document.getElementById("btnAdd").addEventListener("click", addToDo);
+getById("btnAdd").addEventListener("click", addToDo);
 var toDo = document.getElementById("colTodo");
 
 function addToDo() {
@@ -114,21 +114,21 @@ function addToDo() {
   var newId = Date.now();
   toDo.innerHTML += "<div id=\"" + newId + "\" class=\"dragable\" draggable=\"true\" ondragstart=\"drag(event)\"></div>";
 
-  var newCol = document.getElementById(newId);
+  var newCol = getById(newId);
   newCol.innerHTML += "Name: <br><input type=\"text\" id=\"toDoHeader\" style=\"width:100%;\">";
   newCol.innerHTML += "Description: <br><input type=\"text\" id=\"toDoDesc\" style=\"width:100%;\">";
   newCol.innerHTML += "<input type=\"submit\" value=\"Spara\" id=\"saveToDo\">";
 
   //Adds an eventListener to the new button created, calls another function to save value
-  document.getElementById("saveToDo").addEventListener("click", saveToDo);
+  getById("saveToDo").addEventListener("click", saveToDo);
   function saveToDo() {
-    var toDoName = document.getElementById("toDoHeader").value;
-    var toDoDesc = document.getElementById("toDoDesc").value;
-    var newToDo = document.getElementById(newId);
+    let toDoName = getById("toDoHeader").value,
+        toDoDesc = getById("toDoDesc").value,
+        newToDo = getById(newId);
     newToDo.innerHTML = "<h5>" + toDoName + "</h5>";
     newToDo.innerHTML += "<p>" + toDoDesc + "</p>";
 
     //Adds another button to enable edit
-    newToDo.innerHTML += "<input type=\"submit\" value=\"Edit\" id\"" + newId + "\">";
+    newToDo.innerHTML += "<input type=\"submit\" value=\"Edit\" id=\"" + newId + "\">";
   }
 }
