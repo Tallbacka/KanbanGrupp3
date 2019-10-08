@@ -101,3 +101,34 @@ function removeChilds(parent) {
       parent.removeChild(parent.lastChild);
   }
 }
+
+
+
+//----------------------------Alexander Funktion--------------------------//
+//Get id of addBtn, call function addToDo
+getById("btnAdd").addEventListener("click", addToDo);
+var toDo = document.getElementById("colTodo");
+
+function addToDo() {
+  //Saves a new id to a variable
+  var newId = Date.now();
+  toDo.innerHTML += "<div id=\"" + newId + "\" class=\"dragable\" draggable=\"true\" ondragstart=\"drag(event)\"></div>";
+
+  var newCol = getById(newId);
+  newCol.innerHTML += "Name: <br><input type=\"text\" id=\"toDoHeader\" style=\"width:100%;\">";
+  newCol.innerHTML += "Description: <br><input type=\"text\" id=\"toDoDesc\" style=\"width:100%;\">";
+  newCol.innerHTML += "<input type=\"submit\" value=\"Spara\" id=\"saveToDo\">";
+
+  //Adds an eventListener to the new button created, calls another function to save value
+  getById("saveToDo").addEventListener("click", saveToDo);
+  function saveToDo() {
+    let toDoName = getById("toDoHeader").value,
+        toDoDesc = getById("toDoDesc").value,
+        newToDo = getById(newId);
+    newToDo.innerHTML = "<h5>" + toDoName + "</h5>";
+    newToDo.innerHTML += "<p>" + toDoDesc + "</p>";
+
+    //Adds another button to enable edit
+    newToDo.innerHTML += "<input type=\"submit\" value=\"Edit\" id=\"" + newId + "\">";
+  }
+}
