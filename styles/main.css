@@ -55,6 +55,14 @@ h4 {
     background-color: rgb(0,0,0,0.4);
 }
 
+#modalError{
+    justify-content: center;
+    align-content: center;
+    height: 200px;
+    width: auto;
+    margin-top: 7em;
+}
+
 #modalForm{
     background-color: #fff;
     width: 300px;

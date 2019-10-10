@@ -1,21 +1,20 @@
 [
-    {"id" : "Date.now()",
-    "columnId": "1",
-    "userId": "1",
-    "text": "Lorem ipsum dolor sit amet, utamur petentium sea te, laudem ignota in sea."},
-    
-    {"id" : "Date.now()",
-    "columnId": "2",
-    "userId": "2",
-    "text": "Lorem ipsum dolor sit amet, utamur petentium sea te, laudem ignota in sea."},
-    
-    {"id" : "Date.now()",
-    "columnId": "3",
-    "userId": "3",
-    "text": "Lorem ipsum dolor sit amet, utamur petentium sea te, laudem ignota in sea."},
-    
-    {"id" : "Date.now()",
-    "columnId": "4",
-    "userId": "4",
-    "text": "Lorem ipsum dolor sit amet, utamur petentium sea te, laudem ignota in sea."}
+    {"id" : "1",
+    "username": "treox",
+    "password": "treox"},
+
+
+    {"id" : "2",
+    "username": "kemikal",
+    "password": "kemikal"},
+
+
+    {"id" : "3",
+    "username": "tallbacka",
+    "password": "tallbacka"},
+
+
+    {"id" : "4",
+    "username": "alex",
+    "password": "alex"}
 ]
