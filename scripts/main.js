@@ -3,7 +3,6 @@
 // ------------------------------------------------------------------
 getById('body').onload = function () {
 getById('formatContainer').style.display = 'none'; //Placeholder
-getById('wrongEnteredInfoModalContainer').style.display = 'block'; //Placeholder
 
 }
 
