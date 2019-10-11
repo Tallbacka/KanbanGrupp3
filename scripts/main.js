@@ -107,7 +107,7 @@ function removeChilds(parent) {
 //----------------------------Alexander Funktion--------------------------//
 //Get id of addBtn, call function addToDo
 getById("btnAdd").addEventListener("click", addToDo);
-var toDo = document.getElementById("colTodo");
+var toDo = document.getElementById("toDo");
 
 function addToDo() {
   //Saves a new id to a variable
