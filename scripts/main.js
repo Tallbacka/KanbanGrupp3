@@ -2,7 +2,7 @@
 // onload functions
 // ------------------------------------------------------------------
 getById('body').onload = function () {
-getById('formatContainer').style.display = 'none'; //Placeholder
+  getById('formatContainer').style.display = 'none'; //Placeholder
 
 }
 
@@ -10,20 +10,20 @@ getById('formatContainer').style.display = 'none'; //Placeholder
 // Eventlisteners
 // ------------------------------------------------------------------
 function allowDrop(ev) {
-    ev.preventDefault();
-  }
-  
-  function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-  }
-  
-  function drop(ev) {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
-  }
+  ev.preventDefault();
+}
 
-function login(){
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
+}
+
+function login() {
   getById('modalContainer').style.display = 'none'; //Placeholder
   getById('formatContainer').style.display = 'flex'; //Placeholder
 }
@@ -31,14 +31,40 @@ function login(){
 function logout() {
   getById('modalContainer').style.display = 'block'; //Placeholder
   getById('formatContainer').style.display = 'none'; //Placeholder
-  }
-  // ----------------------------------------------------------------
+}
+// ----------------------------------------------------------------
 // Fetches data from local JSON files
 // ------------------------------------------------------------------
 
 // ------------------------------------------------------------------
 // Localstorage related functions
 // ------------------------------------------------------------------
+let userInp = document.getElementById('txtUser');
+console.log(userInp);
+
+function login() {
+
+  fetch("./json/user.json")
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (userToLocal) {
+
+      for (u = 0; i < userToLocal.length; i++) {
+
+        if (userInp.value === userToLocal[i].username) {
+
+          const key = userToLocal[i].id;
+          const value = userToLocal[i].username;
+
+          localSet(key, value)
+        }
+      }// End of for
+    })
+    .catch(error => console.log(JSON.stringify(error)));
+
+}
+
 
 // ------------------------------------------------------------------
 // Helper functions
@@ -53,16 +79,16 @@ function localSet(key, value) {
 }
 function Fetcher(url) {
   return fetch(url)
-      .then(checkStatus)
-      .then(response => response.json())
-      .catch(error => console.log("Problems with your fetch operation", error))
+    .then(checkStatus)
+    .then(response => response.json())
+    .catch(error => console.log("Problems with your fetch operation", error))
 }
 
 function checkStatus(response) {
   if (response.ok) {
-      return Promise.resolve(response);
+    return Promise.resolve(response);
   } else {
-      return Promise.reject(new Error(response.statusText));
+    return Promise.reject(new Error(response.statusText));
   }
 }
 
@@ -98,7 +124,7 @@ function getByName(ele) {
 
 function removeChilds(parent) {
   while (parent.hasChildNodes()) {
-      parent.removeChild(parent.lastChild);
+    parent.removeChild(parent.lastChild);
   }
 }
 
@@ -123,8 +149,8 @@ function addToDo() {
   getById("saveToDo").addEventListener("click", saveToDo);
   function saveToDo() {
     let toDoName = getById("toDoHeader").value,
-        toDoDesc = getById("toDoDesc").value,
-        newToDo = getById(newId);
+      toDoDesc = getById("toDoDesc").value,
+      newToDo = getById(newId);
     newToDo.innerHTML = "<h5>" + toDoName + "</h5>";
     newToDo.innerHTML += "<p>" + toDoDesc + "</p>";
 
@@ -135,28 +161,3 @@ function addToDo() {
 
 //----------------------------Tero Function: save to localStorage--------------------------//
 
-let userInp = document.getElementById('txtUser');
-console.log(userInp);
-
-function login() {
-
-  fetch("./json/user.json")
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(userToLocal) {
-
-    for (u=0; u<userToLocal.length; u++) {
-
-        if (userInp.value === userToLocal[u].username) {
-
-          const key = userToLocal[u].id;
-          const value = userToLocal[u].username;
-
-          localSet(key, value)
-        }
-    }// End of for
-  })
-  .catch (error => console.log(JSON.stringify(error)));
-
-}
