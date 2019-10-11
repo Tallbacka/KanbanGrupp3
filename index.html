@@ -26,36 +26,24 @@
         <div id="btnContainer">
             <a id="btnLogout" href="#" onclick="logout()">Logout</a>
         </div>
+        <button id="btnAdd"><i class="fas fa-plus"></i></button>
     </header>
     <!-- End Header -->
 
     <!-- Kanban content -->
-    <div id="formatContainer">
-        <div class="container" ondrop="drop(event)" ondragenter="dragEnter(event)" , ondragleave="dragLeave(event)"
-            ondragover="allowDrop(event)">
+    <div id="columns">
+        <div class="container">
             <div id="toDo" class="dropTarget">
-                <h4>Todo <button id="btnAdd"><i class="fas fa-plus"></i></button></h4>
-                <div class="dragable" draggable="true" ondragstart="drag(event)">
-                    <h5>Lorem Ipsum</h5>
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.</p>
-                </div>
-                <div class="dragable" draggable="true" ondragstart="drag(event)">
-                    <h5>Lorem Ipsum</h5>
-                    <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.</p>
-                </div>
+                <h4>Todo </h4>
+                <div id="1570794517464" class="draggable" draggable="true" ondragstart="dragstart_handler(event)"><h5></h5><p></p><input type="submit" value="Edit" id="1570794517464"></div>
             </div>
-            <div id="doing" class="dropTarget" ondrop="drop(event)" ondragenter="dragEnter(event)" ,
-                ondragleave="dragLeave(event)" ondragover="allowDrop(event)">
+            <div id="doing" class="dropTarget">
                 <h4>Doing</h4>
             </div>
-            <div id="testing" class="dropTarget" ondrop="drop(event)" ondragenter="dragEnter(event)" ,
-                ondragleave="dragLeave(event)" ondragover="allowDrop(event)">
+            <div id="testing" class="dropTarget">
                 <h4>Testing </h4>
             </div>
-            <div id="done" class="dropTarget" ondrop="drop(event)" ondragenter="dragEnter(event)" ,
-                ondragleave="dragLeave(event)" ondragover="allowDrop(event)">
+            <div id="done" class="dropTarget">
                 <h4>Done</h4>
             </div>
         </div>

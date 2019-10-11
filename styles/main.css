@@ -1,3 +1,10 @@
+/* Prevent the text contents of draggable elements from being selectable. */
+[draggable] {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
 * {
     box-sizing: border-box;
 }
@@ -15,14 +22,19 @@ h4 {
 }
 
 
-.dragable{
+.draggable{
     height: auto;
     width: auto;
     margin: 5px;
+    font-size: 12px;
     background-color: #fff;
-    border-radius: 3px
-
+    border-radius: 3px;
+    padding: 5px;
 }
+
+.dropTarget .over {
+    border: 2px dashed #000;
+  }
 .container {
     margin-top: 2%;
     display: flex;
@@ -139,7 +151,7 @@ h4 {
     margin-left: 3%;
 }
 
-#formatContainer{
+#columns{
     display: flex;
     justify-content: center;
 }
