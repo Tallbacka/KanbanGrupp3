@@ -132,3 +132,31 @@ function addToDo() {
     newToDo.innerHTML += "<input type=\"submit\" value=\"Edit\" id=\"" + newId + "\">";
   }
 }
+
+//----------------------------Tero Function: save to localStorage--------------------------//
+
+let userInp = document.getElementById('txtUser');
+console.log(userInp);
+
+function login() {
+
+  fetch("./json/user.json")
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(userToLocal) {
+
+    for (u=0; u<userToLocal.length; u++) {
+
+        if (userInp.value === userToLocal[u].username) {
+
+          const key = userToLocal[u].id;
+          const value = userToLocal[u].username;
+
+          localSet(key, value)
+        }
+    }// End of for
+  })
+  .catch (error => console.log(JSON.stringify(error)));
+
+}
