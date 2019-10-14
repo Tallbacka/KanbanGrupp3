@@ -133,6 +133,7 @@ function addToDo() {
     let myInfo = {};
     myInfo["Name"] = toDoName;
     myInfo["Desc"] = toDoDesc;
+    myInfo["ColID"] = "";
     
     //Saves into localstorage
     localStorage.setItem(newId, JSON.stringify(myInfo));
