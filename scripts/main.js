@@ -127,8 +127,59 @@ function addToDo() {
         newToDo = getById(newId);
     newToDo.innerHTML = "<h5>" + toDoName + "</h5>";
     newToDo.innerHTML += "<p>" + toDoDesc + "</p>";
+    newToDo.innerHTML += "<button onclick=\"removeCard(this)\" value=\" " + newId + " \" id=\"removeBtn\">Delete</button>"; 
 
+    //New object with key "Name" and "desc"
+    let myInfo = {};
+    myInfo["Name"] = toDoName;
+    myInfo["Desc"] = toDoDesc;
+    
+    //Saves into localstorage
+    localStorage.setItem(newId, JSON.stringify(myInfo));
+    console.log(myInfo);
+
+    //Spara in i object
     //Adds another button to enable edit
-    newToDo.innerHTML += "<input type=\"submit\" value=\"Edit\" id=\"" + newId + "\">";
+    newToDo.innerHTML += "<button onclick=\"editToDo(this)\" value=\" " + newId + " \" id=\"editBtn\">Edit</button>"; 
   }
+}
+
+function editToDo(myId) {
+  //Saves object from JSON to myCard 
+  var myCard = JSON.parse(localStorage.getItem(Number(myId.value)));
+  
+  //Gets id from the button pressed
+  var newCol = getById(Number(myId.value));
+
+  //Lets user edit his card
+  newCol.innerHTML = "Name: <br><input type=\"text\" id=\"toDoHeader\" value=\"" + myCard.Name + "\" style=\"width:100%;\">";
+  newCol.innerHTML += "Description: <br><input type=\"text\" id=\"toDoDesc\" value=\"" + myCard.Desc + "\"style=\"width:100%;\">";
+  newCol.innerHTML += "<button id=\"saveEdit\">Spara</button>";
+  getById("saveEdit").addEventListener("click", saveEdit);
+
+  //Calls the save function
+  function saveEdit() {
+    let toDoName = getById("toDoHeader").value,
+        toDoDesc = getById("toDoDesc").value,
+        newToDo = getById(Number(myId.value));
+    newToDo.innerHTML = "<h5>" + toDoName + "</h5>";
+    newToDo.innerHTML += "<p>" + toDoDesc + "</p>";
+    newToDo.innerHTML += "<button onclick=\"editToDo(this)\" value=\" " + Number(myId.value) + " \" id=\"editBtn\">Edit</button>"; 
+    //Removes id from localstorage then sets a new one 
+    localStorage.removeItem(Number(myId.value));
+  
+    let myInfo = {};
+    myInfo["Name"] = toDoName;
+    myInfo["Desc"] = toDoDesc;
+    newToDo.innerHTML += "<button onclick=\"removeCard(this)\" value=\" " + Number(myId.value) + " \" id=\"removeBtn\">Delete</button>"; 
+    localStorage.setItem(Number(myId.value), JSON.stringify(myInfo));
+  
+  }
+}
+//Removes div with the id of button pressed
+//Removes id from localstorage
+function removeCard(myId) {
+  getById(Number(myId.value)).remove();
+  localStorage.removeItem(Number(myId.value));
+  alert("Card Removed");
 }
