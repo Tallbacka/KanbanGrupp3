@@ -136,7 +136,9 @@ function addToDo() {
 //----------------------------Tero Function: save to localStorage--------------------------//
 
 let userInp = document.getElementById('txtUser');
-console.log(userInp);
+let userPass = document.getElementById('txtPassword');
+
+let verification = false;
 
 function login() {
 
@@ -154,8 +156,34 @@ function login() {
           const value = userToLocal[u].username;
 
           localSet(key, value)
-        }
+        }// End of if
     }// End of for
+  })
+  .catch (error => console.log(JSON.stringify(error)));
+
+//----------------------------Tero Function: verify user & password--------------------------//
+
+  fetch("./json/user.json")
+  .then(function(response) {
+    return response.json();
+  })    
+  .then(function(verifyUser) {
+
+    for (v=0; v<verifyUser.length; v++) {
+
+      if (userInp.value === verifyUser[v].username && userPass.value === verifyUser[v].password) {
+        let verification = true;
+        return verification;
+      }// End of if
+
+    }// End of for
+
+  return verification;
+  })
+  .then(function(verification) {
+
+    console.log(verification); // OBS! Här ska koden för det som kommer efter "verification" läggas in.
+
   })
   .catch (error => console.log(JSON.stringify(error)));
 
