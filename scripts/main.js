@@ -3,6 +3,7 @@
 // ------------------------------------------------------------------
 let dragSourceEl = null;
 var kanbans = document.querySelectorAll('.kanban');
+var toDo;
 
 // ------------------------------------------------------------------
 // Drag and Drop
@@ -179,10 +180,44 @@ function removeChilds(parent) {
 
 //----------------------------Alexander Funktion--------------------------//
 //Get id of addBtn, call function addToDo
-getById("btnAdd").addEventListener("click", addToDo);
-var toDo = document.getElementById("toDo");
+var toDoButtons = document.getElementsByClassName('btnAdd')
 
-function addToDo() {
+todo.addEventListener('click', ()=>{
+  for (let button of toDoButtons) {
+    console.log(button.parentNode.parentNode);
+    switch (button.parentNode.parentNode.id) {
+      case "icebox":
+        addToDo(button.parentNode.parentNode)
+  
+  
+        break;
+      case "todo":
+        button.style.background = 'rgb(187, 152, 228)'
+        break;
+  
+      case "doing":
+        button.style.background = 'rgb(228, 189, 152)'
+        break;
+  
+      case "test":
+        button.style.background = 'rgb(228, 152, 171)'
+        break;
+  
+      default:
+        button.style.background = 'rgb(163, 228, 152)'
+        break;
+    }
+  }
+})
+
+
+
+
+
+// getById("btnAdd").addEventListener("click", addToDo);
+// toDo = document.getElementById("toDo");
+
+function addToDo(parent) {
   //Saves a new id to a variable
   var newId = Date.now();
   toDo.innerHTML += "<div id=\"" + newId + "\" class=\"dragable\" draggable=\"true\" ondragstart=\"drag(event)\"></div>";
@@ -309,15 +344,18 @@ function login() {
   .then(function(verification) {
 
     if (verification === false) {
-      getById("wrongEnteredInfoModalContainer").style.display = "block";
+      // getById("wrongEnteredInfoModalContainer").style.display = "block";
+      $('#wrongEnteredInfoModalContainer').modal('show');
     }
     else if (verification === true) {
-      getById("modalContainer").style.display = "none";
-      getById("headerContainer").style.display = "block";
-      getById("formatContainer").style.display = "block";
+      $('#loginModal').modal('hide');
+      document.getElementsByClassName('wrapper')[0].style.display = 'block';
+      // getById("modalContainer").style.display = "none";
+      // getById("headerContainer").style.display = "block";
+      // getById("formatContainer").style.display = "block";
     }
 
   })
-  .catch (error => console.log(JSON.stringify(error)));
+  .catch (error => console.log(error));
  //master
 }

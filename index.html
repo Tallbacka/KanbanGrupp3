@@ -44,14 +44,14 @@
                 </div>
                 <hr>
                 <div id="icebox" class="list-group kanban">
-                    <div class="list-group-item">
-                        <button class="expandButton" type="button" data-toggle="collapse" data-target="#item1"
-                            aria-expanded="false" aria-controls="item1">
+                    <div id="item1" class="list-group-item">
+                        <button class="expandButton" type="button" data-toggle="collapse" data-target="#item1Collapse"
+                            aria-expanded="false" aria-controls="item1Collapse">
                             <p class="txtHead">Funktion, skapa flode for flowchat med mera och mera och mera anda</p>
                             <div class="w-100"></div>
                             <div><i class="fas fa-angle-double-right rotate"></i></div>
                         </button>
-                        <div class="collapse" id="item1">
+                        <div class="collapse" id="item1Collapse">
                             <div class="card card-body">
                                 <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson
                                     ad squid. Nihil
@@ -79,14 +79,14 @@
                 </div>
                 <hr>
                 <div id="todo" class="col-sm list-group kanban">
-                    <div class="list-group-item">
-                        <button class="expandButton" type="button" data-toggle="collapse" data-target="#item2"
-                            aria-expanded="false" aria-controls="item2">
+                    <div id="item2" class="list-group-item">
+                        <button class="expandButton" type="button" data-toggle="collapse" data-target="#item2Collapse"
+                            aria-expanded="false" aria-controls="item2Collapse">
                             <p class="txtHead">Funktion, skapa flode for flowchat med mera och mera och mera anda</p>
                             <div class="w-100"></div>
                             <div><i class="fas fa-angle-double-right rotate"></i></div>
                         </button>
-                        <div class="collapse" id="item2">
+                        <div class="collapse" id="item2Collapse">
                             <div class="card card-body">
                                 <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson
                                     ad squid. Nihil
@@ -239,7 +239,7 @@
     <!-- End login modal -->
 
     <!-- wrong user/pass modal -->
-    <!-- <div id="wrongEnteredInfoModalContainer" class="modal fade" role="dialog">
+    <div id="wrongEnteredInfoModalContainer" class="modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -247,7 +247,7 @@
                     <button type="button" class="close" data-dismiss="modal" onclick="tryAgain()">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <p>Du angav fel användarnamn eller lösenord!</p>
+                    <p>Du angav fel användarnamn eller lösenord, prova igen?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal" onclick="tryAgain()">Ja
@@ -255,7 +255,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
     <!-- End wrong user/pass modal -->
 
     <!-- Bootstrap -->
