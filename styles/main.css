@@ -1,13 +1,4 @@
 /* Prevent the text contents of draggable elements from being selectable. */
-[draggable] {
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-}
-* {
-    box-sizing: border-box;
-}
 
 body {
     max-width: 100%;
@@ -16,45 +7,171 @@ body {
     font-family: 'Ubuntu', sans-serif;
 }
 
-h4 {
-    text-align: center;
-    margin-top: 5px;
-}
+/* Inserted */
 
-
-.draggable{
-    height: auto;
-    width: auto;
-    margin: 5px;
-    font-size: 12px;
-    background-color: #fff;
-    border-radius: 3px;
-    padding: 5px;
-}
-
-.dropTarget .over {
-    border: 2px dashed #000;
-  }
 .container {
-    margin-top: 2%;
-    display: flex;
-    justify-content: center;
-    flex-flow: row wrap;
-    width: 800px;
+    width: 100vw;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: .5rem;
+    /* For non flex functionality uncomment below */
+    /*   grid-auto-flow: column;
+      grid-auto-columns: minmax(260px, 1fr); */
 }
 
-.dropTarget {
-    height: auto;
-    width: 150px;
-    border: 1px solid black;
-    border-radius: 5px;
-    margin: 2%;
-    box-shadow: 5px 5px 2px #ccc;
+header {
+    height: 2em;
+    background-color: rgb(214, 132, 187);
+    width: 100%;
+    margin: 0;
+    margin-bottom: 10px;
 }
+
+.colHeader {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+    width: 100%;
+    background-color: rgb(197, 149, 236);
+    border-radius: 5px;
+}
+
+.expandButton {
+    display: block;
+    margin: 0;
+    border-radius: 4px;
+    border: none;
+    color: black;
+    font-size: 12px;
+    height: 4em;
+    transition: all 0.5s;
+    width: 100%;
+}
+
+.txtHead {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
+    font-weight: 700;
+}
+
+.btnAdd, .btnDelete, .btnEdit:hover {
+    cursor: pointer;
+}
+
+.btnEdit {
+    background-color: #fff;
+    color: black;
+    border: none;
+    padding: 5px;
+    margin: 10px 20px 0 10px;
+    border-radius: 4px;
+}
+
+.btnDelete {
+    background-color: #fff;
+    color: black;
+    border: none;
+    padding: 5px;
+    margin: 10px 0 10px 20px;
+    border-radius: 4px;
+}
+
+.btnContainer {
+    display: inline-flex;
+    justify-content: center;
+    margin-bottom: 0;
+}
+
+.column__item--add {
+    display: flex;
+    height: 25px;
+    justify-content: center;
+    margin-top: 10px;
+    border-radius: 4px;
+    background-color: darkgrey;
+    vertical-align: baseline;
+}
+
+.button:active {
+    border: none;
+}
+
+.rotated {
+    transform: rotate(90deg);
+}
+
+.expand {
+    height: auto;
+    white-space: initial;
+    overflow: hidden;
+}
+
+.list-group-item {
+    padding: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.card {
+    display: flex;
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.kanban {
+    padding-right: 0;
+}
+
+.list-group-item {
+    border: none;
+}
+
+.icebox {
+    background-color: rgb(152, 199, 228);
+}
+
+.todo {
+    background-color: rgb(187, 152, 228);
+}
+
+.doing {
+    background-color: rgb(228, 189, 152);
+}
+
+.test {
+    background-color: rgb(238, 230, 222);
+}
+
+.done {
+    background-color: rgb(163, 228, 152);
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+
+@media only screen and (min-width: 1200px) {
+    .container {
+        max-width: 1198px;
+    }
+    .column {
+        width: 250px;
+    }
+}
+
+/* end inserted */
+/* end inserted */
+/* end inserted */
+/* end inserted */
+
+
+
+/* Draggable styling*/
 
 /* Modal */
 
-.modal{
+.modal {
     display: block;
     position: fixed;
     z-index: 1;
@@ -63,11 +180,11 @@ h4 {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgb(0,0,0,0.4);
+    background-color: rgb(0, 0, 0);
+    background-color: rgb(0, 0, 0, 0.4);
 }
 
-#modalError{
+#modalError {
     justify-content: center;
     align-content: center;
     height: 200px;
@@ -75,18 +192,18 @@ h4 {
     margin-top: 7em;
 }
 
-#modalForm{
+#modalForm {
     background-color: #fff;
     width: 300px;
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
     border-radius: 5px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     align-content: center;
 }
 
-#inputContainer{
+#inputContainer {
     width: 100%;
 }
 
@@ -96,18 +213,19 @@ h4 {
     align-content: center;
 }
 
-#txtUser{
+#txtUser {
     width: 100%;
     margin-bottom: 15px;
     border-radius: 3px;
 }
-#txtPassword{
+
+#txtPassword {
     width: 100%;
     margin-bottom: 30px;
     border-radius: 3px;
 }
 
-#btnLogin{
+#btnLogin {
     width: 100%;
     border-radius: 3px;
     border: none;
@@ -122,7 +240,7 @@ h4 {
     border-radius: 3px;
 }
 
-#imgLogin{
+#imgLogin {
     font-size: 60px;
     color: #808f85;
     margin: 0px 10px 10px 2px;
@@ -134,52 +252,5 @@ h4 {
     border-color: #eae0d5;
     margin-left: 5px;
 }
+
 /* End Modal */
-
-
-#headerContainer {
-    display: flex;
-    width: 100%;
-    height: 50px;
-    align-items: center;
-    justify-content: center;
-}
-
-#btnContainer {
-    margin-right: 10px;
-    justify-content: center;
-    margin-left: 3%;
-}
-
-#columns{
-    display: flex;
-    justify-content: center;
-}
-
-#header {
-    justify-content: center;
-    margin-right: 3%;
-}
-
-#toDo {
-    background-color: #595959;
-}
-
-#doing {
-    background-color: #808f85;
-}
-
-#testing {
-    background-color: #eae0d5;
-}
-
-#done {
-    background-color: #91c499;
-}
-
-@media only screen and (max-width: 750px) {
-    .dropTarget {
-        width: 80vw;
-        
-    }
-  }

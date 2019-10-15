@@ -1,90 +1,67 @@
-
-
 // ------------------------------------------------------------------
 // Globals
 // ------------------------------------------------------------------
 let dragSourceEl = null;
-
-
-// ------------------------------------------------------------------
-// onload functions
-// ------------------------------------------------------------------
-getById('body').onload = function () {
-  getById('columns').style.display = 'none'; //Placeholder
-
-}
+var kanbans = document.querySelectorAll('.kanban');
 
 // ------------------------------------------------------------------
 // Drag and Drop
 // ------------------------------------------------------------------
 
-function handleDragStart(ev) {
-  this.style.opacity = '0.8';
-  dragSourceEl = this;
-
-  ev.dataTransfer.effectAllowed = 'move';
-  ev.dataTransfer.setData('text/html', this.innerHTML);
-}
-
-function handleDragOver(ev) {
-  if (ev.preventDefault) {
-    ev.preventDefault();
-  }
-  ev.dataTransfer.dropEffect = 'move';
-
-  return false;
-}
-
-function handleDragEnter(ev) {
-  this.classList.add('over');
-}
-
-function handleDragLeave(ev) {
-  this.classList.remove('over');
-}
-
-var cols = document.querySelectorAll('#columns .dropTarget');
-[].forEach.call(cols, function (col) {
-  col.addEventListener('dragstart', handleDragStart, false);
-  col.addEventListener('dragenter', handleDragEnter, false);
-  col.addEventListener('dragover', handleDragOver, false);
-  col.addEventListener('dragleave', handleDragLeave, false);
-  col.addEventListener('drop', handleDrop, false);
-  col.addEventListener('dragend', handleDragEnd, false);
+// Complete SortableJS (with all plugins)
 
 
+kanbans.forEach(kanban => {
+	sortable(kanban);
 });
 
-function dragstart_handler(ev) {
+function sortable(kanban) {
+	Sortable.create(kanban, {
+		group: {
+			name: 'group',
+			Put: true,
+			pull: true
+		},
+		animation: 100,
+		ghostClass: "sortable-ghost",
+		draggable: '.list-group-item',
+		onStart: function (/**Event*/e) {
+			e.oldIndex;  // element index within parent
+		},
+		onChoose: function (/**Event*/e) {
+			e.oldIndex;  // element index within parent
 
-  let dt = event.dataTransfer;
+		},
+		onEnd: function (/**Event*/e) {
+			var itemEl = e.item;  // dragged HTMLElement
 
-  dt.setData("text/html", ev.target.outerHTML);
-  dt.setData("text/html", ev.target.innerHTML);
-  dt.setData("text/plain", ev.target.innerText);
-  ev.dataTransfer.effectAllowed = "move";
-  ev.dataTransfer.dropEffect = "move";
+			switch (itemEl.parentNode.id) {
+				case "icebox":
+					itemEl.childNodes[1].style.background = 'rgb(152, 199, 228)'
+					break;
 
+				case "todo":
+					itemEl.childNodes[1].style.background = 'rgb(187, 152, 228)'
+					break;
 
+				case "doing":
+					itemEl.childNodes[1].style.background = 'rgb(228, 189, 152)'
+					break;
+
+				case "test":
+					itemEl.childNodes[1].style.background = 'rgb(228, 152, 171)'
+					break;
+
+				default:
+					itemEl.childNodes[1].style.background = 'rgb(163, 228, 152)'
+					break;
+			}
+		},
+	})
 }
 
-function handleDrop(ev) {
-  if (ev.stopPropagation) {
-    ev.stopPropagation();
-  }
 
-  if(dragSourceEl !== this){
-    dragSourceEl.innerHTML = this.innerHTML;
-    this.innerHTML = ev.dataTransfer.getData('text/html');
-  }
-  return false;
-}
 
-function handleDragEnd(ev) {
-  [].forEach.call(cols, function (col) {
-    col.classList.remove('over');
-  });
-}
 
 // ------------------------------------------------------------------
 // Eventlisteners
@@ -99,6 +76,34 @@ function logout() {
   getById('modalContainer').style.display = 'block'; //Placeholder
   getById('columns').style.display = 'none'; //Placeholder
 }
+
+window.addEventListener('load', (e) => {
+
+	var expandButtons = document.getElementsByClassName('expandButton');
+	for (let button of expandButtons) {
+		switch (button.parentNode.parentNode.id) {
+			case "icebox":
+				button.style.background = 'rgb(152, 199, 228)'
+				break;
+			case "todo":
+				button.style.background = 'rgb(187, 152, 228)'
+				break;
+
+			case "doing":
+				button.style.background = 'rgb(228, 189, 152)'
+				break;
+
+			case "test":
+				button.style.background = 'rgb(228, 152, 171)'
+				break;
+
+			default:
+				button.style.background = 'rgb(163, 228, 152)'
+				break;
+		}
+	}
+});
+
 
 // ------------------------------------------------------------------
 // Helper functions

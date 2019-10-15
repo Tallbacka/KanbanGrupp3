@@ -8,12 +8,18 @@
     <title>Kanban grupp3</title>
 
     <!-- styles -->
-    <link rel="stylesheet" href="styles/main.css">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/main.css">
+
+
 
     <!-- Pre-scripts -->
     <script src="https://kit.fontawesome.com/2f245fa161.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 </head>
 
 <body id="body">
@@ -31,23 +37,142 @@
     <!-- End Header -->
 
     <!-- Kanban content -->
-    <div id="columns">
+    <div class="wrapper">
         <div class="container">
-            <div id="toDo" class="dropTarget">
-                <h4>Todo </h4>
-                <div id="1570794517464" class="draggable" draggable="true" ondragstart="dragstart_handler(event)"><h5></h5><p></p><input type="submit" value="Edit" id="1570794517464"></div>
+          <div class="column col">
+            <div class="colHeader" style="background-color: rgb(152, 199, 228);">
+              <h4>ICEBOX</h4>
             </div>
-            <div id="doing" class="dropTarget">
-                <h4>Doing</h4>
+            <div id="icebox" class="list-group kanban">
+              <div class="list-group-item">
+                <button class="expandButton" type="button" data-toggle="collapse" data-target="#item1"
+                  aria-expanded="false" aria-controls="item1">
+                  <p class="txtHead">Funktion, skapa flode for flowchat med mera och mera och mera anda</p>
+                  <div class="w-100"></div>
+                  <div><i class="fas fa-angle-double-right rotate"></i></div>
+                </button>
+                <div class="collapse" id="item1">
+                  <div class="card card-body">
+                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil
+                      anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.</p>
+                      <div class="btnContainer">
+                        <div class="column__item--edit">
+                          <i class="btnEdit fas fa-pen"></i> 
+                        </div>
+                        <div class="column__item--delete">
+                          <i class="btnDelete far fa-trash-alt"></i>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div id="testing" class="dropTarget">
-                <h4>Testing </h4>
+            <div class="column__item--add">
+              <h6 class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
             </div>
-            <div id="done" class="dropTarget">
-                <h4>Done</h4>
+          </div>
+          <div class="column col">
+            <div class="colHeader" style="background-color: rgb(187, 152, 228) ;">
+              <h4>TODO</h4>
             </div>
+            <div id="todo" class="col-sm list-group kanban">
+              <div class="list-group-item">
+                <button class="expandButton" type="button" data-toggle="collapse" data-target="#item2"
+                aria-expanded="false" aria-controls="item2">
+                <span>Skala gurka</span>
+                <div class="w-100"></div>
+                <i class="fas fa-angle-double-right rotate"></i>
+              </button>
+              
+              <div class="collapse" id="item2">
+                <div class="card card-body">
+                  <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil
+                    anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column__item--add">
+              <h6 class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
+            </div>
+          </div>
+          <div class="column col">
+            <div class="colHeader" style="background-color: rgb(228, 189, 152)">
+              <h4>DOING</h4>
+            </div>
+            <div id="doing" class="col-sm list-group kanban">
+              <div class="list-group-item">
+                <button class="expandButton" type="button" data-toggle="collapse" data-target="#item3"
+                aria-expanded="false" aria-controls="item3">
+                <span>Skala gurka</span>
+                <div class="w-100"></div>
+                <i class="fas fa-angle-double-right rotate"></i>
+              </button>
+              
+              <div class="collapse" id="item3">
+                <div class="card card-body">
+                  <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil
+                    anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column__item--add">
+              <h6 class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
+            </div>
+          </div>
+          <div class="column col">
+            <div class="colHeader" style="background-color: rgb(228, 152, 171)">
+              <h4>TEST</h4>
+            </div>
+            <div id="test" class="col-sm list-group kanban">
+              <div class="list-group-item">
+                <button class="expandButton" type="button" data-toggle="collapse" data-target="#item4"
+                aria-expanded="false" aria-controls="item4">
+                <span>Skala gurka </span>
+                <div class="w-100"></div>
+                <i class="fas fa-angle-double-right rotate"></i>
+              </button>
+              
+              <div class="collapse" id="item4">
+                <div class="card card-body">
+                  <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil
+                    anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column__item--add">
+              <h6 class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
+            </div>
+          </div>
+          <div class="column col">
+            <div class="colHeader" style="background-color: rgb(163, 228, 152)">
+              <h4>DONE</h4>
+            </div>
+            <div id="done" class="col-sm list-group kanban">
+              <div class="list-group-item">
+                <button class="expandButton" type="button" data-toggle="collapse" data-target="#item5"
+                aria-expanded="false" aria-controls="item5">
+                <span>Skala gurka </span>
+                <div class="w-100"></div>
+                <i class="fas fa-angle-double-right rotate"></i>
+              </button>
+              
+              <div class="collapse" id="item5">
+                <div class="card card-body">
+                  <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil
+                    anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="column__item--add">
+              <h6 class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
+            </div>
+          </div>
         </div>
-    </div>
+
     <!--End Kanban content -->
 
     <!-- Login modal -->
@@ -62,21 +187,37 @@
             </div>
             <button id="btnLogin" onclick="login()">Logga in</button>
         </div>
-    </div>    
-  
+    </div>
+
     <!-- End login modal -->
 
     <!-- wrong user/pass modal -->
     <div id="wrongEnteredInfoModalContainer" class="w3-modal">
         <div id="modalError" class="w3-red w3-modal-content w3-animate-zoom w3-card-4">
             <div>
-                <span class="w3-display-middle"><h4>Du har angivit fel användarnamn och/eller lösenord</h4></span>
+                <span class="w3-display-middle">
+                    <h4>Du har angivit fel användarnamn och/eller lösenord</h4>
+                </span>
             </div>
-            <button id="btnTryAgain" class="w3-button w3-display-bottommiddle w3-margin w3-round w3-grey" onclick="document.getElementById('wrongEnteredInfoModalContainer').style.display = 'none'">Prova igen...</button>
+            <button id="btnTryAgain" class="w3-button w3-display-bottommiddle w3-margin w3-round w3-grey"
+                onclick="document.getElementById('wrongEnteredInfoModalContainer').style.display = 'none'">Prova
+                igen...</button>
         </div>
     </div>
     <!-- End wrong user/pass modal -->
 
+    <!-- Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"></script>
+    <!-- sortableJS -->
+    <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
 
     <!--  -->
     <script src="./scripts/main.js"></script>
