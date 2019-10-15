@@ -21,7 +21,9 @@ body {
 }
 
 header {
-    height: 2em;
+    display: inline-flex;
+    justify-content: center;
+    height: 3em;
     background-color: rgb(214, 132, 187);
     width: 100%;
     margin: 0;
@@ -59,6 +61,10 @@ header {
 
 .btnAdd, .btnDelete, .btnEdit:hover {
     cursor: pointer;
+}
+
+.btnAdd{
+    height: 30px;
 }
 
 .btnEdit {
@@ -246,11 +252,5 @@ header {
     margin: 0px 10px 10px 2px;
 }
 
-#btnAdd {
-    background-color: #eae0d5;
-    border-radius: 3px;
-    border-color: #eae0d5;
-    margin-left: 5px;
-}
 
 /* End Modal */

@@ -69,12 +69,12 @@ function sortable(kanban) {
 
 function login() {
   getById('modalContainer').style.display = 'none'; //Placeholder
-  getById('columns').style.display = 'flex'; //Placeholder
+  getById('wrapper').style.display = 'flex'; //Placeholder
 }
 
 function logout() {
   getById('modalContainer').style.display = 'block'; //Placeholder
-  getById('columns').style.display = 'none'; //Placeholder
+  getById('wrapper').style.display = 'none'; //Placeholder
 }
 
 window.addEventListener('load', (e) => {
