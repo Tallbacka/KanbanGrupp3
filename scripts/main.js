@@ -177,14 +177,14 @@ function editToDo(myId) {
   
   }
 }
-AddToDo
+//AddToDo
 //Removes div with the id of button pressed
 //Removes id from localstorage
 function removeCard(myId) {
   getById(Number(myId.value)).remove();
   localStorage.removeItem(Number(myId.value));
   alert("Card Removed");
-
+}
 
 //----------------------------Tero Function: save to localStorage--------------------------//
 
@@ -235,9 +235,16 @@ function login() {
   })
   .then(function(verification) {
 
-    console.log(verification); // OBS! Här ska koden för det som kommer efter "verification" läggas in.
+    if (verification === false) {
+      getById("wrongEnteredInfoModalContainer").style.display = "block";
+    }
+    else if (verification === true) {
+      getById("modalContainer").style.display = "none";
+      getById("headerContainer").style.display = "block";
+      getById("formatContainer").style.display = "block";
+    }
 
   })
   .catch (error => console.log(JSON.stringify(error)));
- master
+ //master
 }
