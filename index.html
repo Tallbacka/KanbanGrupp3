@@ -27,10 +27,9 @@
     <!-- Header -->
     <header id="headerContainer">
         <div id="header">
-            <h1>Kanban</h1>
+            <h3>Kanban, Grupp 3</h3>
         </div>
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-        <div id="btnContainer">
+        <div id="btnLogoutContainer" style="flex-grow: 1;">
             <a id="btnLogout" href="#" onclick="logout()">Logout</a>
         </div>
     </header>
@@ -43,6 +42,7 @@
                 <div class="colHeader" style="background-color: rgb(152, 199, 228);">
                     <h4>ICEBOX</h4>
                 </div>
+                <hr>
                 <div id="icebox" class="list-group kanban">
                     <div class="list-group-item">
                         <button class="expandButton" type="button" data-toggle="collapse" data-target="#item1"
@@ -77,21 +77,29 @@
                 <div class="colHeader" style="background-color: rgb(187, 152, 228) ;">
                     <h4>TODO</h4>
                 </div>
+                <hr>
                 <div id="todo" class="col-sm list-group kanban">
                     <div class="list-group-item">
                         <button class="expandButton" type="button" data-toggle="collapse" data-target="#item2"
                             aria-expanded="false" aria-controls="item2">
-                            <span>Skala gurka</span>
+                            <p class="txtHead">Funktion, skapa flode for flowchat med mera och mera och mera anda</p>
                             <div class="w-100"></div>
-                            <i class="fas fa-angle-double-right rotate"></i>
+                            <div><i class="fas fa-angle-double-right rotate"></i></div>
                         </button>
-
                         <div class="collapse" id="item2">
                             <div class="card card-body">
                                 <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson
                                     ad squid. Nihil
                                     anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
                                     proident.</p>
+                                <div class="btnContainer">
+                                    <div class="column__item--edit">
+                                        <i class="btnEdit fas fa-pen"></i>
+                                    </div>
+                                    <div class="column__item--delete">
+                                        <i class="btnDelete far fa-trash-alt"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -104,21 +112,29 @@
                 <div class="colHeader" style="background-color: rgb(228, 189, 152)">
                     <h4>DOING</h4>
                 </div>
+                <hr>
                 <div id="doing" class="col-sm list-group kanban">
                     <div class="list-group-item">
                         <button class="expandButton" type="button" data-toggle="collapse" data-target="#item3"
                             aria-expanded="false" aria-controls="item3">
-                            <span>Skala gurka</span>
+                            <p class="txtHead">Funktion, skapa flode for flowchat med mera och mera och mera anda</p>
                             <div class="w-100"></div>
-                            <i class="fas fa-angle-double-right rotate"></i>
+                            <div><i class="fas fa-angle-double-right rotate"></i></div>
                         </button>
-
                         <div class="collapse" id="item3">
                             <div class="card card-body">
                                 <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson
                                     ad squid. Nihil
                                     anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
                                     proident.</p>
+                                <div class="btnContainer">
+                                    <div class="column__item--edit">
+                                        <i class="btnEdit fas fa-pen"></i>
+                                    </div>
+                                    <div class="column__item--delete">
+                                        <i class="btnDelete far fa-trash-alt"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -131,21 +147,29 @@
                 <div class="colHeader" style="background-color: rgb(228, 152, 171)">
                     <h4>TEST</h4>
                 </div>
+                <hr>
                 <div id="test" class="col-sm list-group kanban">
                     <div class="list-group-item">
                         <button class="expandButton" type="button" data-toggle="collapse" data-target="#item4"
                             aria-expanded="false" aria-controls="item4">
-                            <span>Skala gurka </span>
+                            <p class="txtHead">Funktion, skapa flode for flowchat med mera och mera och mera anda</p>
                             <div class="w-100"></div>
-                            <i class="fas fa-angle-double-right rotate"></i>
+                            <div><i class="fas fa-angle-double-right rotate"></i></div>
                         </button>
-
                         <div class="collapse" id="item4">
                             <div class="card card-body">
                                 <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson
                                     ad squid. Nihil
                                     anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
                                     proident.</p>
+                                <div class="btnContainer">
+                                    <div class="column__item--edit">
+                                        <i class="btnEdit fas fa-pen"></i>
+                                    </div>
+                                    <div class="column__item--delete">
+                                        <i class="btnDelete far fa-trash-alt"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -158,21 +182,29 @@
                 <div class="colHeader" style="background-color: rgb(163, 228, 152)">
                     <h4>DONE</h4>
                 </div>
+                <hr>
                 <div id="done" class="col-sm list-group kanban">
                     <div class="list-group-item">
                         <button class="expandButton" type="button" data-toggle="collapse" data-target="#item5"
                             aria-expanded="false" aria-controls="item5">
-                            <span>Skala gurka </span>
+                            <p class="txtHead">Funktion, skapa flode for flowchat med mera och mera och mera anda</p>
                             <div class="w-100"></div>
-                            <i class="fas fa-angle-double-right rotate"></i>
+                            <div><i class="fas fa-angle-double-right rotate"></i></div>
                         </button>
-
                         <div class="collapse" id="item5">
                             <div class="card card-body">
                                 <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson
                                     ad squid. Nihil
                                     anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
                                     proident.</p>
+                                <div class="btnContainer">
+                                    <div class="column__item--edit">
+                                        <i class="btnEdit fas fa-pen"></i>
+                                    </div>
+                                    <div class="column__item--delete">
+                                        <i class="btnDelete far fa-trash-alt"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -187,11 +219,10 @@
 
     <!-- Login modal -->
 
-    <!-- <div id="loginModal" class="modal fade" role="dialog">
+    <div id="loginModal" class="modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Välkommen!</h4>
                 </div>
                 <div class="modal-body">
@@ -199,17 +230,16 @@
                     <input id="txtPassword" type="password" placeholder="Ange lösenord">
                 </div>
                 <div class="modal-footer">
-                    <button id="btnLogin" onclick="login()">Logga in</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" id="btnLogin" onclick="login()">Logga in</button>
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
     <!-- End login modal -->
 
     <!-- wrong user/pass modal -->
-    <div id="wrongEnteredInfoModalContainer" class="modal show" role="dialog">
+    <!-- <div id="wrongEnteredInfoModalContainer" class="modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -220,11 +250,12 @@
                     <p>Du angav fel användarnamn eller lösenord!</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="">Ja tack</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="tryAgain()">Ja
+                        tack</button>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- End wrong user/pass modal -->
 
     <!-- Bootstrap -->

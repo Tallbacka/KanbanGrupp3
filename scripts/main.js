@@ -66,24 +66,29 @@ function sortable(kanban) {
 // ------------------------------------------------------------------
 // Eventlisteners
 // ------------------------------------------------------------------
-
-document.addEventListener('onload', (e)=> {
-  document.getElementById('loginModal').style.display = "block"
+$(window).on('load',function(){
+  $('#loginModal').modal('show');
 })
+
+window.addEventListener('load', (e) => {
+  document.getElementsByClassName('wrapper')[0].style.display = 'none';
+});
+
 
 function tryAgain() {
   getById('wrongEnteredInfoModalContainer').style.display = 'none'; //Placeholder
-  getById('wrapper').style.display = 'flex'; //Placeholder
+  getById('wrapper').style.display = 'none'; //Placeholder
 }
 
 function login() {
-  getById('modalContainer').style.display = 'none'; //Placeholder
-  getById('wrapper').style.display = 'flex'; //Placeholder
+  $('#loginModal').modal('hide');
+
+  document.getElementsByClassName('wrapper')[0].style.display = 'block'; //placeholder
 }
 
 function logout() {
-  getById('modalContainer').style.display = 'block'; //Placeholder
-  getById('wrapper').style.display = 'none'; //Placeholder
+  $('#loginModal').modal('show');
+  $("#wrapper").removeAttr("style").hide();
 }
 
 window.addEventListener('load', (e) => {
