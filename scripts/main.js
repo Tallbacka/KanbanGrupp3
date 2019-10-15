@@ -9,8 +9,6 @@ var toDo;
 // Drag and Drop
 // ------------------------------------------------------------------
 
-// Complete SortableJS (with all plugins)
-
 
 kanbans.forEach(kanban => {
   sortable(kanban);
@@ -61,6 +59,7 @@ function sortable(kanban) {
   })
 }
 
+
 // ------------------------------------------------------------------
 // Eventlisteners
 // ------------------------------------------------------------------
@@ -87,6 +86,10 @@ function login() {
 function logout() {
   $('#loginModal').modal('show');
   $("#wrapper").removeAttr("style").hide();
+}
+
+function newToDoCard() {
+  $('#createNewCard').modal('show');
 }
 
 window.addEventListener('load', (e) => {
@@ -178,13 +181,11 @@ function removeChilds(parent) {
   }
 }
 
-//----------------------------Alexander Funktion--------------------------//
-//Get id of addBtn, call function addToDo
+
 var toDoButtons = document.getElementsByClassName('btnAdd')
 
 for (let button of toDoButtons) {
   button.addEventListener('click', () => {
-    console.log(button.parentElement.previousElementSibling);
     switch (button.parentElement.previousElementSibling.id) {
       case "icebox":
         addToDo(button.parentElement.previousElementSibling)
@@ -210,43 +211,59 @@ for (let button of toDoButtons) {
   })
 }
 
-
 function addToDo(parentElement) {
-  //Saves a new id to a variable
-  var newId = Date.now();
-  parentElement.insertAdjacentHTML('afterbegin', "<div id=\"" + newId + "\" class=\"dragable\" draggable=\"true\" ondragstart=\"drag(event)\"></div>")
-  // parentElement.innerHTML += "<div id=\"" + newId + "\" class=\"dragable\" draggable=\"true\" ondragstart=\"drag(event)\"></div>";
+  var template = document.querySelector('#card-template');
+  console.log(template);
+  var cardClone = document.importNode(template.content, true);
+  console.log(cardClone);
+  var p = cardClone.querySelectorAll('p')
+  p[0].textContent = getById('txtCardHeader').content;
+  p[1].textContent = getById('txtCardContent').content;
 
-  var newCol = getById(newId);
-  newCol.innerHTML += "Name: <br><input type=\"text\" id=\"toDoHeader\" style=\"width:100%;\">";
-  newCol.innerHTML += "Description: <br><input type=\"text\" id=\"toDoDesc\" style=\"width:100%;\">";
-  newCol.innerHTML += "<input type=\"submit\" value=\"Spara\" id=\"saveToDo\">";
+  parentElement.appendChild(cardClone);
 
-  //Adds an eventListener to the new button created, calls another function to save value
-  getById("saveToDo").addEventListener("click", saveToDo);
-  function saveToDo() {
-    let toDoName = getById("toDoHeader").value,
-      toDoDesc = getById("toDoDesc").value,
-      newToDo = getById(newId);
-    newToDo.innerHTML = "<h5>" + toDoName + "</h5>";
-    newToDo.innerHTML += "<p>" + toDoDesc + "</p>";
-    newToDo.innerHTML += "<button onclick=\"removeCard(this)\" value=\" " + newId + " \" id=\"removeBtn\">Delete</button>";
-
-    //New object with key "Name" and "desc"
-    let myInfo = {};
-    myInfo["Name"] = toDoName;
-    myInfo["Desc"] = toDoDesc;
-    myInfo["ColID"] = "";
-
-    //Saves into localstorage
-    localStorage.setItem(newId, JSON.stringify(myInfo));
-    console.log(myInfo);
-
-    //Spara in i object
-    //Adds another button to enable edit
-    newToDo.innerHTML += "<button onclick=\"editToDo(this)\" value=\" " + newId + " \" id=\"editBtn\">Edit</button>";
-  }
 }
+
+//----------------------------Alexander Funktion--------------------------//
+//Get id of addBtn, call function addToDo
+
+// function addToDo(parentElement) {
+//   //Saves a new id to a variable
+//   var newId = Date.now();
+//   parentElement.insertAdjacentHTML('afterbegin', "<div id=\"" + newId + "\" class=\"dragable\" draggable=\"true\" ondragstart=\"drag(event)\"></div>")
+//   // parentElement.innerHTML += "<div id=\"" + newId + "\" class=\"dragable\" draggable=\"true\" ondragstart=\"drag(event)\"></div>";
+
+//   var newCol = getById(newId);
+//   newCol.innerHTML += "Name: <br><input type=\"text\" id=\"toDoHeader\" style=\"width:100%;\">";
+//   newCol.innerHTML += "Description: <br><input type=\"text\" id=\"toDoDesc\" style=\"width:100%;\">";
+//   newCol.innerHTML += "<input type=\"submit\" value=\"Spara\" id=\"saveToDo\">";
+
+//   //Adds an eventListener to the new button created, calls another function to save value
+// getById("saveToDo").addEventListener("click", saveToDo);
+
+function saveToDo() {
+  let toDoName = getById("toDoHeader").value,
+    toDoDesc = getById("toDoDesc").value,
+    newToDo = getById(newId);
+  newToDo.innerHTML = "<h5>" + toDoName + "</h5>";
+  newToDo.innerHTML += "<p>" + toDoDesc + "</p>";
+  newToDo.innerHTML += "<button onclick=\"removeCard(this)\" value=\" " + newId + " \" id=\"removeBtn\">Delete</button>";
+
+  //New object with key "Name" and "desc"
+  let myInfo = {};
+  myInfo["Name"] = toDoName;
+  myInfo["Desc"] = toDoDesc;
+  myInfo["ColID"] = "";
+
+  //Saves into localstorage
+  localStorage.setItem(newId, JSON.stringify(myInfo));
+  console.log(myInfo);
+
+  //Spara in i object
+  //Adds another button to enable edit
+  newToDo.innerHTML += "<button onclick=\"editToDo(this)\" value=\" " + newId + " \" id=\"editBtn\">Edit</button>";
+}
+
 
 function editToDo(myId) {
   //Saves object from JSON to myCard 

@@ -20,6 +20,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 </head>
 
 <body id="body">
@@ -70,7 +75,7 @@
                     </div>
                 </div>
                 <div class="column__item--add">
-                    <h6 class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
+                    <h6 class="btnAdd" onclick="newToDoCard()"><i class="fas fa-plus"></i> Skapa</h6>
                 </div>
             </div>
             <div class="column col">
@@ -159,34 +164,63 @@
     </div>
     <!-- End wrong user/pass modal -->
 
-
-    <!-- card template -->
-    <!-- <div id="item1" class="list-group-item">
-        <button class="expandButton" type="button" data-toggle="collapse" data-target="#item1Collapse"
-            aria-expanded="false" aria-controls="item1Collapse">
-            <p class="txtHead"></p>
-            <div class="w-100"></div>
-            <div><i class="fas fa-angle-double-right rotate"></i></div>
-        </button>
-        <div class="collapse" id="item1Collapse">
-            <div class="card card-body">
-                <p></p>
-                <div class="btnContainer">
-                    <div class="column__item--edit">
-                        <i class="btnEdit fas fa-pen"></i>
-                    </div>
-                    <div class="column__item--delete">
-                        <i class="btnDelete far fa-trash-alt"></i>
-                    </div>
+    <!-- create new card modal -->
+    <div id="createNewCard" class="modal fade" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div id="newCardModal" class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Skapa/ändra</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Rubrik</label>
+                            <input type="text" class="form-control" id="txtCardHeader">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Vad ska du göra?</label>
+                            <textarea class="form-control" id="txtCardContent"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
+                    <button id="btnSave" type="button" class="btn btn-primary">Spara</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="column__item--add">
-        <h6 class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
-    </div> -->
+    </div>
+    <!-- End create new card modal -->
 
 
+    <!-- card template -->
+    <template id="card-template">
+        <div id="card-body" class="list-group-item">
+            <button class="expandButton" type="button" data-toggle="collapse" data-target="#item1Collapse"
+                aria-expanded="false" aria-controls="item1Collapse">
+                <p class="txtHead"></p>
+                <div class="w-100"></div>
+                <div><i class="fas fa-angle-double-right rotate"></i></div>
+            </button>
+            <div class="collapse" id="item1Collapse">
+                <div class="card card-body">
+                    <p></p>
+                    <div class="btnContainer">
+                        <div class="column__item--edit">
+                            <i class="btnEdit fas fa-pen"></i>
+                        </div>
+                        <div class="column__item--delete">
+                            <i class="btnDelete far fa-trash-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
     <!-- End card template -->
 
 
@@ -204,7 +238,7 @@
     <!-- sortableJS -->
     <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
 
-    <!--  -->
+    <!--Group 3-->
     <script src="./scripts/main.js"></script>
 </body>
 
