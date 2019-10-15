@@ -60,9 +60,6 @@ function sortable(kanban) {
 	})
 }
 
-
-
-
 // ------------------------------------------------------------------
 // Eventlisteners
 // ------------------------------------------------------------------
@@ -117,64 +114,6 @@ window.addEventListener('load', (e) => {
 		}
 	}
 });
-
-
-
-
-//----------------------------Alexander Funktion--------------------------//
-//Get id of addBtn, call function addToDo
-// getById("btnAdd").addEventListener("click", addToDo);
-var toDo = document.getElementById("toDo");
-
-function addToDo() {
-  //Saves a new id to a variable
-  var newId = Date.now();
-  toDo.innerHTML += "<div id=\"" + newId + "\" class=\"draggable\" draggable=\"true\" ondragstart=\"dragstart_handler(event)\"></div>";
-
-  var newCol = getById(newId);
-  newCol.innerHTML += "Name: <br><input type=\"text\" id=\"toDoHeader\" style=\"width:100%;\">";
-  newCol.innerHTML += "Description: <br><input type=\"text\" id=\"toDoDesc\" style=\"width:100%;\">";
-  newCol.innerHTML += "<input type=\"submit\" value=\"Spara\" id=\"saveToDo\">";
-
-  //Adds an eventListener to the new button created, calls another function to save value
-  getById("saveToDo").addEventListener("click", saveToDo);
-  function saveToDo() {
-    let toDoName = getById("toDoHeader").value,
-      toDoDesc = getById("toDoDesc").value,
-      newToDo = getById(newId);
-    newToDo.innerHTML = "<h5>" + toDoName + "</h5>";
-    newToDo.innerHTML += "<p>" + toDoDesc + "</p>";
-
-    //Adds another button to enable edit
-    newToDo.innerHTML += "<input type=\"submit\" value=\"Edit\" id=\"" + newId + "\">";
-  }
-}
-
-//----------------------------Tero Function: save to localStorage--------------------------//
-// let userInp = document.getElementById('txtUser');
-
-function saveToLocalStorage() {
-
-  fetch("./json/user.json")
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (userToLocal) {
-
-      for (u = 0; i < userToLocal.length; i++) {
-
-        if (userInp.value === toString(userToLocal[i].username)) {
-
-          const key = userToLocal[i].id;
-          const value = userToLocal[i].username;
-
-          localSet(key, value)
-        }
-      }// End of for
-    })
-    .catch(error => console.log(JSON.stringify(error)));
-}
-
 
 // ------------------------------------------------------------------
 // Helper functions
@@ -238,3 +177,147 @@ function removeChilds(parent) {
   }
 }
 
+//----------------------------Alexander Funktion--------------------------//
+//Get id of addBtn, call function addToDo
+getById("btnAdd").addEventListener("click", addToDo);
+var toDo = document.getElementById("toDo");
+
+function addToDo() {
+  //Saves a new id to a variable
+  var newId = Date.now();
+  toDo.innerHTML += "<div id=\"" + newId + "\" class=\"dragable\" draggable=\"true\" ondragstart=\"drag(event)\"></div>";
+
+  var newCol = getById(newId);
+  newCol.innerHTML += "Name: <br><input type=\"text\" id=\"toDoHeader\" style=\"width:100%;\">";
+  newCol.innerHTML += "Description: <br><input type=\"text\" id=\"toDoDesc\" style=\"width:100%;\">";
+  newCol.innerHTML += "<input type=\"submit\" value=\"Spara\" id=\"saveToDo\">";
+
+  //Adds an eventListener to the new button created, calls another function to save value
+  getById("saveToDo").addEventListener("click", saveToDo);
+  function saveToDo() {
+    let toDoName = getById("toDoHeader").value,
+        toDoDesc = getById("toDoDesc").value,
+        newToDo = getById(newId);
+    newToDo.innerHTML = "<h5>" + toDoName + "</h5>";
+    newToDo.innerHTML += "<p>" + toDoDesc + "</p>";
+    newToDo.innerHTML += "<button onclick=\"removeCard(this)\" value=\" " + newId + " \" id=\"removeBtn\">Delete</button>"; 
+
+    //New object with key "Name" and "desc"
+    let myInfo = {};
+    myInfo["Name"] = toDoName;
+    myInfo["Desc"] = toDoDesc;
+    myInfo["ColID"] = "";
+    
+    //Saves into localstorage
+    localStorage.setItem(newId, JSON.stringify(myInfo));
+    console.log(myInfo);
+
+    //Spara in i object
+    //Adds another button to enable edit
+    newToDo.innerHTML += "<button onclick=\"editToDo(this)\" value=\" " + newId + " \" id=\"editBtn\">Edit</button>"; 
+  }
+}
+
+function editToDo(myId) {
+  //Saves object from JSON to myCard 
+  var myCard = JSON.parse(localStorage.getItem(Number(myId.value)));
+  
+  //Gets id from the button pressed
+  var newCol = getById(Number(myId.value));
+
+  //Lets user edit his card
+  newCol.innerHTML = "Name: <br><input type=\"text\" id=\"toDoHeader\" value=\"" + myCard.Name + "\" style=\"width:100%;\">";
+  newCol.innerHTML += "Description: <br><input type=\"text\" id=\"toDoDesc\" value=\"" + myCard.Desc + "\"style=\"width:100%;\">";
+  newCol.innerHTML += "<button id=\"saveEdit\">Spara</button>";
+  getById("saveEdit").addEventListener("click", saveEdit);
+
+  //Calls the save function
+  function saveEdit() {
+    let toDoName = getById("toDoHeader").value,
+        toDoDesc = getById("toDoDesc").value,
+        newToDo = getById(Number(myId.value));
+    newToDo.innerHTML = "<h5>" + toDoName + "</h5>";
+    newToDo.innerHTML += "<p>" + toDoDesc + "</p>";
+    newToDo.innerHTML += "<button onclick=\"editToDo(this)\" value=\" " + Number(myId.value) + " \" id=\"editBtn\">Edit</button>"; 
+    //Removes id from localstorage then sets a new one 
+    localStorage.removeItem(Number(myId.value));
+  
+    let myInfo = {};
+    myInfo["Name"] = toDoName;
+    myInfo["Desc"] = toDoDesc;
+    newToDo.innerHTML += "<button onclick=\"removeCard(this)\" value=\" " + Number(myId.value) + " \" id=\"removeBtn\">Delete</button>"; 
+    localStorage.setItem(Number(myId.value), JSON.stringify(myInfo));
+  
+  }
+}
+//AddToDo
+//Removes div with the id of button pressed
+//Removes id from localstorage
+function removeCard(myId) {
+  getById(Number(myId.value)).remove();
+  localStorage.removeItem(Number(myId.value));
+  alert("Card Removed");
+}
+
+//----------------------------Tero Function: save to localStorage--------------------------//
+
+let userInp = document.getElementById('txtUser');
+let userPass = document.getElementById('txtPassword');
+
+let verification = false;
+
+function login() {
+
+  fetch("./json/user.json")
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(userToLocal) {
+
+    for (u=0; u<userToLocal.length; u++) {
+
+        if (userInp.value === userToLocal[u].username) {
+
+          const key = userToLocal[u].id;
+          const value = userToLocal[u].username;
+
+          localSet(key, value)
+        }// End of if
+    }// End of for
+  })
+  .catch (error => console.log(JSON.stringify(error)));
+
+//----------------------------Tero Function: verify user & password--------------------------//
+
+  fetch("./json/user.json")
+  .then(function(response) {
+    return response.json();
+  })    
+  .then(function(verifyUser) {
+
+    for (v=0; v<verifyUser.length; v++) {
+
+      if (userInp.value === verifyUser[v].username && userPass.value === verifyUser[v].password) {
+        let verification = true;
+        return verification;
+      }// End of if
+
+    }// End of for
+
+  return verification;
+  })
+  .then(function(verification) {
+
+    if (verification === false) {
+      getById("wrongEnteredInfoModalContainer").style.display = "block";
+    }
+    else if (verification === true) {
+      getById("modalContainer").style.display = "none";
+      getById("headerContainer").style.display = "block";
+      getById("formatContainer").style.display = "block";
+    }
+
+  })
+  .catch (error => console.log(JSON.stringify(error)));
+ //master
+}
