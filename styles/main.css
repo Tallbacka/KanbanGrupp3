@@ -66,6 +66,9 @@ body {
 .btnAdd{
     height: 20px;
 }
+.btnAdd:active{
+    background-color: initial;
+}
 
 .btnEdit {
     background-color: #fff;

@@ -13,64 +13,64 @@ var toDo;
 
 
 kanbans.forEach(kanban => {
-	sortable(kanban);
+  sortable(kanban);
 });
 
 function sortable(kanban) {
-	Sortable.create(kanban, {
-		group: {
-			name: 'group',
-			Put: true,
-			pull: true
-		},
-		animation: 100,
-		ghostClass: "sortable-ghost",
-		draggable: '.list-group-item',
-		onStart: function (/**Event*/e) {
-			e.oldIndex;  // element index within parent
-		},
-		onChoose: function (/**Event*/e) {
-			e.oldIndex;  // element index within parent
+  Sortable.create(kanban, {
+    group: {
+      name: 'group',
+      Put: true,
+      pull: true
+    },
+    animation: 100,
+    ghostClass: "sortable-ghost",
+    draggable: '.list-group-item',
+    onStart: function (/**Event*/e) {
+      e.oldIndex;  // element index within parent
+    },
+    onChoose: function (/**Event*/e) {
+      e.oldIndex;  // element index within parent
 
-		},
-		onEnd: function (/**Event*/e) {
-			var itemEl = e.item;  // dragged HTMLElement
+    },
+    onEnd: function (/**Event*/e) {
+      var itemEl = e.item;  // dragged HTMLElement
 
-			switch (itemEl.parentNode.id) {
-				case "icebox":
-					itemEl.childNodes[1].style.background = 'rgb(152, 199, 228)'
-					break;
+      switch (itemEl.parentNode.id) {
+        case "icebox":
+          itemEl.childNodes[1].style.background = 'rgb(152, 199, 228)'
+          break;
 
-				case "todo":
-					itemEl.childNodes[1].style.background = 'rgb(187, 152, 228)'
-					break;
+        case "todo":
+          itemEl.childNodes[1].style.background = 'rgb(187, 152, 228)'
+          break;
 
-				case "doing":
-					itemEl.childNodes[1].style.background = 'rgb(228, 189, 152)'
-					break;
+        case "doing":
+          itemEl.childNodes[1].style.background = 'rgb(228, 189, 152)'
+          break;
 
-				case "test":
-					itemEl.childNodes[1].style.background = 'rgb(228, 152, 171)'
-					break;
+        case "test":
+          itemEl.childNodes[1].style.background = 'rgb(228, 152, 171)'
+          break;
 
-				default:
-					itemEl.childNodes[1].style.background = 'rgb(163, 228, 152)'
-					break;
-			}
-		},
-	})
+        default:
+          itemEl.childNodes[1].style.background = 'rgb(163, 228, 152)'
+          break;
+      }
+    },
+  })
 }
 
 // ------------------------------------------------------------------
 // Eventlisteners
 // ------------------------------------------------------------------
-$(window).on('load',function(){
-  $('#loginModal').modal('show');
-})
+// $(window).on('load',function(){
+//   $('#loginModal').modal('show');
+// })
 
-window.addEventListener('load', (e) => {
-  document.getElementsByClassName('wrapper')[0].style.display = 'none';
-});
+// window.addEventListener('load', (e) => {
+//   document.getElementsByClassName('wrapper')[0].style.display = 'none';
+// });
 
 
 function tryAgain() {
@@ -91,29 +91,29 @@ function logout() {
 
 window.addEventListener('load', (e) => {
 
-	var expandButtons = document.getElementsByClassName('expandButton');
-	for (let button of expandButtons) {
-		switch (button.parentNode.parentNode.id) {
-			case "icebox":
-				button.style.background = 'rgb(152, 199, 228)'
-				break;
-			case "todo":
-				button.style.background = 'rgb(187, 152, 228)'
-				break;
+  var expandButtons = document.getElementsByClassName('expandButton');
+  for (let button of expandButtons) {
+    switch (button.parentNode.parentNode.id) {
+      case "icebox":
+        button.style.background = 'rgb(152, 199, 228)'
+        break;
+      case "todo":
+        button.style.background = 'rgb(187, 152, 228)'
+        break;
 
-			case "doing":
-				button.style.background = 'rgb(228, 189, 152)'
-				break;
+      case "doing":
+        button.style.background = 'rgb(228, 189, 152)'
+        break;
 
-			case "test":
-				button.style.background = 'rgb(228, 152, 171)'
-				break;
+      case "test":
+        button.style.background = 'rgb(228, 152, 171)'
+        break;
 
-			default:
-				button.style.background = 'rgb(163, 228, 152)'
-				break;
-		}
-	}
+      default:
+        button.style.background = 'rgb(163, 228, 152)'
+        break;
+    }
+  }
 });
 
 // ------------------------------------------------------------------
@@ -182,45 +182,40 @@ function removeChilds(parent) {
 //Get id of addBtn, call function addToDo
 var toDoButtons = document.getElementsByClassName('btnAdd')
 
-todo.addEventListener('click', ()=>{
-  for (let button of toDoButtons) {
-    console.log(button.parentNode.parentNode);
-    switch (button.parentNode.parentNode.id) {
+for (let button of toDoButtons) {
+  button.addEventListener('click', () => {
+    console.log(button.parentElement.previousElementSibling);
+    switch (button.parentElement.previousElementSibling.id) {
       case "icebox":
-        addToDo(button.parentNode.parentNode)
-  
-  
+        addToDo(button.parentElement.previousElementSibling)
+
         break;
       case "todo":
-        button.style.background = 'rgb(187, 152, 228)'
+        addToDo(button.parentElement.previousElementSibling)
+
         break;
-  
+
       case "doing":
-        button.style.background = 'rgb(228, 189, 152)'
+        addToDo(button.parentElement.previousElementSibling)
         break;
-  
+
       case "test":
-        button.style.background = 'rgb(228, 152, 171)'
+        addToDo(button.parentElement.previousElementSibling)
         break;
-  
+
       default:
-        button.style.background = 'rgb(163, 228, 152)'
+        addToDo(button.parentElement.previousElementSibling)
         break;
     }
-  }
-})
+  })
+}
 
 
-
-
-
-// getById("btnAdd").addEventListener("click", addToDo);
-// toDo = document.getElementById("toDo");
-
-function addToDo(parent) {
+function addToDo(parentElement) {
   //Saves a new id to a variable
   var newId = Date.now();
-  toDo.innerHTML += "<div id=\"" + newId + "\" class=\"dragable\" draggable=\"true\" ondragstart=\"drag(event)\"></div>";
+  parentElement.insertAdjacentHTML('afterbegin', "<div id=\"" + newId + "\" class=\"dragable\" draggable=\"true\" ondragstart=\"drag(event)\"></div>")
+  // parentElement.innerHTML += "<div id=\"" + newId + "\" class=\"dragable\" draggable=\"true\" ondragstart=\"drag(event)\"></div>";
 
   var newCol = getById(newId);
   newCol.innerHTML += "Name: <br><input type=\"text\" id=\"toDoHeader\" style=\"width:100%;\">";
@@ -231,32 +226,32 @@ function addToDo(parent) {
   getById("saveToDo").addEventListener("click", saveToDo);
   function saveToDo() {
     let toDoName = getById("toDoHeader").value,
-        toDoDesc = getById("toDoDesc").value,
-        newToDo = getById(newId);
+      toDoDesc = getById("toDoDesc").value,
+      newToDo = getById(newId);
     newToDo.innerHTML = "<h5>" + toDoName + "</h5>";
     newToDo.innerHTML += "<p>" + toDoDesc + "</p>";
-    newToDo.innerHTML += "<button onclick=\"removeCard(this)\" value=\" " + newId + " \" id=\"removeBtn\">Delete</button>"; 
+    newToDo.innerHTML += "<button onclick=\"removeCard(this)\" value=\" " + newId + " \" id=\"removeBtn\">Delete</button>";
 
     //New object with key "Name" and "desc"
     let myInfo = {};
     myInfo["Name"] = toDoName;
     myInfo["Desc"] = toDoDesc;
     myInfo["ColID"] = "";
-    
+
     //Saves into localstorage
     localStorage.setItem(newId, JSON.stringify(myInfo));
     console.log(myInfo);
 
     //Spara in i object
     //Adds another button to enable edit
-    newToDo.innerHTML += "<button onclick=\"editToDo(this)\" value=\" " + newId + " \" id=\"editBtn\">Edit</button>"; 
+    newToDo.innerHTML += "<button onclick=\"editToDo(this)\" value=\" " + newId + " \" id=\"editBtn\">Edit</button>";
   }
 }
 
 function editToDo(myId) {
   //Saves object from JSON to myCard 
   var myCard = JSON.parse(localStorage.getItem(Number(myId.value)));
-  
+
   //Gets id from the button pressed
   var newCol = getById(Number(myId.value));
 
@@ -269,20 +264,20 @@ function editToDo(myId) {
   //Calls the save function
   function saveEdit() {
     let toDoName = getById("toDoHeader").value,
-        toDoDesc = getById("toDoDesc").value,
-        newToDo = getById(Number(myId.value));
+      toDoDesc = getById("toDoDesc").value,
+      newToDo = getById(Number(myId.value));
     newToDo.innerHTML = "<h5>" + toDoName + "</h5>";
     newToDo.innerHTML += "<p>" + toDoDesc + "</p>";
-    newToDo.innerHTML += "<button onclick=\"editToDo(this)\" value=\" " + Number(myId.value) + " \" id=\"editBtn\">Edit</button>"; 
+    newToDo.innerHTML += "<button onclick=\"editToDo(this)\" value=\" " + Number(myId.value) + " \" id=\"editBtn\">Edit</button>";
     //Removes id from localstorage then sets a new one 
     localStorage.removeItem(Number(myId.value));
-  
+
     let myInfo = {};
     myInfo["Name"] = toDoName;
     myInfo["Desc"] = toDoDesc;
-    newToDo.innerHTML += "<button onclick=\"removeCard(this)\" value=\" " + Number(myId.value) + " \" id=\"removeBtn\">Delete</button>"; 
+    newToDo.innerHTML += "<button onclick=\"removeCard(this)\" value=\" " + Number(myId.value) + " \" id=\"removeBtn\">Delete</button>";
     localStorage.setItem(Number(myId.value), JSON.stringify(myInfo));
-  
+
   }
 }
 //AddToDo
@@ -304,12 +299,12 @@ let verification = false;
 function login() {
 
   fetch("./json/user.json")
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(userToLocal) {
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (userToLocal) {
 
-    for (u=0; u<userToLocal.length; u++) {
+      for (u = 0; u < userToLocal.length; u++) {
 
         if (userInp.value === userToLocal[u].username) {
 
@@ -318,44 +313,44 @@ function login() {
 
           localSet(key, value)
         }// End of if
-    }// End of for
-  })
-  .catch (error => console.log(JSON.stringify(error)));
+      }// End of for
+    })
+    .catch(error => console.log(JSON.stringify(error)));
 
-//----------------------------Tero Function: verify user & password--------------------------//
+  //----------------------------Tero Function: verify user & password--------------------------//
 
   fetch("./json/user.json")
-  .then(function(response) {
-    return response.json();
-  })    
-  .then(function(verifyUser) {
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (verifyUser) {
 
-    for (v=0; v<verifyUser.length; v++) {
+      for (v = 0; v < verifyUser.length; v++) {
 
-      if (userInp.value === verifyUser[v].username && userPass.value === verifyUser[v].password) {
-        let verification = true;
-        return verification;
-      }// End of if
+        if (userInp.value === verifyUser[v].username && userPass.value === verifyUser[v].password) {
+          let verification = true;
+          return verification;
+        }// End of if
 
-    }// End of for
+      }// End of for
 
-  return verification;
-  })
-  .then(function(verification) {
+      return verification;
+    })
+    .then(function (verification) {
 
-    if (verification === false) {
-      // getById("wrongEnteredInfoModalContainer").style.display = "block";
-      $('#wrongEnteredInfoModalContainer').modal('show');
-    }
-    else if (verification === true) {
-      $('#loginModal').modal('hide');
-      document.getElementsByClassName('wrapper')[0].style.display = 'block';
-      // getById("modalContainer").style.display = "none";
-      // getById("headerContainer").style.display = "block";
-      // getById("formatContainer").style.display = "block";
-    }
+      if (verification === false) {
+        // getById("wrongEnteredInfoModalContainer").style.display = "block";
+        $('#wrongEnteredInfoModalContainer').modal('show');
+      }
+      else if (verification === true) {
+        $('#loginModal').modal('hide');
+        document.getElementsByClassName('wrapper')[0].style.display = 'block';
+        // getById("modalContainer").style.display = "none";
+        // getById("headerContainer").style.display = "block";
+        // getById("formatContainer").style.display = "block";
+      }
 
-  })
-  .catch (error => console.log(error));
- //master
+    })
+    .catch(error => console.log(error));
+  //master
 }
