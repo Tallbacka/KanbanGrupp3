@@ -67,6 +67,15 @@ function sortable(kanban) {
 // Eventlisteners
 // ------------------------------------------------------------------
 
+document.addEventListener('onload', (e)=> {
+  document.getElementById('loginModal').style.display = "block"
+})
+
+function tryAgain() {
+  getById('wrongEnteredInfoModalContainer').style.display = 'none'; //Placeholder
+  getById('wrapper').style.display = 'flex'; //Placeholder
+}
+
 function login() {
   getById('modalContainer').style.display = 'none'; //Placeholder
   getById('wrapper').style.display = 'flex'; //Placeholder
@@ -103,6 +112,63 @@ window.addEventListener('load', (e) => {
 		}
 	}
 });
+
+
+
+
+//----------------------------Alexander Funktion--------------------------//
+//Get id of addBtn, call function addToDo
+// getById("btnAdd").addEventListener("click", addToDo);
+var toDo = document.getElementById("toDo");
+
+function addToDo() {
+  //Saves a new id to a variable
+  var newId = Date.now();
+  toDo.innerHTML += "<div id=\"" + newId + "\" class=\"draggable\" draggable=\"true\" ondragstart=\"dragstart_handler(event)\"></div>";
+
+  var newCol = getById(newId);
+  newCol.innerHTML += "Name: <br><input type=\"text\" id=\"toDoHeader\" style=\"width:100%;\">";
+  newCol.innerHTML += "Description: <br><input type=\"text\" id=\"toDoDesc\" style=\"width:100%;\">";
+  newCol.innerHTML += "<input type=\"submit\" value=\"Spara\" id=\"saveToDo\">";
+
+  //Adds an eventListener to the new button created, calls another function to save value
+  getById("saveToDo").addEventListener("click", saveToDo);
+  function saveToDo() {
+    let toDoName = getById("toDoHeader").value,
+      toDoDesc = getById("toDoDesc").value,
+      newToDo = getById(newId);
+    newToDo.innerHTML = "<h5>" + toDoName + "</h5>";
+    newToDo.innerHTML += "<p>" + toDoDesc + "</p>";
+
+    //Adds another button to enable edit
+    newToDo.innerHTML += "<input type=\"submit\" value=\"Edit\" id=\"" + newId + "\">";
+  }
+}
+
+//----------------------------Tero Function: save to localStorage--------------------------//
+// let userInp = document.getElementById('txtUser');
+
+function saveToLocalStorage() {
+
+  fetch("./json/user.json")
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (userToLocal) {
+
+      for (u = 0; i < userToLocal.length; i++) {
+
+        if (userInp.value === toString(userToLocal[i].username)) {
+
+          const key = userToLocal[i].id;
+          const value = userToLocal[i].username;
+
+          localSet(key, value)
+        }
+      }// End of for
+    })
+    .catch(error => console.log(JSON.stringify(error)));
+}
 
 
 // ------------------------------------------------------------------
@@ -167,59 +233,3 @@ function removeChilds(parent) {
   }
 }
 
-
-
-//----------------------------Alexander Funktion--------------------------//
-//Get id of addBtn, call function addToDo
-getById("btnAdd").addEventListener("click", addToDo);
-var toDo = document.getElementById("toDo");
-
-function addToDo() {
-  //Saves a new id to a variable
-  var newId = Date.now();
-  toDo.innerHTML += "<div id=\"" + newId + "\" class=\"draggable\" draggable=\"true\" ondragstart=\"dragstart_handler(event)\"></div>";
-
-  var newCol = getById(newId);
-  newCol.innerHTML += "Name: <br><input type=\"text\" id=\"toDoHeader\" style=\"width:100%;\">";
-  newCol.innerHTML += "Description: <br><input type=\"text\" id=\"toDoDesc\" style=\"width:100%;\">";
-  newCol.innerHTML += "<input type=\"submit\" value=\"Spara\" id=\"saveToDo\">";
-
-  //Adds an eventListener to the new button created, calls another function to save value
-  getById("saveToDo").addEventListener("click", saveToDo);
-  function saveToDo() {
-    let toDoName = getById("toDoHeader").value,
-      toDoDesc = getById("toDoDesc").value,
-      newToDo = getById(newId);
-    newToDo.innerHTML = "<h5>" + toDoName + "</h5>";
-    newToDo.innerHTML += "<p>" + toDoDesc + "</p>";
-
-    //Adds another button to enable edit
-    newToDo.innerHTML += "<input type=\"submit\" value=\"Edit\" id=\"" + newId + "\">";
-  }
-}
-
-//----------------------------Tero Function: save to localStorage--------------------------//
-let userInp = document.getElementById('txtUser');
-console.log(userInp);
-
-function saveToLocalStorage() {
-
-  fetch("./json/user.json")
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (userToLocal) {
-
-      for (u = 0; i < userToLocal.length; i++) {
-
-        if (userInp.value === toString(userToLocal[i].username)) {
-
-          const key = userToLocal[i].id;
-          const value = userToLocal[i].username;
-
-          localSet(key, value)
-        }
-      }// End of for
-    })
-    .catch(error => console.log(JSON.stringify(error)));
-}

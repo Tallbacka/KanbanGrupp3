@@ -23,6 +23,7 @@ body {
 header {
     display: inline-flex;
     justify-content: center;
+    vertical-align: middle;
     height: 3em;
     background-color: rgb(214, 132, 187);
     width: 100%;
@@ -238,7 +239,7 @@ header {
 }
 
 #btnLogout {
-    margin: 30px 10px 10px 10px;
+    margin: 30px;
     text-decoration: none;
     background-color: #926a6a;
     color: #fff;
