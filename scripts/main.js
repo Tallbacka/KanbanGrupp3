@@ -1,44 +1,119 @@
 // ------------------------------------------------------------------
-// onload functions
+// Globals
 // ------------------------------------------------------------------
-getById('body').onload = function () {
-getById('formatContainer').style.display = 'none'; //Placeholder
+let dragSourceEl = null;
+var kanbans = document.querySelectorAll('.kanban');
 
+// ------------------------------------------------------------------
+// Drag and Drop
+// ------------------------------------------------------------------
+
+// Complete SortableJS (with all plugins)
+
+
+kanbans.forEach(kanban => {
+	sortable(kanban);
+});
+
+function sortable(kanban) {
+	Sortable.create(kanban, {
+		group: {
+			name: 'group',
+			Put: true,
+			pull: true
+		},
+		animation: 100,
+		ghostClass: "sortable-ghost",
+		draggable: '.list-group-item',
+		onStart: function (/**Event*/e) {
+			e.oldIndex;  // element index within parent
+		},
+		onChoose: function (/**Event*/e) {
+			e.oldIndex;  // element index within parent
+
+		},
+		onEnd: function (/**Event*/e) {
+			var itemEl = e.item;  // dragged HTMLElement
+
+			switch (itemEl.parentNode.id) {
+				case "icebox":
+					itemEl.childNodes[1].style.background = 'rgb(152, 199, 228)'
+					break;
+
+				case "todo":
+					itemEl.childNodes[1].style.background = 'rgb(187, 152, 228)'
+					break;
+
+				case "doing":
+					itemEl.childNodes[1].style.background = 'rgb(228, 189, 152)'
+					break;
+
+				case "test":
+					itemEl.childNodes[1].style.background = 'rgb(228, 152, 171)'
+					break;
+
+				default:
+					itemEl.childNodes[1].style.background = 'rgb(163, 228, 152)'
+					break;
+			}
+		},
+	})
 }
 
 // ------------------------------------------------------------------
 // Eventlisteners
 // ------------------------------------------------------------------
-function allowDrop(ev) {
-    ev.preventDefault();
-  }
-  
-  function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-  }
-  
-  function drop(ev) {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
-  }
+$(window).on('load',function(){
+  $('#loginModal').modal('show');
+})
 
-function login(){
-  getById('modalContainer').style.display = 'none'; //Placeholder
-  getById('formatContainer').style.display = 'flex'; //Placeholder
+window.addEventListener('load', (e) => {
+  document.getElementsByClassName('wrapper')[0].style.display = 'none';
+});
+
+
+function tryAgain() {
+  getById('wrongEnteredInfoModalContainer').style.display = 'none'; //Placeholder
+  getById('wrapper').style.display = 'none'; //Placeholder
+}
+
+function login() {
+  $('#loginModal').modal('hide');
+
+  document.getElementsByClassName('wrapper')[0].style.display = 'block'; //placeholder
 }
 
 function logout() {
-  getById('modalContainer').style.display = 'block'; //Placeholder
-  getById('formatContainer').style.display = 'none'; //Placeholder
-  }
-  // ----------------------------------------------------------------
-// Fetches data from local JSON files
-// ------------------------------------------------------------------
+  $('#loginModal').modal('show');
+  $("#wrapper").removeAttr("style").hide();
+}
 
-// ------------------------------------------------------------------
-// Localstorage related functions
-// ------------------------------------------------------------------
+window.addEventListener('load', (e) => {
+
+	var expandButtons = document.getElementsByClassName('expandButton');
+	for (let button of expandButtons) {
+		switch (button.parentNode.parentNode.id) {
+			case "icebox":
+				button.style.background = 'rgb(152, 199, 228)'
+				break;
+			case "todo":
+				button.style.background = 'rgb(187, 152, 228)'
+				break;
+
+			case "doing":
+				button.style.background = 'rgb(228, 189, 152)'
+				break;
+
+			case "test":
+				button.style.background = 'rgb(228, 152, 171)'
+				break;
+
+			default:
+				button.style.background = 'rgb(163, 228, 152)'
+				break;
+		}
+	}
+});
 
 // ------------------------------------------------------------------
 // Helper functions
@@ -53,16 +128,16 @@ function localSet(key, value) {
 }
 function Fetcher(url) {
   return fetch(url)
-      .then(checkStatus)
-      .then(response => response.json())
-      .catch(error => console.log("Problems with your fetch operation", error))
+    .then(checkStatus)
+    .then(response => response.json())
+    .catch(error => console.log("Problems with your fetch operation", error))
 }
 
 function checkStatus(response) {
   if (response.ok) {
-      return Promise.resolve(response);
+    return Promise.resolve(response);
   } else {
-      return Promise.reject(new Error(response.statusText));
+    return Promise.reject(new Error(response.statusText));
   }
 }
 
@@ -98,11 +173,9 @@ function getByName(ele) {
 
 function removeChilds(parent) {
   while (parent.hasChildNodes()) {
-      parent.removeChild(parent.lastChild);
+    parent.removeChild(parent.lastChild);
   }
 }
-
-
 
 //----------------------------Alexander Funktion--------------------------//
 //Get id of addBtn, call function addToDo
