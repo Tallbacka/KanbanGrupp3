@@ -210,15 +210,16 @@ for (let button of toDoButtons) {
     }
   })
 }
-
+// check this for more info about templates
+//https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template
 function addToDo(parentElement) {
-  var template = document.querySelector('#card-template');
+  var template = document.querySelector('#card-template'); //selects a template element card from index
   console.log(template);
-  var cardClone = document.importNode(template.content, true);
+  var cardClone = document.importNode(template.content, true); //Clones the element and all its childnodes
   console.log(cardClone);
-  var p = cardClone.querySelectorAll('p')
-  p[0].textContent = getById('txtCardHeader').content;
-  p[1].textContent = getById('txtCardContent').content;
+  var p = cardClone.querySelectorAll('p') // creates an array of all the queried elements
+  p[0].textContent = getById('txtCardHeader').content; //set header data
+  p[1].textContent = getById('txtCardContent').content; //set content data
 
   parentElement.appendChild(cardClone);
 

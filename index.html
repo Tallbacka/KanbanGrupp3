@@ -128,14 +128,14 @@
     <div id="loginModal" class="modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header modalLogin">
                     <h4 class="modal-title">Välkommen!</h4>
                 </div>
                 <div class="modal-body">
                     <input id="txtUser" type="text" placeholder="Ange ditt användarnamn">
                     <input id="txtPassword" type="password" placeholder="Ange lösenord">
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer modalLogin">
                     <button type="button" class="btn btn-default" id="btnLogin" onclick="login()">Logga in</button>
                 </div>
             </div>
@@ -148,14 +148,14 @@
     <div id="wrongEnteredInfoModalContainer" class="modal fade" role="dialog">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header modalFailure">
                     <h4 class="modal-title">Något gick fel!</h4>
                     <button type="button" class="close" data-dismiss="modal" onclick="tryAgain()">&times;</button>
                 </div>
                 <div class="modal-body">
                     <p>Du angav fel användarnamn eller lösenord, prova igen?</p>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer modalFailure">
                     <button type="button" class="btn btn-default" data-dismiss="modal" onclick="tryAgain()">Ja
                         tack</button>
                 </div>

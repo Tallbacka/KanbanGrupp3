@@ -70,6 +70,13 @@ body {
     background-color: initial;
 }
 
+.modalLogin{
+    background-color: rgb(163, 228, 152);
+}
+.modalFailure{
+    background-color: rgb(228, 152, 199);
+}
+
 .btnEdit {
     background-color: #fff;
     color: black;
