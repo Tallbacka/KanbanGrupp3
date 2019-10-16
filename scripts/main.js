@@ -88,6 +88,8 @@ function styleCards(element) {
 
 $('.btnAdd').click(() => {
   $('#createNewCard').modal('show');
+  header = getById('txtCardHeader')
+  header.setAttribute('placeholder', '')
 })
 
 $('#btnLogout').click(() => {
@@ -99,6 +101,7 @@ $('#btnTryAgain').click(() => {
   $('#wrongEnteredInfoModalContainer').modal('hide');
   $('#wrapper').modal('hide');
 })
+
 
 
 $(window).on('load', function () {
@@ -134,7 +137,7 @@ for (let button of toDoButtons) {
 // check this for more info about templates
 //https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template
 getById('btnSave').addEventListener('click', () => {
-  let newId = Date.now(),
+  let newId = 'a' + Date.now(),
     template = document.querySelector('#card-template'), //selects a template element card from index
     toDoCard = document.importNode(template.content, true), //Clones the element and all its childnodes
     header = getById('txtCardHeader'),
@@ -144,40 +147,31 @@ getById('btnSave').addEventListener('click', () => {
     button = toDoCard.querySelector('button'),
     element = toDoCard.querySelector('.card'); // creates an array of all the queried elements
 
-  div[0].id = '#' + newId ;
+  div[0].id = '#' + newId;
   div[3].id = newId;
-  
+
   button.setAttribute('data-target', '#' + newId);
   button.setAttribute('aria-controls', newId);
 
-  p[0].textContent = header.value//set header data
-  p[1].textContent = content.value//set content data
-
-  console.log(Object(element));
-
-  todoCol.appendChild(toDoCard)
-  styleCards(element);
-  header.value = '';
-  content.value = '';
+  if (!isStringNullOrWhiteSpace(header.value)) {
+    p[0].textContent = header.value//set header data
+    p[1].textContent = content.value//set content data
+  
+    todoCol.appendChild(toDoCard)
+    styleCards(element);
+    header.value = '';
+    content.value = '';
+  
+    $('.btnEdit').click(() => {
+      console.log('tryck');
+      $('#createNewCard').modal('show');
+      header.setAttribute('placeholder', '')
+    })
+  }else{
+    console.log('?????');
+      header.setAttribute('placeholder', 'Du måste minst ange rubrik för att spara')
+  } 
 })
-
-
-//----------------------------Alexander Funktion--------------------------//
-//Get id of addBtn, call function addToDo
-
-// function addToDo(parentElement) {
-//   //Saves a new id to a variable
-//   var newId = Date.now();
-//   parentElement.insertAdjacentHTML('afterbegin', "<div id=\"" + newId + "\" class=\"dragable\" draggable=\"true\" ondragstart=\"drag(event)\"></div>")
-//   // parentElement.innerHTML += "<div id=\"" + newId + "\" class=\"dragable\" draggable=\"true\" ondragstart=\"drag(event)\"></div>";
-
-//   var newCol = getById(newId);
-//   newCol.innerHTML += "Name: <br><input type=\"text\" id=\"toDoHeader\" style=\"width:100%;\">";
-//   newCol.innerHTML += "Description: <br><input type=\"text\" id=\"toDoDesc\" style=\"width:100%;\">";
-//   newCol.innerHTML += "<input type=\"submit\" value=\"Spara\" id=\"saveToDo\">";
-
-//   //Adds an eventListener to the new button created, calls another function to save value
-// getById("saveToDo").addEventListener("click", saveToDo);
 
 function saveToDo() {
   let toDoName = getById("toDoHeader").value,
@@ -315,6 +309,13 @@ function login() {
 // ------------------------------------------------------------------
 // Helper functions
 // ------------------------------------------------------------------
+
+function isStringNullOrWhiteSpace(str) {
+  return str === undefined || str === null
+    || typeof str !== 'string'
+    || str.match(/^ *$/) !== null;
+}
+
 
 function localGet(key) {
   return localStorage.getItem(key)

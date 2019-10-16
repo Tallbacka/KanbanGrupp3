@@ -86,7 +86,7 @@
                     <h6 class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
                 </div>
             </div>
-            
+
             <div class="column col">
                 <div class="colHeader" style="background-color: rgb(163, 228, 152)">
                     <h4>DONE</h4>
@@ -110,7 +110,7 @@
                     <h4 class="modal-title">Välkommen!</h4>
                 </div>
                 <div class="modal-body">
-                    <input id="txtUser" type="text" placeholder="Ange ditt användarnamn">
+                    <input id="txtUser" type="text" placeholder="Ange ditt användarnamn" autofocus="true">
                     <input id="txtPassword" type="password" placeholder="Ange lösenord">
                 </div>
                 <div class="modal-footer modalLogin">
@@ -134,7 +134,8 @@
                     <p>Du angav fel användarnamn eller lösenord, prova igen?</p>
                 </div>
                 <div class="modal-footer modalFailure">
-                    <button id="btnTryAgain" type="button" class="btn btn-default" data-dismiss="modal">Ja
+                    <button id="btnTryAgain" type="button" class="btn btn-default" data-dismiss="modal"
+                        autofocus="true">Ja
                         tack</button>
                 </div>
             </div>
@@ -156,7 +157,7 @@
                     <form>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Rubrik</label>
-                            <input type="text" class="form-control" id="txtCardHeader">
+                            <input type="text" class="form-control" id="txtCardHeader" autofocus="true">
                         </div>
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">Vad ska du göra?</label>
@@ -191,7 +192,7 @@
                             <i class="btnEdit fas fa-pen"></i>
                         </div>
                         <div class="column__item--delete">
-                            <i class="btnDelete far fa-trash-alt"></i>
+                            <i id="btnDelete" class="btnDelete far fa-trash-alt"></i>
                         </div>
                     </div>
                 </div>
