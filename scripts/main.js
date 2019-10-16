@@ -230,6 +230,7 @@ function editToDo(myId) {
     myInfo["ID"] = myId;
     myInfo["ColID"] = myCard.ColID;
     localStorage.setItem(myId, JSON.stringify(myInfo));
+    document.getElementById("btnSave").style.display = "block";
     $('#createNewCard').modal('hide');
 
   }
