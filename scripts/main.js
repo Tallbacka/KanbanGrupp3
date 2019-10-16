@@ -34,32 +34,34 @@ function sortable(kanban) {
     },
     onEnd: function (/**Event*/e) {
       var itemEl = e.item;  // dragged HTMLElement
-
-      switch (itemEl.parentNode.id) {
-        case "icebox":
-          itemEl.childNodes[1].style.background = 'rgb(152, 199, 228)'
-          break;
-
-        case "todo":
-          itemEl.childNodes[1].style.background = 'rgb(187, 152, 228)'
-          break;
-
-        case "doing":
-          itemEl.childNodes[1].style.background = 'rgb(228, 189, 152)'
-          break;
-
-        case "test":
-          itemEl.childNodes[1].style.background = 'rgb(228, 152, 171)'
-          break;
-
-        default:
-          itemEl.childNodes[1].style.background = 'rgb(163, 228, 152)'
-          break;
-      }
+      styleCards(itemEl);
     },
   })
 }
 
+function styleCards(element) {
+  switch (element.parentNode.id) {
+    case "icebox":
+      element.childNodes[1].style.background = 'rgb(152, 199, 228)'
+      break;
+
+    case "todo":
+      element.childNodes[1].style.background = 'rgb(187, 152, 228)'
+      break;
+
+    case "doing":
+      element.childNodes[1].style.background = 'rgb(228, 189, 152)'
+      break;
+
+    case "test":
+      element.childNodes[1].style.background = 'rgb(228, 152, 171)'
+      break;
+
+    default:
+      element.childNodes[1].style.background = 'rgb(163, 228, 152)'
+      break;
+  }
+}
 
 // ------------------------------------------------------------------
 // Eventlisteners
@@ -84,6 +86,10 @@ function sortable(kanban) {
 //   document.getElementsByClassName('wrapper')[0].style.display = 'block'; //placeholder
 // }
 
+$('.btnAdd').click(() => {
+  $('#createNewCard').modal('show');
+})
+
 $('#btnLogout').click(() => {
   $('#loginModal').modal('show');
   $("#wrapper").removeAttr("style").hide();
@@ -94,140 +100,60 @@ $('#btnTryAgain').click(() => {
   $('#wrapper').modal('hide');
 })
 
-$('.btnAdd').click(() => {
+$('.list-group-item').click(() => {
   $('#createNewCard').modal('show');
 })
 
+$(window).on('load', function() {
+  document.querySelectorAll('.list-group-item').forEach(element => {
+    styleCards(element);
+  });
+})
 
-window.addEventListener('load', (e) => {
 
-  var expandButtons = document.getElementsByClassName('expandButton');
-  for (let button of expandButtons) {
-    switch (button.parentNode.parentNode.id) {
+var toDoButtons = document.getElementsByClassName('btnAdd')
+for (let button of toDoButtons) {
+  button.addEventListener('click', () => {
+    switch (button.parentElement.previousElementSibling.id) {
       case "icebox":
-        button.style.background = 'rgb(152, 199, 228)'
+        todoCol = button.parentElement.previousElementSibling;
         break;
       case "todo":
-        button.style.background = 'rgb(187, 152, 228)'
+        todoCol = button.parentElement.previousElementSibling;
         break;
-
       case "doing":
-        button.style.background = 'rgb(228, 189, 152)'
+        todoCol = button.parentElement.previousElementSibling;
         break;
-
       case "test":
-        button.style.background = 'rgb(228, 152, 171)'
+        todoCol = button.parentElement.previousElementSibling;
         break;
-
       default:
-        button.style.background = 'rgb(163, 228, 152)'
+        todoCol = button.parentElement.previousElementSibling;
         break;
     }
-  }
-});
-
-// ------------------------------------------------------------------
-// Helper functions
-// ------------------------------------------------------------------
-
-function localGet(key) {
-  return localStorage.getItem(key)
+  })
 }
 
-function localSet(key, value) {
-  return localStorage.setItem(key, value)
-}
-function Fetcher(url) {
-  return fetch(url)
-    .then(checkStatus)
-    .then(response => response.json())
-    .catch(error => console.log("Problems with your fetch operation", error))
-}
-
-function checkStatus(response) {
-  if (response.ok) {
-    return Promise.resolve(response);
-  } else {
-    return Promise.reject(new Error(response.statusText));
-  }
-}
-
-function sortByPopulation(cityData) {
-  cityData.sort(function (a, b) { return b.population - a.population });
-  return cityData;
-}
-
-
-function appendText(element, text) {
-  return element.innerHTML = text;
-}
-
-function setAtt(element, attribute, name) {
-  return element.setAttribute(attribute, name)
-}
-
-function createNode(element) {
-  return document.createElement(element);
-}
-
-function append(parent, el) {
-  return parent.appendChild(el);
-}
-
-function getById(ele) {
-  return document.getElementById(ele)
-}
-
-function getByName(ele) {
-  return document.getElementsByName(ele)
-}
-
-function removeChilds(parent) {
-  while (parent.hasChildNodes()) {
-    parent.removeChild(parent.lastChild);
-  }
-}
-
-
-
-function setParentColumn() {
-  var toDoButtons = document.getElementsByClassName('btnAdd')
-  for (let button of toDoButtons) {
-    button.addEventListener('click', () => {
-      switch (button.parentElement.previousElementSibling.id) {
-        case "icebox":
-          todoCol = button.parentElement.previousElementSibling;
-          console.log(todoCol);
-          break;
-        case "todo":
-          todoCol = button.parentElement.previousElementSibling;
-          break;
-        case "doing":
-          todoCol = button.parentElement.previousElementSibling;
-          break;
-        case "test":
-          todoCol = button.parentElement.previousElementSibling;
-          break;
-        default:
-          todoCol = button.parentElement.previousElementSibling;
-          break;
-      }
-    })
-  }
-
-}
 // check this for more info about templates
 //https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template
 getById('btnSave').addEventListener('click', () => {
   let template = document.querySelector('#card-template'), //selects a template element card from index
-    toDoCard = document.importNode(template.content, true); //Clones the element and all its childnodes
+      toDoCard = document.importNode(template.content, true), //Clones the element and all its childnodes
+      header = getById('txtCardHeader').value,
+      content = getById('txtCardContent').value,
+      p = toDoCard.querySelectorAll('p'),
+      element = toDoCard.querySelector('#card-body'); // creates an array of all the queried elements
 
-  var p = toDoCard.querySelectorAll('p') // creates an array of all the queried elements
-  p[0].textContent = getById('txtCardHeader').content; //set header data
-  p[1].textContent = getById('txtCardContent').content; //set content data
 
-  todoCol.appendChild(toDoCard)
-  // parentElement.appendChild(toDoCard);
+  p[0].textContent =  header//set header data
+  p[1].textContent =  content//set content data
+
+
+
+    todoCol.appendChild(toDoCard)
+    header.value = '';
+    content.value = '';
+    styleCards(element);
 
 })
 
@@ -271,7 +197,6 @@ function saveToDo() {
   //Adds another button to enable edit
   newToDo.innerHTML += "<button onclick=\"editToDo(this)\" value=\" " + newId + " \" id=\"editBtn\">Edit</button>";
 }
-
 
 function editToDo(myId) {
   //Saves object from JSON to myCard 
@@ -378,4 +303,69 @@ function login() {
     })
     .catch(error => console.log(error));
   //master
+}
+
+
+
+
+// ------------------------------------------------------------------
+// Helper functions
+// ------------------------------------------------------------------
+
+function localGet(key) {
+  return localStorage.getItem(key)
+}
+
+function localSet(key, value) {
+  return localStorage.setItem(key, value)
+}
+function Fetcher(url) {
+  return fetch(url)
+    .then(checkStatus)
+    .then(response => response.json())
+    .catch(error => console.log("Problems with your fetch operation", error))
+}
+
+function checkStatus(response) {
+  if (response.ok) {
+    return Promise.resolve(response);
+  } else {
+    return Promise.reject(new Error(response.statusText));
+  }
+}
+
+function sortByPopulation(cityData) {
+  cityData.sort(function (a, b) { return b.population - a.population });
+  return cityData;
+}
+
+
+function appendText(element, text) {
+  return element.innerHTML = text;
+}
+
+function setAtt(element, attribute, name) {
+  return element.setAttribute(attribute, name)
+}
+
+function createNode(element) {
+  return document.createElement(element);
+}
+
+function append(parent, el) {
+  return parent.appendChild(el);
+}
+
+function getById(ele) {
+  return document.getElementById(ele)
+}
+
+function getByName(ele) {
+  return document.getElementsByName(ele)
+}
+
+function removeChilds(parent) {
+  while (parent.hasChildNodes()) {
+    parent.removeChild(parent.lastChild);
+  }
 }
