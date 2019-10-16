@@ -21,9 +21,9 @@
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
-
+<!-- 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 
 </head>
 
@@ -35,7 +35,7 @@
             <h3>Kanban, Grupp 3</h3>
         </div>
         <div id="btnLogoutContainer" style="flex-grow: 1;">
-            <a id="btnLogout" href="#" onclick="logout()">Logout</a>
+            <a id="btnLogout" href="#">Logout</a>
         </div>
     </header>
     <!-- End Header -->
@@ -75,7 +75,7 @@
                     </div>
                 </div>
                 <div class="column__item--add">
-                    <h6 class="btnAdd" onclick="newToDoCard()"><i class="fas fa-plus"></i> Skapa</h6>
+                    <h6 class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
                 </div>
             </div>
             <div class="column col">
@@ -150,13 +150,13 @@
             <div class="modal-content">
                 <div class="modal-header modalFailure">
                     <h4 class="modal-title">Något gick fel!</h4>
-                    <button type="button" class="close" data-dismiss="modal" onclick="tryAgain()">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
                     <p>Du angav fel användarnamn eller lösenord, prova igen?</p>
                 </div>
                 <div class="modal-footer modalFailure">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="tryAgain()">Ja
+                    <button id="btnTryAgain" type="button" class="btn btn-default" data-dismiss="modal" onclick="tryAgain()">Ja
                         tack</button>
                 </div>
             </div>

@@ -3,7 +3,8 @@
 // ------------------------------------------------------------------
 let dragSourceEl = null;
 var kanbans = document.querySelectorAll('.kanban');
-var toDo;
+var toDoCard;
+var todoCol;
 
 // ------------------------------------------------------------------
 // Drag and Drop
@@ -72,25 +73,31 @@ function sortable(kanban) {
 // });
 
 
-function tryAgain() {
-  getById('wrongEnteredInfoModalContainer').style.display = 'none'; //Placeholder
-  getById('wrapper').style.display = 'none'; //Placeholder
-}
+// function tryAgain() {
+//   getById('wrongEnteredInfoModalContainer').style.display = 'none'; //Placeholder
+//   getById('wrapper').style.display = 'none'; //Placeholder
+// }
 
-function login() {
-  $('#loginModal').modal('hide');
+// function login() {
 
-  document.getElementsByClassName('wrapper')[0].style.display = 'block'; //placeholder
-}
 
-function logout() {
+//   document.getElementsByClassName('wrapper')[0].style.display = 'block'; //placeholder
+// }
+
+$('#btnLogout').click(() => {
   $('#loginModal').modal('show');
   $("#wrapper").removeAttr("style").hide();
-}
+})
 
-function newToDoCard() {
+$('#btnTryAgain').click(() => {
+  $('#wrongEnteredInfoModalContainer').modal('hide');
+  $('#wrapper').modal('hide');
+})
+
+$('.btnAdd').click(() => {
   $('#createNewCard').modal('show');
-}
+})
+
 
 window.addEventListener('load', (e) => {
 
@@ -182,48 +189,48 @@ function removeChilds(parent) {
 }
 
 
-var toDoButtons = document.getElementsByClassName('btnAdd')
 
-for (let button of toDoButtons) {
-  button.addEventListener('click', () => {
-    switch (button.parentElement.previousElementSibling.id) {
-      case "icebox":
-        addToDo(button.parentElement.previousElementSibling)
+function setParentColumn() {
+  var toDoButtons = document.getElementsByClassName('btnAdd')
+  for (let button of toDoButtons) {
+    button.addEventListener('click', () => {
+      switch (button.parentElement.previousElementSibling.id) {
+        case "icebox":
+          todoCol = button.parentElement.previousElementSibling;
+          console.log(todoCol);
+          break;
+        case "todo":
+          todoCol = button.parentElement.previousElementSibling;
+          break;
+        case "doing":
+          todoCol = button.parentElement.previousElementSibling;
+          break;
+        case "test":
+          todoCol = button.parentElement.previousElementSibling;
+          break;
+        default:
+          todoCol = button.parentElement.previousElementSibling;
+          break;
+      }
+    })
+  }
 
-        break;
-      case "todo":
-        addToDo(button.parentElement.previousElementSibling)
-
-        break;
-
-      case "doing":
-        addToDo(button.parentElement.previousElementSibling)
-        break;
-
-      case "test":
-        addToDo(button.parentElement.previousElementSibling)
-        break;
-
-      default:
-        addToDo(button.parentElement.previousElementSibling)
-        break;
-    }
-  })
 }
 // check this for more info about templates
 //https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template
-function addToDo(parentElement) {
-  var template = document.querySelector('#card-template'); //selects a template element card from index
-  console.log(template);
-  var cardClone = document.importNode(template.content, true); //Clones the element and all its childnodes
-  console.log(cardClone);
-  var p = cardClone.querySelectorAll('p') // creates an array of all the queried elements
+getById('btnSave').addEventListener('click', () => {
+  let template = document.querySelector('#card-template'), //selects a template element card from index
+    toDoCard = document.importNode(template.content, true); //Clones the element and all its childnodes
+
+  var p = toDoCard.querySelectorAll('p') // creates an array of all the queried elements
   p[0].textContent = getById('txtCardHeader').content; //set header data
   p[1].textContent = getById('txtCardContent').content; //set content data
 
-  parentElement.appendChild(cardClone);
+  todoCol.appendChild(toDoCard)
+  // parentElement.appendChild(toDoCard);
 
-}
+})
+
 
 //----------------------------Alexander Funktion--------------------------//
 //Get id of addBtn, call function addToDo
