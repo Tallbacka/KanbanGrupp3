@@ -173,7 +173,7 @@ getById('btnSave').addEventListener('click', () => {
   header.value = '';
   content.value = '';
 
-
+  $('#createNewCard').modal('hide');
 
  
 })
@@ -205,13 +205,45 @@ function savedToDo() {
     myNewCol.appendChild(toDoCard)
     styleCards(element);
   }
-
-
-
  // button.setAttribute('data-target', '#' + newId);
   //button.setAttribute('aria-controls', newId);
 }
+function editToDo(myId) {
+  //Saves object from JSON to myCard 
+  var myCard = JSON.parse(localStorage.getItem(myId));
+  console.log(myCard);
+  document.getElementById("cardBtn").innerHTML += "<button id=\"editSave\" type=\button\" class=\"btn btn-primary\">Spara</button>";
+  $('#createNewCard').modal('show');
+  let header = getById('txtCardHeader'),
+      content = getById('txtCardContent');
+  document.getElementById("btnSave").style.display = "none";
+  header.value = myCard.Name;
+  content.value = myCard.Desc;
+  getById("editSave").addEventListener("click", saveEdit);
+  function saveEdit() {
+    localStorage.removeItem(myId.Name);
+    localStorage.removeItem(myId.Desc);
+    getById("editSave").remove();
+    let myInfo = {};
+    myInfo["Name"] = header.value;
+    myInfo["Desc"] = content.value;
+    myInfo["ID"] = myId;
+    myInfo["ColID"] = myCard.ColID;
+    localStorage.setItem(myId, JSON.stringify(myInfo));
+    $('#createNewCard').modal('hide');
 
+  }
+
+
+
+
+
+}
+function removeCard(myId) {
+  getById(Number(myId.value)).remove();
+  localStorage.removeItem(Number(myId.value));
+  alert("Card Removed");
+}
 //----------------------------Alexander Funktion--------------------------//
 //Get id of addBtn, call function addToDo
 
@@ -285,12 +317,6 @@ function editToDo(myId) {
 //AddToDo
 //Removes div with the id of button pressed
 //Removes id from localstorage
-function removeCard(myId) {
-  getById(Number(myId.value)).remove();
-  localStorage.removeItem(Number(myId.value));
-  alert("Card Removed");
-}
-
 //----------------------------Tero Function: save to localStorage--------------------------//
 
 let userInp = document.getElementById('txtUser');
