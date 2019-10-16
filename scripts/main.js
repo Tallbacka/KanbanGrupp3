@@ -35,6 +35,16 @@ function sortable(kanban) {
     onEnd: function (/**Event*/e) {
       var itemEl = e.item;  // dragged HTMLElement
       styleCards(itemEl);
+
+      let newId = itemEl.id; //Fetch id for element being dragged
+      let newCol = document.getElementById(newId).parentElement.id; //Gets id of new parent el
+      let newColId = itemEl.id.slice(1); //Remove #
+      let myInfo = JSON.parse(localStorage.getItem(newColId));
+      myInfo.ColID = newCol;
+      localStorage.setItem(newColId, JSON.stringify(myInfo));
+      console.log(newColId);
+     // console.log(localStorage.getItem(newColId));
+
     },
   })
 }
@@ -201,7 +211,8 @@ function savedToDo() {
     element = toDoCard.querySelector('.card'); // creates an array of all the queried elements
     p[0].textContent = myCards.Name; //set header data
     p[1].textContent = myCards.Desc; //set content data
-
+    div[0].id = '#' + myCards.ID;
+    div[3].id = myCards.ID;
     myNewCol.appendChild(toDoCard)
     styleCards(element);
   }
@@ -221,10 +232,12 @@ function editToDo(myId) {
   content.value = myCard.Desc;
   getById("editSave").addEventListener("click", saveEdit);
   function saveEdit() {
+    
     localStorage.removeItem(myId.Name);
     localStorage.removeItem(myId.Desc);
     getById("editSave").remove();
     let myInfo = {};
+
     myInfo["Name"] = header.value;
     myInfo["Desc"] = content.value;
     myInfo["ID"] = myId;
