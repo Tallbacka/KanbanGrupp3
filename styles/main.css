@@ -21,8 +21,6 @@ body {
 }
 
 #headerContainer {
-    display: flex;
-    justify-content: center;
     height: 3em;
     background-color: rgb(214, 132, 187);
     width: 100%;
@@ -59,15 +57,30 @@ body {
     font-weight: 700;
 }
 
+a{
+    color: black;
+    text-decoration: none;
+    
+}
+a:hover{
+    color: black;
+    text-decoration:none; 
+}
+
 .btnAdd, .btnDelete, .btnEdit:hover {
-    cursor: pointer;
+    
+     cursor:pointer; 
 }
 
 .btnAdd{
-    height: 20px;
+    height: auto;
 }
 .btnAdd:active{
     background-color: initial;
+}
+
+.modal-dialog{
+    height: 100px !important;
 }
 
 .modalLogin{
@@ -103,7 +116,7 @@ body {
 
 .column__item--add {
     display: flex;
-    height: 30px;
+    height: 27px;
     justify-content: center;
     margin-top: 10px;
     border-radius: 4px;

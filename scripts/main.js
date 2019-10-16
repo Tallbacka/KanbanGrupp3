@@ -7,9 +7,40 @@ var toDoCard;
 var todoCol;
 
 // ------------------------------------------------------------------
+// Eventlisteners
+// ------------------------------------------------------------------
+$(document).ready(() => {
+  $('#headerContainer, .wrapper').hide(500);
+  $('#loginModal').modal({ backdrop: 'static', keyboard: false });
+  document.querySelectorAll('.list-group-item').forEach(element => {
+    styleCards(element);
+  });
+});
+
+$('.btnAdd').click(() => {
+  $('#createNewCard').modal('show');
+  $("#txtCardHeader").val('')
+  $("#txtCardContent").val('')
+  $('txtCardHeader', (element)=>{
+    header.setAttribute('placeholder', '')
+  })
+})
+
+$('#btnLogout').click(() => {
+  $('#loginModal').modal({ backdrop: 'static', keyboard: false });//if click outside the modal, it wont disapear
+  $('#headerContainer, .wrapper').hide(500);
+})
+
+$('#btnTryAgain').click(() => {
+  $('#wrongEnteredInfoModalContainer, #wrapper').modal('hide');
+})
+
+// ------------------------------------------------------------------
 // Drag and Drop
 // ------------------------------------------------------------------
-
+$(function () {
+  $("#newCardModal").draggable();
+});
 
 kanbans.forEach(kanban => {
   sortable(kanban);
@@ -63,53 +94,6 @@ function styleCards(element) {
   }
 }
 
-// ------------------------------------------------------------------
-// Eventlisteners
-// ------------------------------------------------------------------
-// $(window).on('load',function(){
-//   $('#loginModal').modal('show');
-// })
-
-// window.addEventListener('load', (e) => {
-//   document.getElementsByClassName('wrapper')[0].style.display = 'none';
-// });
-
-
-// function tryAgain() {
-//   getById('wrongEnteredInfoModalContainer').style.display = 'none'; //Placeholder
-//   getById('wrapper').style.display = 'none'; //Placeholder
-// }
-
-// function login() {
-
-
-//   document.getElementsByClassName('wrapper')[0].style.display = 'block'; //placeholder
-// }
-
-$('.btnAdd').click(() => {
-  $('#createNewCard').modal('show');
-  header = getById('txtCardHeader')
-  header.setAttribute('placeholder', '')
-})
-
-$('#btnLogout').click(() => {
-  $('#loginModal').modal('show');
-  $("#wrapper").removeAttr("style").hide();
-})
-
-$('#btnTryAgain').click(() => {
-  $('#wrongEnteredInfoModalContainer').modal('hide');
-  $('#wrapper').modal('hide');
-})
-
-
-
-$(window).on('load', function () {
-  document.querySelectorAll('.list-group-item').forEach(element => {
-    styleCards(element);
-  });
-})
-
 
 var toDoButtons = document.getElementsByClassName('btnAdd')
 for (let button of toDoButtons) {
@@ -156,22 +140,30 @@ getById('btnSave').addEventListener('click', () => {
   if (!isStringNullOrWhiteSpace(header.value)) {
     p[0].textContent = header.value//set header data
     p[1].textContent = content.value//set content data
-  
+
     todoCol.appendChild(toDoCard)
     styleCards(element);
     header.value = '';
     content.value = '';
-  
+
     $('.btnEdit').click(() => {
-      console.log('tryck');
       $('#createNewCard').modal('show');
       header.setAttribute('placeholder', '')
     })
-  }else{
-    console.log('?????');
-      header.setAttribute('placeholder', 'Du måste minst ange rubrik för att spara')
-  } 
+  } else {
+    header.setAttribute('placeholder', 'Ange rubrik för att spara')
+  }
+
+  var pointers = document.getElementsByClassName('expandButton');
+  for (var i = 0; i < pointers.length; i++) {
+    pointers[i].addEventListener('click', function (e) {
+      var itemEl = e.item;
+      e.target.getElementsByClassName('fa-angle-double-right')[0].classList.toggle('rotated');
+    });
+  }
+
 })
+
 
 function saveToDo() {
   let toDoName = getById("toDoHeader").value,
@@ -239,10 +231,9 @@ function removeCard(myId) {
 
 //----------------------------Tero Function: save to localStorage--------------------------//
 
-let userInp = document.getElementById('txtUser');
-let userPass = document.getElementById('txtPassword');
-
-let verification = false;
+let userInp = document.getElementById('txtUser'),
+  userPass = document.getElementById('txtPassword'),
+  verification = false;
 
 function login() {
 
@@ -292,19 +283,15 @@ function login() {
       }
       else if (verification === true) {
         $('#loginModal').modal('hide');
-        document.getElementsByClassName('wrapper')[0].style.display = 'block';
-        // getById("modalContainer").style.display = "none";
-        // getById("headerContainer").style.display = "block";
-        // getById("formatContainer").style.display = "block";
+        $('#headerContainer, .wrapper').show(3000);
+        $("#txtUserName").text(userInp.value);
+        $("#txtUser").val('')
+        $("#txtPassword").val('')
       }
-
     })
     .catch(error => console.log(error));
   //master
 }
-
-
-
 
 // ------------------------------------------------------------------
 // Helper functions
