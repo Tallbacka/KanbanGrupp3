@@ -22,7 +22,7 @@
 </head>
 
 <body id="body">
-
+    <body onload="savedToDo()">
     <!-- Header -->
     <div class="container-fluid" id="headerContainer">
         <div class="row justify-content-between">
@@ -49,7 +49,7 @@
                 <hr>
                 <div id="icebox" class="list-group kanban"></div>
                 <div class="column__item--add">
-                    <a onclick="myCol(this.id)" id="doing" href="#" class="btnAdd"><i
+                    <a onclick="myCol(this.id)" id="aIcebox" href="#" class="btnAdd"><i
                             class="fas fa-plus align-middle"></i> Skapa</a>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                 <hr>
                 <div id="todo" class="col-sm list-group kanban"></div>
                 <div class="column__item--add">
-                    <a onclick="myCol(this.id)" id="doing" href="#" class="btnAdd"><i
+                    <a onclick="myCol(this.id)" id="aTodo" href="#" class="btnAdd"><i
                             class="fas fa-plus align-middle"></i> Skapa</a>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                 <hr>
                 <div id="doing" class="col-sm list-group kanban"></div>
                 <div class="column__item--add">
-                    <a onclick="myCol(this.id)" id="doing" href="#" class="btnAdd"><i
+                    <a onclick="myCol(this.id)" id="aDoing" href="#" class="btnAdd"><i
                             class="fas fa-plus align-middle"></i> Skapa</a>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                 <hr>
                 <div id="test" class="col-sm list-group kanban"></div>
                 <div class="column__item--add">
-                    <a onclick="myCol(this.id)" id="doing" href="#" class="btnAdd"><i
+                    <a onclick="myCol(this.id)" id="aTest" href="#" class="btnAdd"><i
                             class="fas fa-plus align-middle"></i> Skapa</a>
                 </div>
             </div>
@@ -97,7 +97,7 @@
                 <hr>
                 <div id="done" class="col-sm list-group kanban"></div>
                 <div class="column__item--add align-middle">
-                    <a onclick="myCol(this.id)" id="doing" href="#" class="btnAdd"><i
+                    <a onclick="myCol(this.id)" id="done" href="#" class="btnAdd"><i
                             class="fas fa-plus align-middle"></i> Skapa</a>
                 </div>
             </div>
@@ -169,7 +169,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div id="cardBtn" class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
                     <button id="btnSave" type="button" class="btn btn-primary">Spara</button>
                 </div>
@@ -177,7 +177,6 @@
         </div>
     </div>
     <!-- End create new card modal -->
-
 
     <!-- card template -->
     <template id="card-template">
