@@ -21,7 +21,7 @@
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
-<!-- 
+    <!-- 
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
 
@@ -48,47 +48,23 @@
                     <h4>ICEBOX</h4>
                 </div>
                 <hr>
-                <div id="icebox" class="list-group kanban">
-                    <div id="item1" class="list-group-item">
-                        <button class="expandButton" type="button" data-toggle="collapse" data-target="#item1Collapse"
-                            aria-expanded="false" aria-controls="item1Collapse">
-                            <p class="txtHead">Funktion, skapa flode for flowchat med mera och mera och mera anda</p>
-                            <div class="w-100"></div>
-                            <div><i class="fas fa-angle-double-right rotate"></i></div>
-                        </button>
-                        <div class="collapse" id="item1Collapse">
-                            <div class="card card-body">
-                                <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson
-                                    ad squid. Nihil
-                                    anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
-                                    proident.</p>
-                                <div class="btnContainer">
-                                    <div class="column__item--edit">
-                                        <i class="btnEdit fas fa-pen"></i>
-                                    </div>
-                                    <div class="column__item--delete">
-                                        <i class="btnDelete far fa-trash-alt"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div id="icebox" class="list-group kanban"></div>
                 <div class="column__item--add">
                     <h6 class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
                 </div>
             </div>
+
             <div class="column col">
                 <div class="colHeader" style="background-color: rgb(187, 152, 228) ;">
                     <h4>TODO</h4>
                 </div>
                 <hr>
-                <div id="todo" class="col-sm list-group kanban">
-                </div>
+                <div id="todo" class="col-sm list-group kanban"></div>
                 <div class="column__item--add">
                     <h6 class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
                 </div>
             </div>
+
             <div class="column col">
                 <div class="colHeader" style="background-color: rgb(228, 189, 152)">
                     <h4>DOING</h4>
@@ -99,6 +75,7 @@
                     <h6 class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
                 </div>
             </div>
+
             <div class="column col">
                 <div class="colHeader" style="background-color: rgb(228, 152, 171)">
                     <h4>TEST</h4>
@@ -109,6 +86,7 @@
                     <h6 class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
                 </div>
             </div>
+            
             <div class="column col">
                 <div class="colHeader" style="background-color: rgb(163, 228, 152)">
                     <h4>DONE</h4>
@@ -198,14 +176,14 @@
 
     <!-- card template -->
     <template id="card-template">
-        <div id="card-body" class="list-group-item">
+        <div id="id" class="list-group-item card">
             <button class="expandButton" type="button" data-toggle="collapse" data-target="#item1Collapse"
-                aria-expanded="false" aria-controls="item1Collapse">
+                aria-expanded="false" aria-controls="id">
                 <p class="txtHead"></p>
                 <div class="w-100"></div>
                 <div><i class="fas fa-angle-double-right rotate"></i></div>
             </button>
-            <div class="collapse" id="item1Collapse">
+            <div class="collapse" id="id">
                 <div class="card card-body">
                     <p></p>
                     <div class="btnContainer">

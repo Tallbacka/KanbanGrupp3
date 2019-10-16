@@ -100,11 +100,8 @@ $('#btnTryAgain').click(() => {
   $('#wrapper').modal('hide');
 })
 
-$('.list-group-item').click(() => {
-  $('#createNewCard').modal('show');
-})
 
-$(window).on('load', function() {
+$(window).on('load', function () {
   document.querySelectorAll('.list-group-item').forEach(element => {
     styleCards(element);
   });
@@ -137,24 +134,31 @@ for (let button of toDoButtons) {
 // check this for more info about templates
 //https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template
 getById('btnSave').addEventListener('click', () => {
-  let template = document.querySelector('#card-template'), //selects a template element card from index
-      toDoCard = document.importNode(template.content, true), //Clones the element and all its childnodes
-      header = getById('txtCardHeader').value,
-      content = getById('txtCardContent').value,
-      p = toDoCard.querySelectorAll('p'),
-      element = toDoCard.querySelector('#card-body'); // creates an array of all the queried elements
+  let newId = Date.now(),
+    template = document.querySelector('#card-template'), //selects a template element card from index
+    toDoCard = document.importNode(template.content, true), //Clones the element and all its childnodes
+    header = getById('txtCardHeader'),
+    content = getById('txtCardContent'),
+    p = toDoCard.querySelectorAll('p'),
+    div = toDoCard.querySelectorAll('div'),
+    button = toDoCard.querySelector('button'),
+    element = toDoCard.querySelector('.card'); // creates an array of all the queried elements
 
+  div[0].id = '#' + newId ;
+  div[3].id = newId;
+  
+  button.setAttribute('data-target', '#' + newId);
+  button.setAttribute('aria-controls', newId);
 
-  p[0].textContent =  header//set header data
-  p[1].textContent =  content//set content data
+  p[0].textContent = header.value//set header data
+  p[1].textContent = content.value//set content data
 
+  console.log(Object(element));
 
-
-    todoCol.appendChild(toDoCard)
-    header.value = '';
-    content.value = '';
-    styleCards(element);
-
+  todoCol.appendChild(toDoCard)
+  styleCards(element);
+  header.value = '';
+  content.value = '';
 })
 
 
