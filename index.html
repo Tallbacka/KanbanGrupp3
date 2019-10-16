@@ -28,7 +28,7 @@
 </head>
 
 <body id="body">
-
+    <body onload="savedToDo()">
     <!-- Header -->
     <header id="headerContainer">
         <div id="header">
@@ -50,7 +50,7 @@
                 <hr>
                 <div id="icebox" class="list-group kanban"></div>
                 <div class="column__item--add">
-                    <h6 class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
+                    <h6 onclick="myCol(this.id)" id="icebox" class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
                 </div>
             </div>
 
@@ -61,7 +61,7 @@
                 <hr>
                 <div id="todo" class="col-sm list-group kanban"></div>
                 <div class="column__item--add">
-                    <h6 class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
+                    <h6 onclick="myCol(this.id)" id="todo" class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
                 </div>
             </div>
 
@@ -72,7 +72,7 @@
                 <hr>
                 <div id="doing" class="col-sm list-group kanban"></div>
                 <div class="column__item--add">
-                    <h6 class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
+                    <h6 onclick="myCol(this.id)" id="doing" class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
                 </div>
             </div>
 
@@ -83,7 +83,7 @@
                 <hr>
                 <div id="test" class="col-sm list-group kanban"></div>
                 <div class="column__item--add">
-                    <h6 class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
+                    <h6 onclick="myCol(this.id)" id="test" class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
                 </div>
             </div>
             
@@ -94,7 +94,7 @@
                 <hr>
                 <div id="done" class="col-sm list-group kanban"></div>
                 <div class="column__item--add">
-                    <h6 class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
+                    <h6 onclick="myCol(this.id)" id="done" class="btnAdd"><i class="fas fa-plus"></i> Skapa</h6>
                 </div>
             </div>
         </div>
