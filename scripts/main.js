@@ -9,13 +9,14 @@ var myCol1; //Fetches new id from button pressed
 // ------------------------------------------------------------------
 // Eventlisteners
 // ------------------------------------------------------------------
-$(document).ready(() => {
-  $('#headerContainer, .wrapper').hide(500);
-  $('#loginModal').modal({ backdrop: 'static', keyboard: false });
-  document.querySelectorAll('.list-group-item').forEach(element => {
-    styleCards(element);
-  });
-});
+
+// $(document).ready(() => {
+//   $('#headerContainer, .wrapper').hide(500);
+//   $('#loginModal').modal({ backdrop: 'static', keyboard: false });
+//   document.querySelectorAll('.list-group-item').forEach(element => {
+//     styleCards(element);
+//   });
+// });
 
 $('.btnAdd').click(() => {
   $('#createNewCard').modal('show');
@@ -142,6 +143,7 @@ function myCol(colValue) {
 }
 getById('btnSave').addEventListener('click', () => {
   let newId = 'a' + Date.now(),
+    dataTargetId = newId.slice(1),
     template = document.querySelector('#card-template'), //selects a template element card from index
     toDoCard = document.importNode(template.content, true), //Clones the element and all its childnodes
     header = getById('txtCardHeader'),
@@ -152,12 +154,12 @@ getById('btnSave').addEventListener('click', () => {
     button = toDoCard.querySelector('button'),
     element = toDoCard.querySelector('.card'); // creates an array of all the queried elements
 
-  div[0].id = '#' + newId;
-  div[3].id = newId;
+  div[0].id = newId;
+  div[3].id = 'b' + dataTargetId;
   iButton[1].id = newId;
 
-  button.setAttribute('data-target', '#' + newId);
-  button.setAttribute('aria-controls', newId);
+  button.setAttribute('data-target', '#b' + dataTargetId);
+  button.setAttribute('aria-controls', 'b' + dataTargetId);
 
 
   if (!isStringNullOrWhiteSpace(header.value)) {
@@ -169,7 +171,7 @@ getById('btnSave').addEventListener('click', () => {
     let userId = localStorage.getItem('uId');
     console.log(userId);
 
-  
+
 
     // saves info to localstorage
     let myInfo = {};
@@ -227,7 +229,7 @@ function editToDo(myId) {
   document.getElementById("cardBtn").innerHTML += "<button id=\"editSave\" type=\button\" class=\"btn btn-primary\">Spara</button>";
   $('#createNewCard').modal('show');
   let header = getById('txtCardHeader'),
-      content = getById('txtCardContent');
+    content = getById('txtCardContent');
   document.getElementById("btnSave").style.display = "none";
   header.value = myCard.Name;
   content.value = myCard.Desc;
@@ -242,7 +244,7 @@ function editToDo(myId) {
     myInfo["ID"] = myId;
     myInfo["ColID"] = myCard.ColID;
 
-    let targetDiv = "#";
+    let targetDiv = "a";
     targetDiv += myId;
     let myNewHeader = document.getElementById(targetDiv).querySelectorAll("p");
     myNewHeader[0].innerHTML = header.value;
@@ -265,19 +267,27 @@ function reloadToDo() {
     console.log(myCards.ColID);
     var myNewCol = document.getElementById(myCards.ColID);
 
+
     let template = document.querySelector('#card-template'), //selects a template element card from index
       toDoCard = document.importNode(template.content, true), //Clones the element and all its childnodes
       header = getById('txtCardHeader'),
       content = getById('txtCardContent'),
       p = toDoCard.querySelectorAll('p'),
+      iButton = toDoCard.querySelectorAll('i'),
       div = toDoCard.querySelectorAll('div'),
       button = toDoCard.querySelector('button'),
-      element = toDoCard.querySelector('.card'); // creates an array of all the queried elements
+      element = toDoCard.querySelector('.card'), // creates an array of all the queried elements
+      temp = myCards.ID.slice(1);
+      console.log(temp);
+    button.setAttribute('data-target', '#b' + temp);
+    button.setAttribute('aria-controls', 'b' + temp);
+
 
     p[0].textContent = myCards.Name; //set header data
     p[1].textContent = myCards.Desc; //set content data
     div[0].id = '#' + myCards.ID;
-    div[3].id = 'a' + myCards.ID;
+    div[3].id = 'b' + temp;
+    iButton[1] = myCards.ID;
     myNewCol.appendChild(toDoCard)
     styleCards(element);
   }
