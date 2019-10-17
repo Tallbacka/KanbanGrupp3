@@ -264,7 +264,7 @@ function reloadToDo() {
       p = toDoCard.querySelectorAll('p'),
       iButton = toDoCard.querySelectorAll('i'),
       div = toDoCard.querySelectorAll('div'),
-      span = toDoCard.querySelectorAll('span'),
+      span = toDoCard.querySelector('span'),
       button = toDoCard.querySelector('button'),
       element = toDoCard.querySelector('.card'), // creates an array of all the queried elements
       temp = myCards.ID.slice(1);
@@ -279,7 +279,7 @@ function reloadToDo() {
     div[0].id = '#' + myCards.ID;
     div[3].id = 'b' + temp;
     iButton[1].id = myCards.ID;
-    span = myCards.userId;
+    span.textContent = myCards.creator;
     myNewCol.appendChild(toDoCard)
     styleCards(element);
   }
