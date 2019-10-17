@@ -229,12 +229,19 @@ function editToDo(myId) {
     localStorage.removeItem(myId.Name);
     localStorage.removeItem(myId.Desc);
     getById("editSave").remove();
-    let myInfo = {};
 
+
+    let myInfo = {};
     myInfo["Name"] = header.value;
     myInfo["Desc"] = content.value;
     myInfo["ID"] = myId;
     myInfo["ColID"] = myCard.ColID;
+
+    let targetDiv = "#";
+    targetDiv += myId;
+    let myNewHeader = document.getElementById(targetDiv).querySelectorAll("p");
+    myNewHeader[0].innerHTML = header.value;
+    myNewHeader[1].innerHTML = content.value;
     localStorage.setItem(myId, JSON.stringify(myInfo));
     document.getElementById("btnSave").style.display = "block";
     $('#createNewCard').modal('hide');
