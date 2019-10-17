@@ -242,6 +242,13 @@ function editToDo(myId) {
     myInfo["Desc"] = content.value;
     myInfo["ID"] = myId;
     myInfo["ColID"] = myCard.ColID;
+   // let myNewPara = document.getElementById(myId).childNodes;
+    //myNewPara[0].innerHTML = content.value;
+    let targetDiv = "#";
+    targetDiv += myId;
+    let myNewHeader = document.getElementById(targetDiv).querySelectorAll("p");
+    myNewHeader[0].innerHTML = header.value;
+    myNewHeader[1].innerHTML = content.value;
     localStorage.setItem(myId, JSON.stringify(myInfo));
     document.getElementById("btnSave").style.display = "block";
     $('#createNewCard').modal('hide');
