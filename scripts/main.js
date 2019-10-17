@@ -21,8 +21,8 @@ $('.btnAdd').click(() => {
   $('#createNewCard').modal('show');
   $("#txtCardHeader").val('')
   $("#txtCardContent").val('')
-  $('txtCardHeader', (element)=>{
-    header.setAttribute('placeholder', '')
+  $('txtCardHeader', (element) => {
+    element.setAttribute('placeholder', '')
   })
 })
 
@@ -74,7 +74,7 @@ function sortable(kanban) {
       myInfo.ColID = newCol;
       localStorage.setItem(newColId, JSON.stringify(myInfo));
       console.log(newColId);
-     // console.log(localStorage.getItem(newColId));
+      // console.log(localStorage.getItem(newColId));
 
     },
   })
@@ -154,123 +154,125 @@ getById('btnSave').addEventListener('click', () => {
     p[0].textContent = header.value//set header data
     p[1].textContent = content.value//set content data
 
+    console.log(Object(element));
 
-  console.log(Object(element));
+    let userId = localStorage.getItem('uId');
+    console.log(userId);
 
-  let userId = localStorage.getItem('uId');
-  console.log(userId);
-
-//saves info to localstorage
- let myInfo = {};
- myInfo["userId"] = userId;
- myInfo["Name"] = header.value;
- myInfo["Desc"] = content.value;
- myInfo["ID"] = newId;
- myInfo["ColID"] = myCol1;
- localStorage.setItem(newId, JSON.stringify(myInfo));
-
-
- //
-  todoCol.appendChild(toDoCard)
-  styleCards(element);
-  header.value = '';
-  content.value = '';
-
-  $('#createNewCard').modal('hide');
-
- 
-})
-var myCol1 = ""; //Fetches new id from button pressed
-function myCol(colValue) {
-  myCol1 = colValue;
-}
-function savedToDo() {
-  //Saves object from JSON to myCard 
- // var usrCard = JSON.parse(localStorage.getItem);
-  var mySaved = (Object.keys(localStorage));
-  console.log(mySaved);
-  for (var i = 0; i<mySaved.length; i++) {
-    var myCards = JSON.parse(localStorage.getItem(mySaved[i]));
-    console.log(myCards.ColID);
-    var myNewCol = document.getElementById(myCards.ColID);
-
-    let template = document.querySelector('#card-template'), //selects a template element card from index
-    toDoCard = document.importNode(template.content, true), //Clones the element and all its childnodes
-    header = getById('txtCardHeader'),
-    content = getById('txtCardContent'),
-    p = toDoCard.querySelectorAll('p'),
-    div = toDoCard.querySelectorAll('div'),
-    button = toDoCard.querySelector('button'),
-    element = toDoCard.querySelector('.card'); // creates an array of all the queried elements
-    p[0].textContent = myCards.Name; //set header data
-    p[1].textContent = myCards.Desc; //set content data
-    div[0].id = '#' + myCards.ID;
-    div[3].id = myCards.ID;
-    myNewCol.appendChild(toDoCard)
-    styleCards(element);
-  }
- // button.setAttribute('data-target', '#' + newId);
-  //button.setAttribute('aria-controls', newId);
-}
-function editToDo(myId) {
-  //Saves object from JSON to myCard 
-  var myCard = JSON.parse(localStorage.getItem(myId));
-  console.log(myCard);
-  document.getElementById("cardBtn").innerHTML += "<button id=\"editSave\" type=\button\" class=\"btn btn-primary\">Spara</button>";
-  $('#createNewCard').modal('show');
-  let header = getById('txtCardHeader'),
-      content = getById('txtCardContent');
-  document.getElementById("btnSave").style.display = "none";
-  header.value = myCard.Name;
-  content.value = myCard.Desc;
-  getById("editSave").addEventListener("click", saveEdit);
-  function saveEdit() {
-    
-    localStorage.removeItem(myId.Name);
-    localStorage.removeItem(myId.Desc);
-    getById("editSave").remove();
-
-
+    //saves info to localstorage
     let myInfo = {};
+    myInfo["userId"] = userId;
     myInfo["Name"] = header.value;
     myInfo["Desc"] = content.value;
-    myInfo["ID"] = myId;
-    myInfo["ColID"] = myCard.ColID;
-
-    let targetDiv = "#";
-    targetDiv += myId;
-    let myNewHeader = document.getElementById(targetDiv).querySelectorAll("p");
-    myNewHeader[0].innerHTML = header.value;
-    myNewHeader[1].innerHTML = content.value;
-    localStorage.setItem(myId, JSON.stringify(myInfo));
-    document.getElementById("btnSave").style.display = "block";
-    $('#createNewCard').modal('hide');
-
-  }
+    myInfo["ID"] = newId;
+    myInfo["ColID"] = myCol1;
+    localStorage.setItem(newId, JSON.stringify(myInfo));
 
 
-
+    //
     todoCol.appendChild(toDoCard)
     styleCards(element);
     header.value = '';
     content.value = '';
 
+    $('#createNewCard').modal('hide');
+
+
+    var myCol1 = ""; //Fetches new id from button pressed
+    function myCol(colValue) {
+      myCol1 = colValue;
+    }
+    function savedToDo() {
+      //Saves object from JSON to myCard 
+      // var usrCard = JSON.parse(localStorage.getItem);
+      var mySaved = (Object.keys(localStorage));
+      console.log(mySaved);
+      for (var i = 0; i < mySaved.length; i++) {
+        var myCards = JSON.parse(localStorage.getItem(mySaved[i]));
+        console.log(myCards.ColID);
+        var myNewCol = document.getElementById(myCards.ColID);
+
+        let template = document.querySelector('#card-template'), //selects a template element card from index
+          toDoCard = document.importNode(template.content, true), //Clones the element and all its childnodes
+          header = getById('txtCardHeader'),
+          content = getById('txtCardContent'),
+          p = toDoCard.querySelectorAll('p'),
+          div = toDoCard.querySelectorAll('div'),
+          button = toDoCard.querySelector('button'),
+          element = toDoCard.querySelector('.card'); // creates an array of all the queried elements
+
+        p[0].textContent = myCards.Name; //set header data
+        p[1].textContent = myCards.Desc; //set content data
+        div[0].id = '#' + myCards.ID;
+        div[3].id = myCards.ID;
+        myNewCol.appendChild(toDoCard)
+        styleCards(element);
+      }
+    }
 
     $('.btnEdit').click(() => {
       $('#createNewCard').modal('show');
-      header.setAttribute('placeholder', '')
+      header.setAttribute('placeholder', '');
     })
+
+    function editToDo(myId) {
+      //Saves object from JSON to myCard 
+      var myCard = JSON.parse(localStorage.getItem(myId));
+      console.log(myCard);
+      document.getElementById("cardBtn").innerHTML += "<button id=\"editSave\" type=\button\" class=\"btn btn-primary\">Spara</button>";
+      $('#createNewCard').modal('show');
+      let header = getById('txtCardHeader'),
+        content = getById('txtCardContent');
+      document.getElementById("btnSave").style.display = "none";
+      header.value = myCard.Name;
+      content.value = myCard.Desc;
+      getById("editSave").addEventListener("click", saveEdit);
+
+      function saveEdit() {
+
+        localStorage.removeItem(myId.Name);
+        localStorage.removeItem(myId.Desc);
+        getById("editSave").remove();
+
+
+        let myInfo = {};
+        myInfo["Name"] = header.value;
+        myInfo["Desc"] = content.value;
+        myInfo["ID"] = myId;
+        myInfo["ColID"] = myCard.ColID;
+
+        let targetDiv = "#";
+        targetDiv += myId;
+        let myNewHeader = document.getElementById(targetDiv).querySelectorAll("p");
+        myNewHeader[0].innerHTML = header.value;
+        myNewHeader[1].innerHTML = content.value;
+        localStorage.setItem(myId, JSON.stringify(myInfo));
+        document.getElementById("btnSave").style.display = "block";
+        $('#createNewCard').modal('hide');
+
+      }
+
+      todoCol.appendChild(toDoCard)
+      styleCards(element);
+      header.value = '';
+      content.value = '';
+
+
+    }
+   
   } else {
     header.setAttribute('placeholder', 'Ange rubrik för att spara')
   }
-}
-function removeCard(myId) {
-  getById(Number(myId.value)).remove();
-  localStorage.removeItem(Number(myId.value));
-  alert("Card Removed");
-}
-//----------------------------Alexander Funktion--------------------------//
-//Get id of addBtn, call function addToDo
+
+
+
+  function removeCard(myId) {
+    getById(Number(myId.value)).remove();
+    localStorage.removeItem(Number(myId.value));
+    alert("Card Removed");
+  }
+  //----------------------------Alexander Funktion--------------------------//
+  //Get id of addBtn, call function addToDo
 
 
   var pointers = document.getElementsByClassName('expandButton');
@@ -291,7 +293,7 @@ function saveToDo() {
   newToDo.innerHTML += "<button onclick=\"removeCard(this)\" value=\" " + newId + " \" id=\"removeBtn\">Delete</button>";
 
   //New object with key "Name" and "desc"
- 
+
   //Saves into localstorage
   localStorage.setItem(newId, JSON.stringify(myInfo));
   console.log(myInfo);
@@ -300,40 +302,7 @@ function saveToDo() {
   //Adds another button to enable edit
   newToDo.innerHTML += "<button onclick=\"editToDo(this)\" value=\" " + newId + " \" id=\"editBtn\">Edit</button>";
 }
-/*
-function editToDo(myId) {
-  //Saves object from JSON to myCard 
-  var myCard = JSON.parse(localStorage.getItem(Number(myId.value)));
 
-  //Gets id from the button pressed
-  var newCol = getById(Number(myId.value));
-
-  //Lets user edit his card
-  newCol.innerHTML = "Name: <br><input type=\"text\" id=\"toDoHeader\" value=\"" + myCard.Name + "\" style=\"width:100%;\">";
-  newCol.innerHTML += "Description: <br><input type=\"text\" id=\"toDoDesc\" value=\"" + myCard.Desc + "\"style=\"width:100%;\">";
-  newCol.innerHTML += "<button id=\"saveEdit\">Spara</button>";
-  getById("saveEdit").addEventListener("click", saveEdit);
-
-  //Calls the save function
-  function saveEdit() {
-    let toDoName = getById("toDoHeader").value,
-      toDoDesc = getById("toDoDesc").value,
-      newToDo = getById(Number(myId.value));
-    newToDo.innerHTML = "<h5>" + toDoName + "</h5>";
-    newToDo.innerHTML += "<p>" + toDoDesc + "</p>";
-    newToDo.innerHTML += "<button onclick=\"editToDo(this)\" value=\" " + Number(myId.value) + " \" id=\"editBtn\">Edit</button>";
-    //Removes id from localstorage then sets a new one 
-    localStorage.removeItem(Number(myId.value));
-
-    let myInfo = {};
-    myInfo["Name"] = toDoName;
-    myInfo["Desc"] = toDoDesc;
-    newToDo.innerHTML += "<button onclick=\"removeCard(this)\" value=\" " + Number(myId.value) + " \" id=\"removeBtn\">Delete</button>";
-    localStorage.setItem(Number(myId.value), JSON.stringify(myInfo));
-
-  }
-}
-*/
 //AddToDo
 //Removes div with the id of button pressed
 //Removes id from localstorage
