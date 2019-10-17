@@ -167,9 +167,12 @@ getById('btnSave').addEventListener('click', () => {
 
   console.log(Object(element));
 
+  let userId = localStorage.getItem('uId');
+  console.log(userId);
 
 //saves info to localstorage
  let myInfo = {};
+ myInfo["userId"] = userId;
  myInfo["Name"] = header.value;
  myInfo["Desc"] = content.value;
  myInfo["ID"] = newId;
@@ -350,8 +353,10 @@ function login() {
 
         if (userInp.value === userToLocal[u].username) {
 
-          const key = userToLocal[u].id;
-          const value = userToLocal[u].username;
+          const key = 'uId';
+          const value = userToLocal[u].id;
+
+          localStorage.removeItem('uId');
 
           localSet(key, value)
         }// End of if
