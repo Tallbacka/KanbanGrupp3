@@ -236,14 +236,14 @@ function editToDo(myId) {
     localStorage.removeItem(myId.Name);
     localStorage.removeItem(myId.Desc);
     getById("editSave").remove();
-    let myInfo = {};
 
+
+    let myInfo = {};
     myInfo["Name"] = header.value;
     myInfo["Desc"] = content.value;
     myInfo["ID"] = myId;
     myInfo["ColID"] = myCard.ColID;
-   // let myNewPara = document.getElementById(myId).childNodes;
-    //myNewPara[0].innerHTML = content.value;
+
     let targetDiv = "#";
     targetDiv += myId;
     let myNewHeader = document.getElementById(targetDiv).querySelectorAll("p");
