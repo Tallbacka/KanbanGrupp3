@@ -220,19 +220,21 @@ getById('btnSave').addEventListener('click', () => {
 //Get id of addBtn, call function addToDo
 function editToDo(myId) {
   //Saves object from JSON to myCard
+  console.log(myId);
   temp1 = myId.toString();
   temp = temp1.slice(1);
 
-  console.log(temp);
   var myCard = JSON.parse(localStorage.getItem(myId));
-  console.log(myCard);
   document.getElementById("cardBtn").innerHTML += "<button id=\"editSave\" type=\button\" class=\"btn btn-primary\">Spara</button>";
   $('#createNewCard').modal('show');
   let header = getById('txtCardHeader'),
-    content = getById('txtCardContent');
-  document.getElementById("btnSave").style.display = "none";
-  header.value = myCard.Name;
-  content.value = myCard.Desc;
+      content = getById('txtCardContent');
+      document.getElementById("btnSave").style.display = "none";
+    
+      header.value = myCard.Name;
+      content.value = myCard.Desc;
+
+
   getById("editSave").addEventListener("click", saveEdit);
   function saveEdit() {
     localStorage.removeItem(myId.Name);
@@ -261,10 +263,9 @@ function reloadToDo() {
   //Saves object from JSON to myCard 
   // var usrCard = JSON.parse(localStorage.getItem);
   var mySaved = (Object.keys(localStorage));
-  console.log(mySaved);
   for (var i = 0; i < mySaved.length; i++) {
     var myCards = JSON.parse(localStorage.getItem(mySaved[i]));
-    console.log(myCards.ColID);
+    console.log(myCards);
     var myNewCol = document.getElementById(myCards.ColID);
 
 
@@ -278,7 +279,8 @@ function reloadToDo() {
       button = toDoCard.querySelector('button'),
       element = toDoCard.querySelector('.card'), // creates an array of all the queried elements
       temp = myCards.ID.slice(1);
-      console.log(temp);
+
+      
     button.setAttribute('data-target', '#b' + temp);
     button.setAttribute('aria-controls', 'b' + temp);
 
@@ -287,7 +289,7 @@ function reloadToDo() {
     p[1].textContent = myCards.Desc; //set content data
     div[0].id = '#' + myCards.ID;
     div[3].id = 'b' + temp;
-    iButton[1] = myCards.ID;
+    iButton[1].id = myCards.ID;
     myNewCol.appendChild(toDoCard)
     styleCards(element);
   }
