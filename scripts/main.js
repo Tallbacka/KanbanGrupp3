@@ -240,9 +240,13 @@ function editToDo(myId) {
     myInfo["ID"] = myId;
     myInfo["ColID"] = myCard.ColID;
 
-    let targetDiv = "a";
+    let targetDiv = "#";
     targetDiv += myId;
+    console.log(targetDiv);
     let myNewHeader = document.getElementById(targetDiv).querySelectorAll("p");
+
+    console.log(myNewHeader)
+
     myNewHeader[0].innerHTML = header.value;
     myNewHeader[1].innerHTML = content.value;
     localStorage.setItem(myId, JSON.stringify(myInfo));
