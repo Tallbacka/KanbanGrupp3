@@ -21,8 +21,8 @@
 
 </head>
 
-<body id="body" >
-        <!-- onload="savedToDo()" -->
+<body onload="savedToDo()" id="body" >
+
     <body >
     <!-- Header -->
     <div class="container-fluid" id="headerContainer">
@@ -50,7 +50,7 @@
                 <hr>
                 <div id="icebox" class="list-group kanban"></div>
                 <div class="column__item--add">
-                    <a id="Icebox" href="#" class="btnAdd"><i
+                    <a onclick="myCol(this.id)" id="icebox" href="#" class="btnAdd"><i
                             class="fas fa-plus align-middle"></i> Skapa</a>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                 <hr>
                 <div id="todo" class="col-sm list-group kanban"></div>
                 <div class="column__item--add">
-                    <a onclick="myCol(this.id)" id="Todo" href="#" class="btnAdd"><i
+                    <a onclick="myCol(this.id)" id="todo" href="#" class="btnAdd"><i
                             class="fas fa-plus align-middle"></i> Skapa</a>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                 <hr>
                 <div id="doing" class="col-sm list-group kanban"></div>
                 <div class="column__item--add">
-                    <a onclick="myCol(this.id)" id="Doing" href="#" class="btnAdd"><i
+                    <a onclick="myCol(this.id)" id="doing" href="#" class="btnAdd"><i
                             class="fas fa-plus align-middle"></i> Skapa</a>
                 </div>
             </div>
@@ -87,7 +87,7 @@
                 <hr>
                 <div id="test" class="col-sm list-group kanban"></div>
                 <div class="column__item--add">
-                    <a onclick="myCol(this.id)" id="Test" href="#" class="btnAdd"><i
+                    <a onclick="myCol(this.id)" id="test" href="#" class="btnAdd"><i
                             class="fas fa-plus align-middle"></i> Skapa</a>
                 </div>
             </div>
@@ -99,7 +99,7 @@
                 <hr>
                 <div id="done" class="col-sm list-group kanban"></div>
                 <div class="column__item--add align-middle">
-                    <a onclick="myCol(this.id)" id="Done" href="#" class="btnAdd"><i
+                    <a onclick="myCol(this.id)" id="done" href="#" class="btnAdd"><i
                             class="fas fa-plus align-middle"></i> Skapa</a>
                 </div>
             </div>

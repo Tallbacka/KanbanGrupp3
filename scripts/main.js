@@ -140,7 +140,7 @@ function myCol(colValue) {
   myCol1 = colValue;
 }
 getById('btnSave').addEventListener('click', () => {
-  let newId = 'a' + Date.now(),
+  let newId = Date.now(),
     template = document.querySelector('#card-template'), //selects a template element card from index
     toDoCard = document.importNode(template.content, true), //Clones the element and all its childnodes
     header = getById('txtCardHeader'),
@@ -188,9 +188,7 @@ getById('btnSave').addEventListener('click', () => {
     header.setAttribute('placeholder', 'Ange rubrik för att spara')
   }
 
-  savedToDo();
 
-  editToDo(myId)
 
   function removeCard(myId) {
     getById(Number(myId.value)).remove();
@@ -222,43 +220,33 @@ function editToDo(myId) {
   document.getElementById("cardBtn").innerHTML += "<button id=\"editSave\" type=\button\" class=\"btn btn-primary\">Spara</button>";
   $('#createNewCard').modal('show');
   let header = getById('txtCardHeader'),
-    content = getById('txtCardContent');
+      content = getById('txtCardContent');
   document.getElementById("btnSave").style.display = "none";
   header.value = myCard.Name;
   content.value = myCard.Desc;
   getById("editSave").addEventListener("click", saveEdit);
+  function saveEdit() {
+    localStorage.removeItem(myId.Name);
+    localStorage.removeItem(myId.Desc);
+    getById("editSave").remove();
+    let myInfo = {};
+    myInfo["Name"] = header.value;
+    myInfo["Desc"] = content.value;
+    myInfo["ID"] = myId;
+    myInfo["ColID"] = myCard.ColID;
 
-  saveEdit()
-  todoCol = getById(myId)
-  todoCol.appendChild(toDoCard)
-  styleCards(element);
-  header.value = '';
-  content.value = '';
+    let targetDiv = "#";
+    targetDiv += myId;
+    let myNewHeader = document.getElementById(targetDiv).querySelectorAll("p");
+    myNewHeader[0].innerHTML = header.value;
+    myNewHeader[1].innerHTML = content.value;
+    localStorage.setItem(myId, JSON.stringify(myInfo));
+    $('#createNewCard').modal('hide');
+
+  }
 }
 
 
-function saveEdit() {
-
-  localStorage.removeItem(myId.Name);
-  localStorage.removeItem(myId.Desc);
-  getById("editSave").remove();
-
-
-  let myInfo = {};
-  myInfo["Name"] = header.value;
-  myInfo["Desc"] = content.value;
-  myInfo["ID"] = myId;
-  myInfo["ColID"] = myCard.ColID;
-
-  let targetDiv = "#";
-  targetDiv += myId;
-  let myNewHeader = document.getElementById(targetDiv).querySelectorAll("p");
-  myNewHeader[0].innerHTML = header.value;
-  myNewHeader[1].innerHTML = content.value;
-  localStorage.setItem(myId, JSON.stringify(myInfo));
-  document.getElementById("btnSave").style.display = "block";
-  $('#createNewCard').modal('hide');
-}
 
 function savedToDo() {
   //Saves object from JSON to myCard 
