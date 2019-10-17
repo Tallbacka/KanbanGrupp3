@@ -35,6 +35,7 @@ $('#btnTryAgain').click(() => {
   $('#wrongEnteredInfoModalContainer, #wrapper').modal('hide');
 })
 
+
 // ------------------------------------------------------------------
 // Drag and Drop
 // ------------------------------------------------------------------
@@ -140,18 +141,20 @@ function myCol(colValue) {
   myCol1 = colValue;
 }
 getById('btnSave').addEventListener('click', () => {
-  let newId = Date.now(),
+  let newId = 'a' + Date.now(),
     template = document.querySelector('#card-template'), //selects a template element card from index
     toDoCard = document.importNode(template.content, true), //Clones the element and all its childnodes
     header = getById('txtCardHeader'),
     content = getById('txtCardContent'),
     p = toDoCard.querySelectorAll('p'),
+    iButton = toDoCard.querySelectorAll('i'),
     div = toDoCard.querySelectorAll('div'),
     button = toDoCard.querySelector('button'),
     element = toDoCard.querySelector('.card'); // creates an array of all the queried elements
 
   div[0].id = '#' + newId;
   div[3].id = newId;
+  iButton[1].id = newId;
 
   button.setAttribute('data-target', '#' + newId);
   button.setAttribute('aria-controls', newId);
@@ -214,7 +217,11 @@ getById('btnSave').addEventListener('click', () => {
 //----------------------------Alexander Funktion--------------------------//
 //Get id of addBtn, call function addToDo
 function editToDo(myId) {
-  //Saves object from JSON to myCard 
+  //Saves object from JSON to myCard
+  temp1 = myId.toString();
+  temp = temp1.slice(1);
+
+  console.log(temp);
   var myCard = JSON.parse(localStorage.getItem(myId));
   console.log(myCard);
   document.getElementById("cardBtn").innerHTML += "<button id=\"editSave\" type=\button\" class=\"btn btn-primary\">Spara</button>";
@@ -248,7 +255,7 @@ function editToDo(myId) {
 
 
 
-function savedToDo() {
+function reloadToDo() {
   //Saves object from JSON to myCard 
   // var usrCard = JSON.parse(localStorage.getItem);
   var mySaved = (Object.keys(localStorage));
@@ -270,7 +277,7 @@ function savedToDo() {
     p[0].textContent = myCards.Name; //set header data
     p[1].textContent = myCards.Desc; //set content data
     div[0].id = '#' + myCards.ID;
-    div[3].id = myCards.ID;
+    div[3].id = 'a' + myCards.ID;
     myNewCol.appendChild(toDoCard)
     styleCards(element);
   }

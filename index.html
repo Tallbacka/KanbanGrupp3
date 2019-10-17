@@ -21,9 +21,8 @@
 
 </head>
 
-<body onload="savedToDo()" id="body" >
+<body onload="reloadToDo()" id="body" >
 
-    <body >
     <!-- Header -->
     <div class="container-fluid" id="headerContainer">
         <div class="row justify-content-between">
@@ -194,7 +193,7 @@
                     <p></p>
                     <div class="btnContainer">
                         <div class="column__item--edit">
-                            <i class="btnEdit fas fa-pen"></i>
+                            <i onclick="editToDo(this.id)" id="btnEdit" class="btnEdit fas fa-pen"></i>
                         </div>
                         <div class="column__item--delete">
                             <i id="btnDelete" class="btnDelete far fa-trash-alt"></i>
