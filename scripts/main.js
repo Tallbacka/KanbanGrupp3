@@ -149,14 +149,19 @@ getById('btnSave').addEventListener('click', () => {
     p = toDoCard.querySelectorAll('p'),
     iButton = toDoCard.querySelectorAll('i'),
     div = toDoCard.querySelectorAll('div'),
-    span = toDoCard.querySelectorAll('span'),
+    span = toDoCard.querySelector('span'),
     button = toDoCard.querySelector('button'),
     element = toDoCard.querySelector('.card'); // creates an array of all the queried elements
 
   div[0].id = newId;
   div[3].id = 'b' + dataTargetId;
   iButton[1].id = newId;
-  span = getById('txtUserName').value;
+  span.textContent = localStorage.getItem('creator');
+
+  
+   console.log(span);
+
+  
 
   button.setAttribute('data-target', '#b' + dataTargetId);
   button.setAttribute('aria-controls', 'b' + dataTargetId);
@@ -165,17 +170,17 @@ getById('btnSave').addEventListener('click', () => {
   if (!isStringNullOrWhiteSpace(header.value)) {
     p[0].textContent = header.value//set header data
     p[1].textContent = content.value//set content data
-
-    let userId = localStorage.getItem('uId');
-
+    console.log(span);
     // saves info to localstorage
     let myInfo = {};
-    myInfo["userId"] = span;
+    myInfo["creator"] = span.value;
     myInfo["Name"] = header.value;
     myInfo["Desc"] = content.value;
     myInfo["ID"] = newId;
     myInfo["ColID"] = myCol1;
     localStorage.setItem(newId, JSON.stringify(myInfo));
+
+    console.log(span.value);
 
     todoCol.appendChild(toDoCard)
     styleCards(element);
@@ -256,24 +261,25 @@ function reloadToDo() {
 
     let template = document.querySelector('#card-template'), //selects a template element card from index
       toDoCard = document.importNode(template.content, true), //Clones the element and all its childnodes
-      header = getById('txtCardHeader'),
-      content = getById('txtCardContent'),
       p = toDoCard.querySelectorAll('p'),
       iButton = toDoCard.querySelectorAll('i'),
       div = toDoCard.querySelectorAll('div'),
+      span = toDoCard.querySelectorAll('span'),
       button = toDoCard.querySelector('button'),
       element = toDoCard.querySelector('.card'), // creates an array of all the queried elements
       temp = myCards.ID.slice(1);
 
     button.setAttribute('data-target', '#b' + temp);
     button.setAttribute('aria-controls', 'b' + temp);
-
+    
+    console.log(myCards.userId);
 
     p[0].textContent = myCards.Name; //set header data
     p[1].textContent = myCards.Desc; //set content data
     div[0].id = '#' + myCards.ID;
     div[3].id = 'b' + temp;
     iButton[1].id = myCards.ID;
+    span = myCards.userId;
     myNewCol.appendChild(toDoCard)
     styleCards(element);
   }
@@ -286,6 +292,7 @@ function reloadToDo() {
 
 let userInp = document.getElementById('txtUser'),
   userPass = document.getElementById('txtPassword'),
+  userName = getById('txtUserName').textContent,
   verification = false;
 
 function login() {
@@ -300,12 +307,13 @@ function login() {
 
         if (userInp.value === userToLocal[u].username) {
 
-          const key = 'uId';
-          const value = userToLocal[u].id;
+          const key = 'creator';
+          const value = userToLocal[u].username;
+          
 
-          localStorage.removeItem('uId');
+          localStorage.removeItem('creator');
 
-          localSet(key, value)
+          localSet(key , value);
         }// End of if
       }// End of for
     })
