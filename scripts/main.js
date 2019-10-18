@@ -1,41 +1,52 @@
 // ------------------------------------------------------------------
-// Global
+// Globals
 // ------------------------------------------------------------------
 let dragSourceEl = null;
 var kanbans = document.querySelectorAll('.kanban');
 var toDoCard;
 var todoCol;
 var myCol1; //Fetches new id from button pressed
+var creatorUsr;
 // ------------------------------------------------------------------
 // Eventlisteners
 // ------------------------------------------------------------------
 
-// $(document).ready(() => {
-//   $('#headerContainer, .wrapper').hide(500);
-//   $('#loginModal').modal({ backdrop: 'static', keyboard: false });
-//   document.querySelectorAll('.list-group-item').forEach(element => {
-//     styleCards(element);
-//   });
-// });
+$(document).ready(() => {
+  reloadToDo();
+  if (localStorage.getItem('creator') !== null) {
+    $('#loginModal').modal('hide');
+    document.querySelectorAll('.list-group-item').forEach(element => {
+      styleCards(element);
+    })
+    getById('txtUserName').textContent = localStorage.getItem('creator');
+  } else {
+    $('#headerContainer, .wrapper').hide(500);
+    $('#loginModal').modal({ backdrop: 'static', keyboard: false });
+  }
+});
 
 $('.btnAdd').click(() => {
   $('#createNewCard').modal('show');
   $("#txtCardHeader").val('')
   $("#txtCardContent").val('')
-  $('txtCardHeader', (element) => {
-    element.setAttribute('placeholder', '')
-  })
+  $('txtCardHeader').attr('placeholder', '')
 })
 
 $('#btnLogout').click(() => {
   $('#loginModal').modal({ backdrop: 'static', keyboard: false });//if click outside the modal, it wont disapear
   $('#headerContainer, .wrapper').hide(500);
+
 })
 
 $('#btnTryAgain').click(() => {
   $('#wrongEnteredInfoModalContainer, #wrapper').modal('hide');
 })
 
+function deleteCard(e) {
+  e.path[5].remove()
+  localStorage.removeItem(e.path[5].id)
+  console.log(localStorage);
+}
 
 // ------------------------------------------------------------------
 // Drag and Drop
@@ -71,13 +82,10 @@ function sortable(kanban) {
 
       let newId = itemEl.id; //Fetch id for element being dragged
       let newCol = document.getElementById(newId).parentElement.id; //Gets id of new parent el
-      let newColId = itemEl.id.slice(1); //Remove #
+      let newColId = itemEl.id; //Remove #
       let myInfo = JSON.parse(localStorage.getItem(newColId));
       myInfo.ColID = newCol;
       localStorage.setItem(newColId, JSON.stringify(myInfo));
-      console.log(newColId);
-      // console.log(localStorage.getItem(newColId));
-
     },
   })
 }
@@ -106,7 +114,6 @@ function styleCards(element) {
   }
 }
 
-
 var toDoButtons = document.getElementsByClassName('btnAdd')
 for (let button of toDoButtons) {
   button.addEventListener('click', () => {
@@ -130,17 +137,11 @@ for (let button of toDoButtons) {
   })
 }
 
-// check this for more info about templates
-//https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template
-
-// ////////////////////////
-// End of one big function
-// ////////////////////////
 var myCol1 = ""; //Fetches new id from button pressed
 function myCol(colValue) {
-  console.log('test');
   myCol1 = colValue;
 }
+
 getById('btnSave').addEventListener('click', () => {
   let newId = 'a' + Date.now(),
     dataTargetId = newId.slice(1),
@@ -151,12 +152,14 @@ getById('btnSave').addEventListener('click', () => {
     p = toDoCard.querySelectorAll('p'),
     iButton = toDoCard.querySelectorAll('i'),
     div = toDoCard.querySelectorAll('div'),
+    span = toDoCard.querySelector('span'),
     button = toDoCard.querySelector('button'),
     element = toDoCard.querySelector('.card'); // creates an array of all the queried elements
 
   div[0].id = newId;
   div[3].id = 'b' + dataTargetId;
   iButton[1].id = newId;
+  span.textContent = localStorage.getItem('creator');
 
   button.setAttribute('data-target', '#b' + dataTargetId);
   button.setAttribute('aria-controls', 'b' + dataTargetId);
@@ -166,16 +169,9 @@ getById('btnSave').addEventListener('click', () => {
     p[0].textContent = header.value//set header data
     p[1].textContent = content.value//set content data
 
-    console.log(Object(element));
-
-    let userId = localStorage.getItem('uId');
-    console.log(userId);
-
-
-
     // saves info to localstorage
     let myInfo = {};
-    myInfo["userId"] = userId;
+    myInfo["creator"] = localStorage.getItem('creator')
     myInfo["Name"] = header.value;
     myInfo["Desc"] = content.value;
     myInfo["ID"] = newId;
@@ -193,14 +189,6 @@ getById('btnSave').addEventListener('click', () => {
     header.setAttribute('placeholder', 'Ange rubrik för att spara')
   }
 
-
-
-  function removeCard(myId) {
-    getById(Number(myId.value)).remove();
-    localStorage.removeItem(Number(myId.value));
-    alert("Card Removed");
-  }
-
   var pointers = document.getElementsByClassName('expandButton');
   for (var i = 0; i < pointers.length; i++) {
     pointers[i].addEventListener('click', function (e) {
@@ -209,31 +197,29 @@ getById('btnSave').addEventListener('click', () => {
     });
   }
 })
+
 // ////////////////////////
 // End of one big function
 // ////////////////////////
-
-
-
 
 //----------------------------Alexander Funktion--------------------------//
 //Get id of addBtn, call function addToDo
 function editToDo(myId) {
   //Saves object from JSON to myCard
-  console.log(myId);
   temp1 = myId.toString();
   temp = temp1.slice(1);
 
   var myCard = JSON.parse(localStorage.getItem(myId));
   document.getElementById("cardBtn").innerHTML += "<button id=\"editSave\" type=\button\" class=\"btn btn-primary\">Spara</button>";
-  $('#createNewCard').modal('show');
-  let header = getById('txtCardHeader'),
-      content = getById('txtCardContent');
-      document.getElementById("btnSave").style.display = "none";
-    
-      header.value = myCard.Name;
-      content.value = myCard.Desc;
 
+  let header = getById('txtCardHeader'),
+    content = getById('txtCardContent');
+  document.getElementById("btnSave").style.display = "none";
+
+  header.value = myCard.Name;
+  content.value = myCard.Desc;
+
+  $('#createNewCard').modal('show');
 
   getById("editSave").addEventListener("click", saveEdit);
   function saveEdit() {
@@ -246,52 +232,49 @@ function editToDo(myId) {
     myInfo["ID"] = myId;
     myInfo["ColID"] = myCard.ColID;
 
-    let targetDiv = "a";
+    let targetDiv = "";
     targetDiv += myId;
+    console.log(targetDiv);
     let myNewHeader = document.getElementById(targetDiv).querySelectorAll("p");
+
     myNewHeader[0].innerHTML = header.value;
     myNewHeader[1].innerHTML = content.value;
     localStorage.setItem(myId, JSON.stringify(myInfo));
     $('#createNewCard').modal('hide');
-
   }
 }
-
-
 
 function reloadToDo() {
   //Saves object from JSON to myCard 
   // var usrCard = JSON.parse(localStorage.getItem);
   var mySaved = (Object.keys(localStorage));
   for (var i = 0; i < mySaved.length; i++) {
-    var myCards = JSON.parse(localStorage.getItem(mySaved[i]));
-    console.log(myCards);
-    var myNewCol = document.getElementById(myCards.ColID);
+    if (localStorage.key(i) !== "creator") {
+      var myCards = JSON.parse(localStorage.getItem(mySaved[i]));
+      var myNewCol = document.getElementById(myCards.ColID);
 
+      let template = document.querySelector('#card-template'), //selects a template element card from index
+        toDoCard = document.importNode(template.content, true), //Clones the element and all its childnodes
+        p = toDoCard.querySelectorAll('p'),
+        iButton = toDoCard.querySelectorAll('i'),
+        div = toDoCard.querySelectorAll('div'),
+        span = toDoCard.querySelector('span'),
+        button = toDoCard.querySelector('button'),
+        element = toDoCard.querySelector('.card'), // creates an array of all the queried elements
+        temp = myCards.ID.slice(1);
 
-    let template = document.querySelector('#card-template'), //selects a template element card from index
-      toDoCard = document.importNode(template.content, true), //Clones the element and all its childnodes
-      header = getById('txtCardHeader'),
-      content = getById('txtCardContent'),
-      p = toDoCard.querySelectorAll('p'),
-      iButton = toDoCard.querySelectorAll('i'),
-      div = toDoCard.querySelectorAll('div'),
-      button = toDoCard.querySelector('button'),
-      element = toDoCard.querySelector('.card'), // creates an array of all the queried elements
-      temp = myCards.ID.slice(1);
+      button.setAttribute('data-target', '#b' + temp);
+      button.setAttribute('aria-controls', 'b' + temp);
 
-      
-    button.setAttribute('data-target', '#b' + temp);
-    button.setAttribute('aria-controls', 'b' + temp);
-
-
-    p[0].textContent = myCards.Name; //set header data
-    p[1].textContent = myCards.Desc; //set content data
-    div[0].id = '#' + myCards.ID;
-    div[3].id = 'b' + temp;
-    iButton[1].id = myCards.ID;
-    myNewCol.appendChild(toDoCard)
-    styleCards(element);
+      p[0].textContent = myCards.Name; //set header data
+      p[1].textContent = myCards.Desc; //set content data
+      div[0].id = myCards.ID;
+      div[3].id = 'b' + temp;
+      iButton[1].id = myCards.ID;
+      span.textContent = myCards.creator;
+      myNewCol.appendChild(toDoCard)
+      styleCards(element);
+    }
   }
 }
 
@@ -302,6 +285,7 @@ function reloadToDo() {
 
 let userInp = document.getElementById('txtUser'),
   userPass = document.getElementById('txtPassword'),
+  userName = getById('txtUserName').textContent,
   verification = false;
 
 function login() {
@@ -316,12 +300,13 @@ function login() {
 
         if (userInp.value === userToLocal[u].username) {
 
-          const key = 'uId';
-          const value = userToLocal[u].id;
+          const key = 'creator';
+          const value = userToLocal[u].username;
 
-          localStorage.removeItem('uId');
 
-          localSet(key, value)
+          localStorage.removeItem('creator');
+
+          localSet(key, value);
         }// End of if
       }// End of for
     })
@@ -341,7 +326,6 @@ function login() {
           let verification = true;
           return verification;
         }// End of if
-
       }// End of for
 
       return verification;
@@ -374,7 +358,6 @@ function isStringNullOrWhiteSpace(str) {
     || str.match(/^ *$/) !== null;
 }
 
-
 function localGet(key) {
   return localStorage.getItem(key)
 }
@@ -401,7 +384,6 @@ function sortByPopulation(cityData) {
   cityData.sort(function (a, b) { return b.population - a.population });
   return cityData;
 }
-
 
 function appendText(element, text) {
   return element.innerHTML = text;
@@ -432,3 +414,4 @@ function removeChilds(parent) {
     parent.removeChild(parent.lastChild);
   }
 }
+
