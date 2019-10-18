@@ -24,8 +24,9 @@ $(document).ready(() => {
     $('#loginModal').modal({ backdrop: 'static', keyboard: false });
   }
 });
-
 $('.btnAdd').click(() => {
+  $('#btnSave').show();
+  $('#btnSaveEdit').hide();
   $('#createNewCard').modal('show');
   $("#txtCardHeader").val('')
   $("#txtCardContent").val('')
@@ -156,6 +157,8 @@ getById('btnSave').addEventListener('click', () => {
     button = toDoCard.querySelector('button'),
     element = toDoCard.querySelector('.card'); // creates an array of all the queried elements
 
+    
+
   div[0].id = newId;
   div[3].id = 'b' + dataTargetId;
   iButton[1].id = newId;
@@ -205,27 +208,26 @@ getById('btnSave').addEventListener('click', () => {
 //----------------------------Alexander Funktion--------------------------//
 //Get id of addBtn, call function addToDo
 function editToDo(myId) {
+  
   //Saves object from JSON to myCard
   temp1 = myId.toString();
   temp = temp1.slice(1);
-
   var myCard = JSON.parse(localStorage.getItem(myId));
-  document.getElementById("cardBtn").innerHTML += "<button id=\"editSave\" type=\button\" class=\"btn btn-primary\">Spara</button>";
 
   let header = getById('txtCardHeader'),
     content = getById('txtCardContent');
   document.getElementById("btnSave").style.display = "none";
+  document.getElementById("btnSaveEdit").style.display = "block";
 
   header.value = myCard.Name;
   content.value = myCard.Desc;
 
   $('#createNewCard').modal('show');
 
-  getById("editSave").addEventListener("click", saveEdit);
+  getById("btnSaveEdit").addEventListener("click", saveEdit);
   function saveEdit() {
     localStorage.removeItem(myId.Name);
     localStorage.removeItem(myId.Desc);
-    getById("editSave").remove();
     let myInfo = {};
     myInfo["Name"] = header.value;
     myInfo["Desc"] = content.value;
@@ -240,6 +242,7 @@ function editToDo(myId) {
     myNewHeader[0].innerHTML = header.value;
     myNewHeader[1].innerHTML = content.value;
     localStorage.setItem(myId, JSON.stringify(myInfo));
+    // document.getElementById("btnSave").style.display = "block";
     $('#createNewCard').modal('hide');
   }
 }
