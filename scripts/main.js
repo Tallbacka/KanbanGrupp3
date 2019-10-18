@@ -22,7 +22,7 @@ $(document).ready(() => {
   //   $('#headerContainer, .wrapper').hide(500);
   //   $('#loginModal').modal({ backdrop: 'static', keyboard: false });
   // }
-
+  console.log(localStorage);
 });
 
 $('.btnAdd').click(() => {
@@ -44,13 +44,11 @@ $('#btnTryAgain').click(() => {
   $('#wrongEnteredInfoModalContainer, #wrapper').modal('hide');
 })
 
-function deleteCard(e){
-
+function deleteCard(e) {
+  tempSliced = e.path[5].id.slice(1)
   e.path[5].remove()
-  localStorage.removeItem()
-  
+  localStorage.removeItem(tempSliced)
 }
-console.log(localStorage);
 
 // ------------------------------------------------------------------
 // Drag and Drop
@@ -217,14 +215,14 @@ function editToDo(myId) {
 
   var myCard = JSON.parse(localStorage.getItem(myId));
   document.getElementById("cardBtn").innerHTML += "<button id=\"editSave\" type=\button\" class=\"btn btn-primary\">Spara</button>";
-  $('#createNewCard').modal('show');
+  
   let header = getById('txtCardHeader'),
     content = getById('txtCardContent');
-  document.getElementById("btnSave").style.display = "none";
+    document.getElementById("btnSave").style.display = "none";
 
   header.value = myCard.Name;
   content.value = myCard.Desc;
-
+$('#createNewCard').modal('show');
   getById("editSave").addEventListener("click", saveEdit);
   function saveEdit() {
     localStorage.removeItem(myId.Name);
@@ -270,7 +268,7 @@ function reloadToDo() {
 
     button.setAttribute('data-target', '#b' + temp);
     button.setAttribute('aria-controls', 'b' + temp);
-    
+
     p[0].textContent = myCards.Name; //set header data
     p[1].textContent = myCards.Desc; //set content data
     div[0].id = '#' + myCards.ID;
@@ -306,18 +304,18 @@ function login() {
 
           const key = 'creator';
           const value = userToLocal[u].username;
-          
+
 
           localStorage.removeItem('creator');
 
-          localSet(key , value);
+          localSet(key, value);
         }// End of if
       }// End of for
     })
     .catch(error => console.log(JSON.stringify(error)));
 
   //----------------------------Tero Function: verify user & password--------------------------//
-    
+
   fetch("./json/user.json")
     .then(function (response) {
       return response.json();
