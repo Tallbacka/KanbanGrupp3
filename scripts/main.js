@@ -214,7 +214,8 @@ function editToDo(myId) {
 
   let header = getById('txtCardHeader'),
     content = getById('txtCardContent');
-  document.getElementById("btnSave").style.display = "none";
+    
+    document.getElementById("btnSave").style.display = "none";
 
   header.value = myCard.Name;
   content.value = myCard.Desc;
