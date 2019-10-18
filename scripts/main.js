@@ -23,7 +23,9 @@ $(document).ready(() => {
     $('#headerContainer, .wrapper').hide(500);
     $('#loginModal').modal({ backdrop: 'static', keyboard: false });
   }
+  
 });
+
 $('.btnAdd').click(() => {
   $('#btnSave').show();
   $('#btnSaveEdit').hide();
@@ -44,6 +46,7 @@ $('#btnTryAgain').click(() => {
 })
 
 function deleteCard(e) {
+  $("[data-toggle='tooltip']").tooltip('hide');
   e.path[5].remove()
   localStorage.removeItem(e.path[5].id)
   console.log(localStorage);
@@ -157,7 +160,7 @@ getById('btnSave').addEventListener('click', () => {
     button = toDoCard.querySelector('button'),
     element = toDoCard.querySelector('.card'); // creates an array of all the queried elements
 
-    
+
 
   div[0].id = newId;
   div[3].id = 'b' + dataTargetId;
@@ -191,14 +194,7 @@ getById('btnSave').addEventListener('click', () => {
   } else {
     header.setAttribute('placeholder', 'Ange rubrik för att spara')
   }
-
-  var pointers = document.getElementsByClassName('expandButton');
-  for (var i = 0; i < pointers.length; i++) {
-    pointers[i].addEventListener('click', function (e) {
-      var itemEl = e.item;
-      e.target.getElementsByClassName('fa-angle-double-right')[0].classList.toggle('rotated');
-    });
-  }
+  $('[data-toggle="tooltip"]').tooltip();
 })
 
 // ////////////////////////
@@ -208,7 +204,7 @@ getById('btnSave').addEventListener('click', () => {
 //----------------------------Alexander Funktion--------------------------//
 //Get id of addBtn, call function addToDo
 function editToDo(myId) {
-  
+
   //Saves object from JSON to myCard
   temp1 = myId.toString();
   temp = temp1.slice(1);
@@ -279,6 +275,7 @@ function reloadToDo() {
       styleCards(element);
     }
   }
+  $('[data-toggle="tooltip"]').tooltip();
 }
 
 //AddToDo
