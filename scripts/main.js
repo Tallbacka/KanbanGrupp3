@@ -165,7 +165,7 @@ getById('btnSave').addEventListener('click', () => {
   div[0].id = newId;
   div[3].id = 'b' + dataTargetId;
   iButton[1].id = newId;
-  span.textContent = localStorage.getItem('creator');
+  span.textContent = 'Skapad av: ' + localStorage.getItem('creator');
 
   button.setAttribute('data-target', '#b' + dataTargetId);
   button.setAttribute('aria-controls', 'b' + dataTargetId);
@@ -270,7 +270,7 @@ function reloadToDo() {
       div[0].id = myCards.ID;
       div[3].id = 'b' + temp;
       iButton[1].id = myCards.ID;
-      span.textContent = myCards.creator;
+      span.textContent = 'Skapad av: ' + myCards.creator;
       myNewCol.appendChild(toDoCard)
       styleCards(element);
     }
