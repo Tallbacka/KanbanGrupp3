@@ -13,16 +13,16 @@ var creatorUsr;
 
 $(document).ready(() => {
   reloadToDo();
-  if (localStorage.getItem('uId') !== null) {
+  if (localStorage.getItem('creator') !== null) {
     $('#loginModal').modal('hide');
     document.querySelectorAll('.list-group-item').forEach(element => {
       styleCards(element);
     })
+    getById('txtUserName').textContent = localStorage.getItem('creator');
   } else {
     $('#headerContainer, .wrapper').hide(500);
     $('#loginModal').modal({ backdrop: 'static', keyboard: false });
   }
-  console.log(localStorage);
 });
 
 $('.btnAdd').click(() => {
@@ -161,8 +161,6 @@ getById('btnSave').addEventListener('click', () => {
   iButton[1].id = newId;
   span.textContent = localStorage.getItem('creator');
 
-
-
   button.setAttribute('data-target', '#b' + dataTargetId);
   button.setAttribute('aria-controls', 'b' + dataTargetId);
 
@@ -179,7 +177,6 @@ getById('btnSave').addEventListener('click', () => {
     myInfo["ID"] = newId;
     myInfo["ColID"] = myCol1;
     localStorage.setItem(newId, JSON.stringify(myInfo));
-
 
     todoCol.appendChild(toDoCard)
     styleCards(element);
