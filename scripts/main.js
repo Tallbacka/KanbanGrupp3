@@ -13,15 +13,15 @@ var creatorUsr;
 
 $(document).ready(() => {
   reloadToDo();
-  // if (localStorage.getItem('uId') !== null) {
-  //   $('#loginModal').modal('hide');
-  //   document.querySelectorAll('.list-group-item').forEach(element => {
-  //     styleCards(element);
-  //   })
-  // } else {
-  //   $('#headerContainer, .wrapper').hide(500);
-  //   $('#loginModal').modal({ backdrop: 'static', keyboard: false });
-  // }
+  if (localStorage.getItem('uId') !== null) {
+    $('#loginModal').modal('hide');
+    document.querySelectorAll('.list-group-item').forEach(element => {
+      styleCards(element);
+    })
+  } else {
+    $('#headerContainer, .wrapper').hide(500);
+    $('#loginModal').modal({ backdrop: 'static', keyboard: false });
+  }
   console.log(localStorage);
 });
 
@@ -29,9 +29,7 @@ $('.btnAdd').click(() => {
   $('#createNewCard').modal('show');
   $("#txtCardHeader").val('')
   $("#txtCardContent").val('')
-  $('txtCardHeader', (element) => {
-    element.setAttribute('placeholder', '')
-  })
+  $('txtCardHeader').attr('placeholder', '')
 })
 
 $('#btnLogout').click(() => {
@@ -215,14 +213,16 @@ function editToDo(myId) {
 
   var myCard = JSON.parse(localStorage.getItem(myId));
   document.getElementById("cardBtn").innerHTML += "<button id=\"editSave\" type=\button\" class=\"btn btn-primary\">Spara</button>";
-  
+
   let header = getById('txtCardHeader'),
     content = getById('txtCardContent');
-    document.getElementById("btnSave").style.display = "none";
+  document.getElementById("btnSave").style.display = "none";
 
   header.value = myCard.Name;
   content.value = myCard.Desc;
-$('#createNewCard').modal('show');
+
+  $('#createNewCard').modal('show');
+
   getById("editSave").addEventListener("click", saveEdit);
   function saveEdit() {
     localStorage.removeItem(myId.Name);
@@ -234,12 +234,10 @@ $('#createNewCard').modal('show');
     myInfo["ID"] = myId;
     myInfo["ColID"] = myCard.ColID;
 
-    let targetDiv = "#";
+    let targetDiv = "";    
     targetDiv += myId;
     console.log(targetDiv);
     let myNewHeader = document.getElementById(targetDiv).querySelectorAll("p");
-
-    console.log(myNewHeader)
 
     myNewHeader[0].innerHTML = header.value;
     myNewHeader[1].innerHTML = content.value;
@@ -271,7 +269,7 @@ function reloadToDo() {
 
     p[0].textContent = myCards.Name; //set header data
     p[1].textContent = myCards.Desc; //set content data
-    div[0].id = '#' + myCards.ID;
+    div[0].id = myCards.ID;
     div[3].id = 'b' + temp;
     iButton[1].id = myCards.ID;
     span.textContent = myCards.creator;
