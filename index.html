@@ -32,10 +32,7 @@
                 <h4 style="margin-top: 10px;">Kanban</h4>
             </div>
             <div class="col-md-auto">
-                <span>
-                <h4 style="margin-top: 10px;" id="">Välkommen </h4>
                 <h4 style="margin-top: 10px;" id="txtUserName"></h4>
-            </span>
             </div>
             <div class="col col-lg-2">
                 <a id="btnLogout" href="#">Logout</a>
@@ -179,6 +176,7 @@
                     
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Stäng</button>
                     <button id="btnSave" type="button" class="btn btn-primary">Spara</button>
+                    <button id="btnSaveEdit" type="button" class="btn btn-primary">Spara</button>
                 </div>
             </div>
         </div>
@@ -192,7 +190,7 @@
                 aria-expanded="false" aria-controls="id">
                 <p class="txtHead"></p>
                 <div class="w-100"></div>
-                <div><i class="fas fa-angle-double-right rotate"></i></div>
+                <div style="float: left;"><i class="fas fa-stream"></i></div>
             </button>
             <div class="collapse" id="id">
                 <div class="card card-body">
@@ -202,7 +200,7 @@
                             <i onclick="editToDo(this.id)" id="btnEdit" class="btnEdit fas fa-pen"></i>
                         </div>
                         <div class="column__item--delete">
-                            <i onclick="deleteCard(event)" id="btnDelete" class="btnDelete far fa-trash-alt"></i>
+                            <i onclick="deleteCard(event)" id="btnDelete" class="red-tooltip btnDelete far fa-trash-alt" data-toggle="tooltip" data-placement="right" title="Är du riktigt säker"></i>
                         </div>
                     </div>
                     <span id="txtCreator"></span>
@@ -211,8 +209,6 @@
         </div>
     </template>
     <!-- End card template -->
-
-
 
     <!-- Bootstrap & JQ -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"

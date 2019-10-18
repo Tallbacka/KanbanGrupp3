@@ -7,7 +7,21 @@ body {
     font-family: 'Ubuntu', sans-serif;
 }
 
-/* Inserted */
+.tooltip-inner {
+    background-color: rgb(214, 132, 187);
+}
+.tooltip.bs-tooltip-right .arrow:before {
+    border-right-color: rgb(214, 132, 187) !important;
+}
+.tooltip.bs-tooltip-left .arrow:before {
+    border-right-color: rgb(214, 132, 187) !important;
+}
+.tooltip.bs-tooltip-bottom .arrow:before {
+    border-right-color: rgb(214, 132, 187) !important;
+}
+.tooltip.bs-tooltip-top .arrow:before {
+    border-right-color: rgb(214, 132, 187) !important;
+}
 
 .container {
     width: 100vw;

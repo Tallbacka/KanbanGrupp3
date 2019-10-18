@@ -23,9 +23,12 @@ $(document).ready(() => {
     $('#headerContainer, .wrapper').hide(500);
     $('#loginModal').modal({ backdrop: 'static', keyboard: false });
   }
+  
 });
 
 $('.btnAdd').click(() => {
+  $('#btnSave').show();
+  $('#btnSaveEdit').hide();
   $('#createNewCard').modal('show');
   $("#txtCardHeader").val('')
   $("#txtCardContent").val('')
@@ -43,6 +46,7 @@ $('#btnTryAgain').click(() => {
 })
 
 function deleteCard(e) {
+  $("[data-toggle='tooltip']").tooltip('hide');
   e.path[5].remove()
   localStorage.removeItem(e.path[5].id)
   console.log(localStorage);
@@ -156,10 +160,12 @@ getById('btnSave').addEventListener('click', () => {
     button = toDoCard.querySelector('button'),
     element = toDoCard.querySelector('.card'); // creates an array of all the queried elements
 
+
+
   div[0].id = newId;
   div[3].id = 'b' + dataTargetId;
   iButton[1].id = newId;
-  span.textContent = localStorage.getItem('creator');
+  span.textContent = 'Skapad av: ' + localStorage.getItem('creator');
 
   button.setAttribute('data-target', '#b' + dataTargetId);
   button.setAttribute('aria-controls', 'b' + dataTargetId);
@@ -188,14 +194,7 @@ getById('btnSave').addEventListener('click', () => {
   } else {
     header.setAttribute('placeholder', 'Ange rubrik för att spara')
   }
-
-  var pointers = document.getElementsByClassName('expandButton');
-  for (var i = 0; i < pointers.length; i++) {
-    pointers[i].addEventListener('click', function (e) {
-      var itemEl = e.item;
-      e.target.getElementsByClassName('fa-angle-double-right')[0].classList.toggle('rotated');
-    });
-  }
+  $('[data-toggle="tooltip"]').tooltip();
 })
 
 // ////////////////////////
@@ -205,27 +204,26 @@ getById('btnSave').addEventListener('click', () => {
 //----------------------------Alexander Funktion--------------------------//
 //Get id of addBtn, call function addToDo
 function editToDo(myId) {
+
   //Saves object from JSON to myCard
   temp1 = myId.toString();
   temp = temp1.slice(1);
-
   var myCard = JSON.parse(localStorage.getItem(myId));
-  document.getElementById("cardBtn").innerHTML += "<button id=\"editSave\" type=\button\" class=\"btn btn-primary\">Spara</button>";
 
   let header = getById('txtCardHeader'),
     content = getById('txtCardContent');
   document.getElementById("btnSave").style.display = "none";
+  document.getElementById("btnSaveEdit").style.display = "block";
 
   header.value = myCard.Name;
   content.value = myCard.Desc;
 
   $('#createNewCard').modal('show');
 
-  getById("editSave").addEventListener("click", saveEdit);
+  getById("btnSaveEdit").addEventListener("click", saveEdit);
   function saveEdit() {
     localStorage.removeItem(myId.Name);
     localStorage.removeItem(myId.Desc);
-    getById("editSave").remove();
     let myInfo = {};
     myInfo["Name"] = header.value;
     myInfo["Desc"] = content.value;
@@ -240,6 +238,7 @@ function editToDo(myId) {
     myNewHeader[0].innerHTML = header.value;
     myNewHeader[1].innerHTML = content.value;
     localStorage.setItem(myId, JSON.stringify(myInfo));
+    // document.getElementById("btnSave").style.display = "block";
     $('#createNewCard').modal('hide');
   }
 }
@@ -271,11 +270,12 @@ function reloadToDo() {
       div[0].id = myCards.ID;
       div[3].id = 'b' + temp;
       iButton[1].id = myCards.ID;
-      span.textContent = myCards.creator;
+      span.textContent = 'Skapad av: ' + myCards.creator;
       myNewCol.appendChild(toDoCard)
       styleCards(element);
     }
   }
+  $('[data-toggle="tooltip"]').tooltip();
 }
 
 //AddToDo
