@@ -43,9 +43,9 @@ $('#btnTryAgain').click(() => {
 })
 
 function deleteCard(e) {
-  tempSliced = e.path[5].id.slice(1)
   e.path[5].remove()
-  localStorage.removeItem(tempSliced)
+  localStorage.removeItem(e.path[5].id)
+  console.log(localStorage);
 }
 
 // ------------------------------------------------------------------
@@ -82,7 +82,7 @@ function sortable(kanban) {
 
       let newId = itemEl.id; //Fetch id for element being dragged
       let newCol = document.getElementById(newId).parentElement.id; //Gets id of new parent el
-      let newColId = itemEl.id.slice(1); //Remove #
+      let newColId = itemEl.id; //Remove #
       let myInfo = JSON.parse(localStorage.getItem(newColId));
       myInfo.ColID = newCol;
       localStorage.setItem(newColId, JSON.stringify(myInfo));
@@ -161,6 +161,8 @@ getById('btnSave').addEventListener('click', () => {
   iButton[1].id = newId;
   span.textContent = localStorage.getItem('creator');
 
+
+
   button.setAttribute('data-target', '#b' + dataTargetId);
   button.setAttribute('aria-controls', 'b' + dataTargetId);
 
@@ -168,17 +170,16 @@ getById('btnSave').addEventListener('click', () => {
   if (!isStringNullOrWhiteSpace(header.value)) {
     p[0].textContent = header.value//set header data
     p[1].textContent = content.value//set content data
-    console.log(span);
+
     // saves info to localstorage
     let myInfo = {};
-    myInfo["creator"] = span.value;
+    myInfo["creator"] = localStorage.getItem('creator')
     myInfo["Name"] = header.value;
     myInfo["Desc"] = content.value;
     myInfo["ID"] = newId;
     myInfo["ColID"] = myCol1;
     localStorage.setItem(newId, JSON.stringify(myInfo));
 
-    console.log(span.value);
 
     todoCol.appendChild(toDoCard)
     styleCards(element);
@@ -234,7 +235,7 @@ function editToDo(myId) {
     myInfo["ID"] = myId;
     myInfo["ColID"] = myCard.ColID;
 
-    let targetDiv = "";    
+    let targetDiv = "";
     targetDiv += myId;
     console.log(targetDiv);
     let myNewHeader = document.getElementById(targetDiv).querySelectorAll("p");
@@ -251,30 +252,32 @@ function reloadToDo() {
   // var usrCard = JSON.parse(localStorage.getItem);
   var mySaved = (Object.keys(localStorage));
   for (var i = 0; i < mySaved.length; i++) {
-    var myCards = JSON.parse(localStorage.getItem(mySaved[i]));
-    var myNewCol = document.getElementById(myCards.ColID);
+    if (localStorage.key(i) !== "creator") {
+      var myCards = JSON.parse(localStorage.getItem(mySaved[i]));
+      var myNewCol = document.getElementById(myCards.ColID);
 
-    let template = document.querySelector('#card-template'), //selects a template element card from index
-      toDoCard = document.importNode(template.content, true), //Clones the element and all its childnodes
-      p = toDoCard.querySelectorAll('p'),
-      iButton = toDoCard.querySelectorAll('i'),
-      div = toDoCard.querySelectorAll('div'),
-      span = toDoCard.querySelector('span'),
-      button = toDoCard.querySelector('button'),
-      element = toDoCard.querySelector('.card'), // creates an array of all the queried elements
-      temp = myCards.ID.slice(1);
+      let template = document.querySelector('#card-template'), //selects a template element card from index
+        toDoCard = document.importNode(template.content, true), //Clones the element and all its childnodes
+        p = toDoCard.querySelectorAll('p'),
+        iButton = toDoCard.querySelectorAll('i'),
+        div = toDoCard.querySelectorAll('div'),
+        span = toDoCard.querySelector('span'),
+        button = toDoCard.querySelector('button'),
+        element = toDoCard.querySelector('.card'), // creates an array of all the queried elements
+        temp = myCards.ID.slice(1);
 
-    button.setAttribute('data-target', '#b' + temp);
-    button.setAttribute('aria-controls', 'b' + temp);
+      button.setAttribute('data-target', '#b' + temp);
+      button.setAttribute('aria-controls', 'b' + temp);
 
-    p[0].textContent = myCards.Name; //set header data
-    p[1].textContent = myCards.Desc; //set content data
-    div[0].id = myCards.ID;
-    div[3].id = 'b' + temp;
-    iButton[1].id = myCards.ID;
-    span.textContent = myCards.creator;
-    myNewCol.appendChild(toDoCard)
-    styleCards(element);
+      p[0].textContent = myCards.Name; //set header data
+      p[1].textContent = myCards.Desc; //set content data
+      div[0].id = myCards.ID;
+      div[3].id = 'b' + temp;
+      iButton[1].id = myCards.ID;
+      span.textContent = myCards.creator;
+      myNewCol.appendChild(toDoCard)
+      styleCards(element);
+    }
   }
 }
 
