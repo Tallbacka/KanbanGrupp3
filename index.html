@@ -21,7 +21,7 @@
 
 </head>
 
-<body onload="reloadToDo()" id="body" >
+<body>
 
     <!-- Header -->
     <div class="container-fluid" id="headerContainer">
@@ -196,7 +196,7 @@
                             <i onclick="editToDo(this.id)" id="btnEdit" class="btnEdit fas fa-pen"></i>
                         </div>
                         <div class="column__item--delete">
-                            <i id="btnDelete" class="btnDelete far fa-trash-alt"></i>
+                            <i onclick="deleteCard(event)" id="btnDelete" class="btnDelete far fa-trash-alt"></i>
                         </div>
                     </div>
                     <span id="txtCreator"></span>

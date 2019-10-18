@@ -12,16 +12,17 @@ var creatorUsr;
 // ------------------------------------------------------------------
 
 $(document).ready(() => {
-  
-  if (localStorage.getItem('uId') !== null) {
-    $('#loginModal').modal('hide');
-    document.querySelectorAll('.list-group-item').forEach(element => {
-      styleCards(element);
-    })
-  } else {
-    $('#headerContainer, .wrapper').hide(500);
-    $('#loginModal').modal({ backdrop: 'static', keyboard: false });
-  }
+  reloadToDo();
+  // if (localStorage.getItem('uId') !== null) {
+  //   $('#loginModal').modal('hide');
+  //   document.querySelectorAll('.list-group-item').forEach(element => {
+  //     styleCards(element);
+  //   })
+  // } else {
+  //   $('#headerContainer, .wrapper').hide(500);
+  //   $('#loginModal').modal({ backdrop: 'static', keyboard: false });
+  // }
+
 });
 
 $('.btnAdd').click(() => {
@@ -43,6 +44,13 @@ $('#btnTryAgain').click(() => {
   $('#wrongEnteredInfoModalContainer, #wrapper').modal('hide');
 })
 
+function deleteCard(e){
+
+  e.path[5].remove()
+  localStorage.removeItem()
+  
+}
+console.log(localStorage);
 
 // ------------------------------------------------------------------
 // Drag and Drop
@@ -82,7 +90,6 @@ function sortable(kanban) {
       let myInfo = JSON.parse(localStorage.getItem(newColId));
       myInfo.ColID = newCol;
       localStorage.setItem(newColId, JSON.stringify(myInfo));
-      console.log(newColId);
     },
   })
 }
@@ -136,9 +143,9 @@ for (let button of toDoButtons) {
 
 var myCol1 = ""; //Fetches new id from button pressed
 function myCol(colValue) {
-  console.log('test');
   myCol1 = colValue;
 }
+
 getById('btnSave').addEventListener('click', () => {
   let newId = 'a' + Date.now(),
     dataTargetId = newId.slice(1),
@@ -157,11 +164,6 @@ getById('btnSave').addEventListener('click', () => {
   div[3].id = 'b' + dataTargetId;
   iButton[1].id = newId;
   span.textContent = localStorage.getItem('creator');
-
-  
-   console.log(span);
-
-  
 
   button.setAttribute('data-target', '#b' + dataTargetId);
   button.setAttribute('aria-controls', 'b' + dataTargetId);
@@ -191,12 +193,6 @@ getById('btnSave').addEventListener('click', () => {
 
   } else {
     header.setAttribute('placeholder', 'Ange rubrik för att spara')
-  }
-
-  function removeCard(myId) {
-    getById(Number(myId.value)).remove();
-    localStorage.removeItem(Number(myId.value));
-    alert("Card Removed");
   }
 
   var pointers = document.getElementsByClassName('expandButton');
@@ -260,7 +256,6 @@ function reloadToDo() {
   var mySaved = (Object.keys(localStorage));
   for (var i = 0; i < mySaved.length; i++) {
     var myCards = JSON.parse(localStorage.getItem(mySaved[i]));
-    console.log(myCards);
     var myNewCol = document.getElementById(myCards.ColID);
 
     let template = document.querySelector('#card-template'), //selects a template element card from index
@@ -276,8 +271,6 @@ function reloadToDo() {
     button.setAttribute('data-target', '#b' + temp);
     button.setAttribute('aria-controls', 'b' + temp);
     
-    console.log(myCards.userId);
-
     p[0].textContent = myCards.Name; //set header data
     p[1].textContent = myCards.Desc; //set content data
     div[0].id = '#' + myCards.ID;
@@ -324,7 +317,7 @@ function login() {
     .catch(error => console.log(JSON.stringify(error)));
 
   //----------------------------Tero Function: verify user & password--------------------------//
-
+    
   fetch("./json/user.json")
     .then(function (response) {
       return response.json();
@@ -425,3 +418,4 @@ function removeChilds(parent) {
     parent.removeChild(parent.lastChild);
   }
 }
+
